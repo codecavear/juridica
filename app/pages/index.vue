@@ -75,6 +75,46 @@
       </div>
     </section>
 
+    <!-- How it works -->
+    <section v-if="!hasSearched" class="py-12 bg-white border-y border-slate-100">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-8">
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Cómo usar Jurídica</h2>
+          <p class="text-gray-600">En 3 pasos: buscás, validás fuente, y usás el resultado en tu escrito</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-4">
+          <UCard>
+            <div class="flex items-start gap-3">
+              <UBadge color="primary" variant="soft">1</UBadge>
+              <div>
+                <p class="font-semibold text-gray-900">Escribí tu consulta</p>
+                <p class="text-sm text-gray-600 mt-1">Ej: “despido por abandono de trabajo” o “amparo de salud urgente”.</p>
+              </div>
+            </div>
+          </UCard>
+          <UCard>
+            <div class="flex items-start gap-3">
+              <UBadge color="primary" variant="soft">2</UBadge>
+              <div>
+                <p class="font-semibold text-gray-900">Filtrá por tipo</p>
+                <p class="text-sm text-gray-600 mt-1">Elegí jurisprudencia, legislación o doctrina para acotar resultados.</p>
+              </div>
+            </div>
+          </UCard>
+          <UCard>
+            <div class="flex items-start gap-3">
+              <UBadge color="primary" variant="soft">3</UBadge>
+              <div>
+                <p class="font-semibold text-gray-900">Abrí la fuente oficial</p>
+                <p class="text-sm text-gray-600 mt-1">Cada resultado tiene link verificable para citar con respaldo real.</p>
+              </div>
+            </div>
+          </UCard>
+        </div>
+      </div>
+    </section>
+
     <!-- Results Section -->
     <section v-if="results.length > 0 || hasSearched" class="py-16 bg-white">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -132,8 +172,9 @@
                 </p>
                 <div class="flex gap-2 mt-4">
                   <UButton
-                    :to="result.url"
-                    target="_blank"
+                    :to="result.url !== '#' ? result.url : undefined"
+                    :target="result.url !== '#' ? '_blank' : undefined"
+                    :disabled="result.url === '#'"
                     size="sm"
                     color="primary"
                     variant="soft"
@@ -485,6 +526,18 @@ interface SearchResult {
   pdfUrl?: string
 }
 
+interface ApiSearchResult {
+  uuid: string
+  type: string
+  titulo?: string
+  caratula?: string
+  fecha?: string
+  tribunal?: string
+  jurisdiccion?: string
+  texto?: string
+  url?: string
+}
+
 const query = ref('')
 const selectedTipo = ref('jurisprudencia')
 const results = ref<SearchResult[]>([])
@@ -507,14 +560,24 @@ async function search() {
   lastQuery.value = query.value
   
   try {
-    const data = await $fetch('/api/search', {
+    const data = await $fetch<{ results: ApiSearchResult[] }>('/api/search', {
       params: {
         q: query.value,
         tipo: selectedTipo.value,
         limit: 20
       }
     })
-    results.value = data.results
+
+    results.value = (data.results || []).map((r) => ({
+      id: r.uuid,
+      tipo: r.type || selectedTipo.value,
+      titulo: r.titulo || r.caratula || 'Documento jurídico',
+      fecha: r.fecha,
+      tribunal: r.tribunal,
+      jurisdiccion: r.jurisdiccion,
+      sumario: r.texto,
+      url: r.url || '#'
+    }))
   } catch (error) {
     console.error('Search error:', error)
     results.value = []
