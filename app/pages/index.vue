@@ -560,24 +560,13 @@ async function search() {
   lastQuery.value = query.value
   
   try {
-    const data = await $fetch<{ results: ApiSearchResult[] }>('/api/search', {
-      params: {
+    await navigateTo({
+      path: '/busqueda',
+      query: {
         q: query.value,
-        tipo: selectedTipo.value,
-        limit: 20
+        tipo: selectedTipo.value
       }
     })
-
-    results.value = (data.results || []).map((r) => ({
-      id: r.uuid,
-      tipo: r.type || selectedTipo.value,
-      titulo: r.titulo || r.caratula || 'Documento jurídico',
-      fecha: r.fecha,
-      tribunal: r.tribunal,
-      jurisdiccion: r.jurisdiccion,
-      sumario: r.texto,
-      url: r.url || '#'
-    }))
   } catch (error) {
     console.error('Search error:', error)
     results.value = []
