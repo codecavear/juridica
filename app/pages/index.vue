@@ -76,7 +76,7 @@
     </section>
 
     <!-- How it works -->
-    <section v-if="!hasSearched" class="py-12 bg-white border-y border-slate-100">
+    <section id="como-usar" v-if="!hasSearched" class="py-12 bg-white border-y border-slate-100">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-8">
           <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Cómo usar Jurídica</h2>
@@ -202,7 +202,7 @@
     </section>
 
     <!-- Providers Section -->
-    <section v-if="!hasSearched" class="py-16 bg-slate-50 border-y border-slate-200/70">
+    <section id="fuentes" v-if="!hasSearched" class="py-16 bg-slate-50 border-y border-slate-200/70">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-10">
           <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
@@ -307,7 +307,7 @@
     </section>
 
     <!-- Pricing Section -->
-    <section v-if="!hasSearched" class="py-20 bg-slate-50">
+    <section id="planes" v-if="!hasSearched" class="py-20 bg-slate-50">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
           <UBadge color="primary" variant="subtle" size="lg" class="mb-4">

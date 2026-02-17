@@ -52,6 +52,15 @@ useHead({
         </NuxtLink>
       </template>
 
+      <template #center>
+        <nav class="hidden lg:flex items-center gap-5 text-sm">
+          <NuxtLink to="/#como-usar" class="text-muted hover:text-primary transition-colors">Cómo usar</NuxtLink>
+          <NuxtLink to="/#fuentes" class="text-muted hover:text-primary transition-colors">Fuentes</NuxtLink>
+          <NuxtLink to="/#planes" class="text-muted hover:text-primary transition-colors">Planes</NuxtLink>
+          <NuxtLink to="/demo" class="text-muted hover:text-primary transition-colors">Demo</NuxtLink>
+        </nav>
+      </template>
+
       <template #right>
         <UColorModeButton />
         <UButton
