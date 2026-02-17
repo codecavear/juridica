@@ -70,6 +70,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     // Server-only
     anthropicApiKey: process.env.ANTHROPIC_API_KEY,
+    openaiApiKey: process.env.OPENAI_API_KEY,
     // Public
     public: {
       appName: 'Jurídica'
