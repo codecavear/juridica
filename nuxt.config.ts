@@ -55,6 +55,13 @@ export default defineNuxtConfig({
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
         { rel: 'canonical', href: 'https://juridica.ar' }
+      ],
+      script: [
+        {
+          src: 'https://umami.codecave.ar/script.js',
+          async: true,
+          'data-website-id': '6a85c908-0517-4ca6-9f86-de60b996fdba'
+        }
       ]
     }
   },
