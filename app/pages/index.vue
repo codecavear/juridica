@@ -84,7 +84,7 @@
         </div>
 
         <div class="grid md:grid-cols-3 gap-4">
-          <UCard>
+          <UCard class="bg-white border border-slate-200">
             <div class="flex items-start gap-3">
               <UBadge color="primary" variant="soft">1</UBadge>
               <div>
@@ -93,7 +93,7 @@
               </div>
             </div>
           </UCard>
-          <UCard>
+          <UCard class="bg-white border border-slate-200">
             <div class="flex items-start gap-3">
               <UBadge color="primary" variant="soft">2</UBadge>
               <div>
@@ -102,7 +102,7 @@
               </div>
             </div>
           </UCard>
-          <UCard>
+          <UCard class="bg-white border border-slate-200">
             <div class="flex items-start gap-3">
               <UBadge color="primary" variant="soft">3</UBadge>
               <div>
@@ -141,7 +141,7 @@
           <UCard
             v-for="result in results"
             :key="result.id"
-            class="hover:shadow-lg hover:border-[#74acdf]/30 transition-all duration-200"
+            class="bg-white border border-slate-200 hover:shadow-lg hover:border-[#74acdf]/30 transition-all duration-200"
           >
             <div class="flex items-start gap-4">
               <div class="w-12 h-12 rounded-xl bg-[#74acdf]/10 flex items-center justify-center shrink-0">
@@ -224,7 +224,7 @@
             </div>
           </UCard>
 
-          <UCard class="border-slate-200">
+          <UCard class="bg-white border-slate-200">
             <div class="flex items-start justify-between gap-3">
               <div>
                 <p class="font-semibold text-gray-900">CSJN</p>
@@ -234,7 +234,7 @@
             </div>
           </UCard>
 
-          <UCard class="border-slate-200">
+          <UCard class="bg-white border-slate-200">
             <div class="flex items-start justify-between gap-3">
               <div>
                 <p class="font-semibold text-gray-900">JUBA</p>
@@ -244,7 +244,7 @@
             </div>
           </UCard>
 
-          <UCard class="border-slate-200">
+          <UCard class="bg-white border-slate-200">
             <div class="flex items-start justify-between gap-3">
               <div>
                 <p class="font-semibold text-gray-900">JUSCABA</p>
