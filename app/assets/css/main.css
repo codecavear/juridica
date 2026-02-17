@@ -2,17 +2,18 @@
 @import "@nuxt/ui";
 
 @theme static {
-  --font-sans: 'Public Sans', sans-serif;
+  --font-sans: 'Inter', sans-serif;
 
-  --color-green-50: #EFFDF5;
-  --color-green-100: #D9FBE8;
-  --color-green-200: #B3F5D1;
-  --color-green-300: #75EDAE;
-  --color-green-400: #00DC82;
-  --color-green-500: #00C16A;
-  --color-green-600: #00A155;
-  --color-green-700: #007F45;
-  --color-green-800: #016538;
-  --color-green-900: #0A5331;
-  --color-green-950: #052E16;
+  /* Celeste Argentino - accent color */
+  --color-celeste-50: #f0f9ff;
+  --color-celeste-100: #e0f2fe;
+  --color-celeste-200: #bae6fd;
+  --color-celeste-300: #7dd3fc;
+  --color-celeste-400: #74acdf;
+  --color-celeste-500: #5b9bd5;
+  --color-celeste-600: #4a8bc7;
+  --color-celeste-700: #3b7cb8;
+  --color-celeste-800: #2c6da9;
+  --color-celeste-900: #1d5e9a;
+  --color-celeste-950: #0e4f8b;
 }
