@@ -46,24 +46,22 @@ useHead({
   <UApp>
     <UHeader>
       <template #left>
-        <NuxtLink to="/">
-          <AppLogo class="w-auto h-6 shrink-0" />
+        <NuxtLink to="/" class="flex items-center gap-2">
+          <UIcon name="i-lucide-scale" class="w-6 h-6 text-primary" />
+          <span class="font-bold text-lg">Jurídica</span>
         </NuxtLink>
-
-        <TemplateMenu />
       </template>
 
       <template #right>
         <UColorModeButton />
-
         <UButton
-          to="https://github.com/nuxt-ui-templates/starter"
-          target="_blank"
-          icon="i-simple-icons-github"
-          aria-label="GitHub"
-          color="neutral"
-          variant="ghost"
-        />
+          to="/login"
+          color="primary"
+          variant="soft"
+          size="sm"
+        >
+          Iniciar sesión
+        </UButton>
       </template>
     </UHeader>
 
@@ -71,24 +69,28 @@ useHead({
       <NuxtPage />
     </UMain>
 
-    <USeparator icon="i-simple-icons-nuxtdotjs" />
-
     <UFooter>
       <template #left>
-        <p class="text-sm text-muted">
-          Built with Nuxt UI • © {{ new Date().getFullYear() }}
+        <div class="flex items-center gap-2 text-sm text-muted">
+          <UIcon name="i-lucide-scale" class="w-4 h-4" />
+          <span>Jurídica</span>
+          <span>•</span>
+          <span>© {{ new Date().getFullYear() }}</span>
+        </div>
+      </template>
+
+      <template #center>
+        <p class="text-xs text-muted">
+          Fuentes: SAIJ, CSJN, JUBA, JUSCABA
         </p>
       </template>
 
       <template #right>
-        <UButton
-          to="https://github.com/nuxt-ui-templates/starter"
-          target="_blank"
-          icon="i-simple-icons-github"
-          aria-label="GitHub"
-          color="neutral"
-          variant="ghost"
-        />
+        <div class="flex items-center gap-2 text-sm text-muted">
+          <NuxtLink to="/terminos" class="hover:text-primary">Términos</NuxtLink>
+          <span>•</span>
+          <NuxtLink to="/privacidad" class="hover:text-primary">Privacidad</NuxtLink>
+        </div>
       </template>
     </UFooter>
   </UApp>
