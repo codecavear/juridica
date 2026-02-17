@@ -12,18 +12,19 @@ export default defineEventHandler(async (event) => {
   }
 
   const tipo = (query.tipo as DocumentType) || 'jurisprudencia'
-  const limit = Math.min(Number(query.limit) || 20, 50)
+  const limit = Math.min(Number(query.limit) || 20, 25)
   const offset = Number(query.offset) || 0
 
   try {
-    const results = await searchSAIJ(q, { tipo, limit, offset })
+    const response = await searchSAIJ(q, { tipo, limit, offset })
     
     return {
       query: q,
       tipo,
-      count: results.length,
-      offset,
-      results
+      total: response.total,
+      count: response.results.length,
+      offset: response.offset,
+      results: response.results
     }
   } catch (error) {
     console.error('[API] Search error:', error)
