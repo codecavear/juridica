@@ -101,7 +101,7 @@ export const solutionPages: Record<string, SolutionPage> = {
       {
         icon: 'i-lucide-wallet',
         title: 'Sin suscripciones costosas de grandes editoriales',
-        description: 'Planes desde $3,990 ARS/mes. Acceso a jurisprudencia de calidad sin arruinar tu presupuesto.'
+        description: 'Planes desde $5,990 ARS/mes. Acceso a jurisprudencia de calidad sin arruinar tu presupuesto.'
       },
       {
         icon: 'i-lucide-message-circle',
@@ -120,9 +120,9 @@ export const solutionPages: Record<string, SolutionPage> = {
     ],
     pricing: {
       plan: 'Individual',
-      price: '$3,990',
+      price: '$5,990',
       features: [
-        'Búsquedas ilimitadas',
+        '100 búsquedas por día',
         'SAIJ + CSJN + JUBA + JUSCABA',
         'Citas verificables',
         'Exportar a Word',
@@ -145,7 +145,7 @@ export const solutionPages: Record<string, SolutionPage> = {
       },
       {
         question: '¿Cuánto cuesta?',
-        answer: 'Plan gratuito con 10 búsquedas/mes. Plan Individual desde $3,990 ARS/mes con búsquedas ilimitadas.'
+        answer: 'Plan gratuito con 3 búsquedas por día. Plan Individual desde $5,990 ARS/mes con 10 búsquedas por día.'
       }
     ]
   },
@@ -189,10 +189,10 @@ export const solutionPages: Record<string, SolutionPage> = {
     ],
     pricing: {
       plan: 'Estudio',
-      price: '$9,990',
+      price: '$24,990',
       features: [
         'Hasta 5 usuarios',
-        'Búsquedas ilimitadas',
+        '500 búsquedas por día compartidas',
         'Todas las fuentes',
         'Biblioteca compartida',
         'Citas estandarizadas',
@@ -207,7 +207,7 @@ export const solutionPages: Record<string, SolutionPage> = {
     faqs: [
       {
         question: '¿Cuántos usuarios incluye el plan Estudio?',
-        answer: 'El plan Estudio ($9,990 ARS/mes) incluye hasta 5 usuarios. Para equipos más grandes, el plan Firma ($24,990 ARS/mes) incluye usuarios ilimitados.'
+        answer: 'El plan Estudio ($24,990 ARS/mes) incluye hasta 5 usuarios y 500 búsquedas por día compartidas. Para equipos más grandes, escribinos y armamos un plan a medida.'
       },
       {
         question: '¿Se pueden ver las búsquedas de otros miembros del equipo?',
@@ -229,7 +229,7 @@ export const solutionPages: Record<string, SolutionPage> = {
     benefits: [
       {
         icon: 'i-lucide-gift',
-        title: 'Plan gratuito con 10 búsquedas mensuales',
+        title: 'Plan gratuito con 3 búsquedas diarias',
         description: 'Perfecto para trabajos prácticos y preparación de exámenes. Sin tarjeta de crédito.'
       },
       {
@@ -261,7 +261,7 @@ export const solutionPages: Record<string, SolutionPage> = {
       plan: 'Free',
       price: '$0',
       features: [
-        '10 búsquedas por mes',
+        '3 búsquedas por día',
         'Acceso a todas las fuentes',
         'Links verificables',
         'Formato de cita académica',
@@ -276,7 +276,7 @@ export const solutionPages: Record<string, SolutionPage> = {
     faqs: [
       {
         question: '¿Es realmente gratis?',
-        answer: 'Sí, 10 búsquedas por mes totalmente gratis. Si necesitás más, el plan Individual cuesta $3,990 ARS/mes.'
+        answer: 'Sí, 3 búsquedas por día totalmente gratis. Si necesitás más, el plan Individual cuesta $5,990 ARS/mes.'
       },
       {
         question: '¿Puedo usarlo para mi tesis?',
@@ -345,7 +345,7 @@ export const comparisonPages: Record<string, ComparisonPage> = {
       { feature: 'Búsqueda con IA', juridica: '✅ Lenguaje natural + ranking inteligente', competitor: '⚠️ Búsqueda tradicional por keywords', importance: 'high' },
       { feature: 'Fuentes unificadas', juridica: '✅ SAIJ + CSJN + JUBA + JUSCABA', competitor: '⚠️ Depende del plan', importance: 'high' },
       { feature: 'Explicación de fallos', juridica: '✅ IA resume hechos y holding', competitor: '❌ Solo texto del fallo', importance: 'medium' },
-      { feature: 'Plan gratuito', juridica: '✅ 10 búsquedas/mes', competitor: '⚠️ Limitado', importance: 'medium' },
+      { feature: 'Plan gratuito', juridica: '✅ 3 búsquedas por día', competitor: '⚠️ Limitado', importance: 'medium' },
       { feature: 'Soporte', juridica: '✅ Chat en vivo', competitor: '⚠️ Email', importance: 'low' }
     ],
     whyJuridica: [
@@ -381,7 +381,7 @@ export const comparisonPages: Record<string, ComparisonPage> = {
     heroTitle: '¿Por qué usar Jurídica si SAIJ es gratis?',
     heroSubtitle: 'SAIJ es gratuito y oficial, ¿por qué pagarías por Jurídica? Porque ahorrás tiempo, buscás en más fuentes simultáneamente, y la IA te ayuda a encontrar lo relevante.',
     comparison: [
-      { feature: 'Precio', juridica: 'Desde $3,990 ARS/mes (hay plan gratis)', competitor: '✅ Gratis', importance: 'high' },
+      { feature: 'Precio', juridica: 'Desde $5,990 ARS/mes (hay plan gratis)', competitor: '✅ Gratis', importance: 'high' },
       { feature: 'Fuentes incluidas', juridica: '✅ SAIJ + CSJN + JUBA + JUSCABA', competitor: 'Solo SAIJ', importance: 'high' },
       { feature: 'Búsqueda con IA', juridica: '✅ Lenguaje natural', competitor: '❌ Solo keywords', importance: 'high' },
       { feature: 'Tiempo promedio de búsqueda', juridica: '2-5 minutos', competitor: '15-60 minutos', importance: 'critical' },
@@ -392,7 +392,7 @@ export const comparisonPages: Record<string, ComparisonPage> = {
     whyJuridica: [
       {
         title: 'Tu tiempo vale dinero',
-        description: 'Si buscás jurisprudencia 5 veces por semana y cada búsqueda te ahorra 30 minutos, son 10 horas mensuales. ¿Cuánto vale tu hora? El plan Individual de Jurídica cuesta $3,990 ARS — menos que 1 hora de muchos abogados.'
+        description: 'Si buscás jurisprudencia 5 veces por semana y cada búsqueda te ahorra 30 minutos, son 10 horas mensuales. ¿Cuánto vale tu hora? El plan Individual de Jurídica cuesta $5,990 ARS — menos que 1 hora de muchos abogados.'
       },
       {
         title: 'SAIJ no es la única fuente',
@@ -523,7 +523,7 @@ export const guidePages: Record<string, GuidePage> = {
       },
       {
         question: '¿Hay algún buscador gratuito bueno?',
-        answer: 'SAIJ y CSJN son gratuitos y oficiales. Jurídica tiene un plan gratuito con 10 búsquedas mensuales.'
+        answer: 'SAIJ y CSJN son gratuitos y oficiales. Jurídica tiene un plan gratuito con 3 búsquedas por día.'
       }
     ]
   },
@@ -647,7 +647,7 @@ export const guidePages: Record<string, GuidePage> = {
           '✅ Incluye CSJN + otras fuentes',
           '✅ IA rankea por relevancia',
           '✅ Resúmenes automáticos',
-          '⚠️ Plan gratuito limitado a 10 búsquedas/mes'
+          '⚠️ Plan gratuito limitado a 3 búsquedas por día'
         ]
       },
       {

@@ -125,7 +125,7 @@
           Probá Jurídica gratis
         </h2>
         <p class="text-lg text-white/90 mb-8">
-          5 búsquedas diarias sin costo. Sin tarjeta de crédito.
+          3 búsquedas diarias sin costo. Sin tarjeta de crédito.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <UButton size="xl" color="white" variant="solid" class="text-blue-600 font-semibold">

@@ -238,7 +238,7 @@
             <ul class="space-y-3 mb-8 flex-1">
               <li class="flex items-start gap-2 text-sm text-gray-600">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
-                5 búsquedas por día
+                3 búsquedas por día
               </li>
               <li class="flex items-start gap-2 text-sm text-gray-600">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
@@ -261,13 +261,13 @@
               <p class="text-sm text-gray-500 mt-1">Para abogados independientes</p>
             </div>
             <div class="mb-6">
-              <span class="text-4xl font-bold text-gray-900">$3,990</span>
+              <span class="text-4xl font-bold text-gray-900">$5,990</span>
               <span class="text-gray-500">/mes</span>
             </div>
             <ul class="space-y-3 mb-8 flex-1">
               <li class="flex items-start gap-2 text-sm text-gray-600">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
-                50 búsquedas por día
+                10 búsquedas por día
               </li>
               <li class="flex items-start gap-2 text-sm text-gray-600">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
@@ -299,13 +299,13 @@
               <p class="text-sm text-gray-500 mt-1">Para profesionales activos</p>
             </div>
             <div class="mb-6">
-              <span class="text-4xl font-bold text-gray-900">$9,990</span>
+              <span class="text-4xl font-bold text-gray-900">$14,990</span>
               <span class="text-gray-500">/mes</span>
             </div>
             <ul class="space-y-3 mb-8 flex-1">
               <li class="flex items-start gap-2 text-sm text-gray-600">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
-                Búsquedas ilimitadas
+                100 búsquedas por día
               </li>
               <li class="flex items-start gap-2 text-sm text-gray-600">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
@@ -342,7 +342,7 @@
             <ul class="space-y-3 mb-8 flex-1">
               <li class="flex items-start gap-2 text-sm text-gray-300">
                 <UIcon name="i-lucide-check" class="text-[#74acdf] mt-0.5 shrink-0" />
-                Todo lo de Pro
+                500 búsquedas por día compartidas
               </li>
               <li class="flex items-start gap-2 text-sm text-gray-300">
                 <UIcon name="i-lucide-check" class="text-[#74acdf] mt-0.5 shrink-0" />
