@@ -2,10 +2,18 @@
   <div class="min-h-screen">
     <!-- Hero Section -->
     <UPageHero
-      title="Jurídica"
-      description="Buscador de jurisprudencia argentina con IA. Citas verificables, siempre."
       :ui="{ title: 'text-4xl sm:text-5xl' }"
     >
+      <template #title>
+        <h1 class="text-4xl sm:text-5xl font-bold">
+          Jurídica - Buscador de Jurisprudencia Argentina
+        </h1>
+      </template>
+      <template #description>
+        <p class="text-lg text-muted">
+          Buscador de jurisprudencia argentina con IA. Consulta SAIJ, CSJN, JUBA y JUSCABA con citas verificables.
+        </p>
+      </template>
       <template #links>
         <div class="w-full max-w-2xl mx-auto mt-8">
           <form @submit.prevent="search" class="flex flex-col sm:flex-row gap-3">
@@ -49,8 +57,8 @@
       <div class="max-w-4xl mx-auto">
         <div class="flex items-center justify-between mb-6">
           <h2 class="text-xl font-semibold">
-            {{ results.length }} resultados
-            <span class="text-muted">para "{{ lastQuery }}"</span>
+            Resultados de búsqueda de jurisprudencia
+            <span class="text-muted block sm:inline">{{ results.length }} resultados para "{{ lastQuery }}"</span>
           </h2>
         </div>
 
@@ -79,7 +87,7 @@
                     {{ formatDate(result.fecha) }}
                   </span>
                 </div>
-                <h3 class="font-medium text-lg leading-tight mb-2">
+                <h3 class="font-medium text-lg leading-tight mb-2" itemprop="name">
                   {{ result.titulo }}
                 </h3>
                 <p v-if="result.tribunal" class="text-sm text-muted mb-2">
@@ -120,12 +128,13 @@
 
     <!-- Features Section (shown when no search) -->
     <UPageSection v-else>
+      <h2 class="sr-only">Características del buscador de jurisprudencia</h2>
       <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
         <UCard>
           <template #header>
             <div class="flex items-center gap-3">
               <UIcon name="i-lucide-shield-check" class="text-2xl text-primary" />
-              <h3 class="font-semibold">Citas verificables</h3>
+              <h3 class="font-semibold">Citas jurídicas verificables</h3>
             </div>
           </template>
           <p class="text-sm text-muted">
@@ -138,12 +147,12 @@
           <template #header>
             <div class="flex items-center gap-3">
               <UIcon name="i-lucide-database" class="text-2xl text-primary" />
-              <h3 class="font-semibold">Multi-fuente</h3>
+              <h3 class="font-semibold">SAIJ, CSJN y más fuentes</h3>
             </div>
           </template>
           <p class="text-sm text-muted">
             Buscá en SAIJ, CSJN, JUBA y JUSCABA desde un solo lugar. 
-            Sin cambiar entre páginas.
+            Toda la jurisprudencia argentina unificada.
           </p>
         </UCard>
 
@@ -151,12 +160,12 @@
           <template #header>
             <div class="flex items-center gap-3">
               <UIcon name="i-lucide-sparkles" class="text-2xl text-primary" />
-              <h3 class="font-semibold">IA que ayuda</h3>
+              <h3 class="font-semibold">Legaltech argentina con IA</h3>
             </div>
           </template>
           <p class="text-sm text-muted">
             Generá reportes de jurisprudencia con análisis de argumentos.
-            Siempre con fuentes verificables.
+            Inteligencia artificial al servicio del derecho argentino.
           </p>
         </UCard>
       </div>

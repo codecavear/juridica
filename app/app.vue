@@ -1,27 +1,44 @@
 <script setup>
+// Schema.org JSON-LD for LegalService
 useHead({
-  meta: [
-    { name: 'viewport', content: 'width=device-width, initial-scale=1' }
-  ],
-  link: [
-    { rel: 'icon', href: '/favicon.ico' }
-  ],
-  htmlAttrs: {
-    lang: 'en'
-  }
-})
-
-const title = 'Nuxt Starter Template'
-const description = 'A production-ready starter template powered by Nuxt UI. Build beautiful, accessible, and performant applications in minutes, not hours.'
-
-useSeoMeta({
-  title,
-  description,
-  ogTitle: title,
-  ogDescription: description,
-  ogImage: 'https://ui.nuxt.com/assets/templates/nuxt/starter-light.png',
-  twitterImage: 'https://ui.nuxt.com/assets/templates/nuxt/starter-light.png',
-  twitterCard: 'summary_large_image'
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        'name': 'Jurídica',
+        'applicationCategory': 'LegalService',
+        'operatingSystem': 'Web',
+        'description': 'Buscador de jurisprudencia argentina con inteligencia artificial. Consulta SAIJ, CSJN, JUBA y JUSCABA con citas jurídicas verificables.',
+        'url': 'https://juridica.ar',
+        'inLanguage': 'es-AR',
+        'audience': {
+          '@type': 'Audience',
+          'audienceType': 'Abogados, estudiantes de derecho, profesionales legales'
+        },
+        'offers': {
+          '@type': 'Offer',
+          'price': '0',
+          'priceCurrency': 'ARS'
+        },
+        'provider': {
+          '@type': 'Organization',
+          'name': 'Jurídica',
+          'areaServed': {
+            '@type': 'Country',
+            'name': 'Argentina'
+          }
+        },
+        'featureList': [
+          'Búsqueda de jurisprudencia argentina',
+          'Integración con SAIJ, CSJN, JUBA, JUSCABA',
+          'Citas jurídicas verificables',
+          'Análisis con inteligencia artificial'
+        ]
+      })
+    }
+  ]
 })
 </script>
 

@@ -29,13 +29,32 @@ export default defineNuxtConfig({
   // App metadata
   app: {
     head: {
-      title: 'Jurídica - Jurisprudencia argentina con IA',
+      title: 'Jurídica - Buscador de Jurisprudencia Argentina con IA',
+      htmlAttrs: {
+        lang: 'es-AR'
+      },
       meta: [
-        { name: 'description', content: 'Buscador de jurisprudencia argentina con inteligencia artificial. Fuentes oficiales, citas verificables.' },
-        { name: 'theme-color', content: '#6366f1' }
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'description', content: 'Buscador de jurisprudencia argentina con inteligencia artificial. Consulta SAIJ, CSJN, JUBA y JUSCABA con citas jurídicas verificables. Legaltech argentina para abogados.' },
+        { name: 'keywords', content: 'jurisprudencia argentina, buscador de fallos, SAIJ búsqueda, citas jurídicas verificables, legaltech argentina, fallos judiciales, corte suprema argentina, derecho argentino' },
+        { name: 'author', content: 'Jurídica' },
+        { name: 'robots', content: 'index, follow' },
+        { name: 'theme-color', content: '#6366f1' },
+        // Open Graph
+        { property: 'og:type', content: 'website' },
+        { property: 'og:site_name', content: 'Jurídica' },
+        { property: 'og:title', content: 'Jurídica - Buscador de Jurisprudencia Argentina con IA' },
+        { property: 'og:description', content: 'Buscador de jurisprudencia argentina con IA. Consulta SAIJ, CSJN, JUBA y JUSCABA con citas verificables.' },
+        { property: 'og:locale', content: 'es_AR' },
+        // Twitter Cards
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: 'Jurídica - Buscador de Jurisprudencia Argentina con IA' },
+        { name: 'twitter:description', content: 'Buscador de jurisprudencia argentina con IA. Citas verificables de SAIJ, CSJN, JUBA y JUSCABA.' }
       ],
       link: [
-        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        { rel: 'canonical', href: 'https://juridica.ar' }
       ]
     }
   },
