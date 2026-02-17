@@ -1,5 +1,5 @@
-// SEO Content - Placeholder until Growth provides final content
-// This can be replaced by loading from /root/clawd/juridica-seo-content.json
+// SEO Content - Synced from /root/clawd/juridica-seo-content.json
+// Last updated: 2026-02-17 by Growth team
 
 export interface SolutionPage {
   slug: string
@@ -13,6 +13,8 @@ export interface SolutionPage {
     title: string
     description: string
   }[]
+  forWho?: string[]
+  notForWho?: string[]
   pricing: {
     plan: string
     price: string
@@ -41,12 +43,21 @@ export interface ComparisonPage {
     feature: string
     juridica: boolean | string
     competitor: boolean | string
+    importance?: string
   }[]
   whyJuridica: {
     title: string
     description: string
   }[]
   verdict: string
+  verdictDetail?: {
+    winner: string
+    summary: string
+    useCase: {
+      juridica: string
+      competitor: string
+    }
+  }
 }
 
 export interface GuidePage {
@@ -67,172 +78,191 @@ export interface GuidePage {
   }[]
 }
 
-// Solution Pages
+// Solution Pages - Content from Growth team
 export const solutionPages: Record<string, SolutionPage> = {
   'abogados-independientes': {
     slug: 'abogados-independientes',
     title: 'Jurídica para Abogados Independientes',
-    metaTitle: 'Mejor Buscador de Jurisprudencia para Abogados Independientes | Jurídica',
-    metaDescription: 'El mejor buscador de jurisprudencia argentina para abogados independientes. Citas verificables, búsqueda en SAIJ, CSJN, JUBA y JUSCABA. Sin alucinaciones de IA.',
+    metaTitle: 'Jurídica para Abogados Independientes | Jurisprudencia Argentina con IA',
+    metaDescription: 'Encontrá fallos relevantes en segundos, no en horas. Jurídica es el buscador de jurisprudencia argentina con IA diseñado para abogados que trabajan solos y necesitan respuestas rápidas con citas verificables.',
     heroTitle: 'El mejor buscador de jurisprudencia para abogados independientes',
-    heroSubtitle: 'Dejá de perder horas buscando fallos en interfaces de los \'90. Con Jurídica encontrás jurisprudencia verificable en segundos.',
+    heroSubtitle: 'Como abogado independiente, tu tiempo es tu recurso más valioso. Jurídica te permite encontrar jurisprudencia argentina relevante en segundos, con citas directas a SAIJ, CSJN, JUBA y JUSCABA que podés verificar al instante.',
     benefits: [
       {
         icon: 'i-lucide-clock',
-        title: 'Ahorrá 10+ horas por semana',
-        description: 'Buscá en SAIJ, CSJN, JUBA y JUSCABA desde un solo lugar. Sin navegar entre 4 páginas diferentes.'
+        title: 'Ahorrá 5+ horas semanales en investigación jurídica',
+        description: 'Nuestra IA analiza miles de fallos en segundos y te muestra los más relevantes para tu caso.'
       },
       {
         icon: 'i-lucide-shield-check',
-        title: 'Citas 100% verificables',
-        description: 'Cada resultado incluye link directo a la fuente oficial. Nunca más sanciones del colegio por citas falsas.'
-      },
-      {
-        icon: 'i-lucide-sparkles',
-        title: 'Reportes con IA',
-        description: 'Generá informes de jurisprudencia con análisis automático. Siempre con fuentes que podés verificar.'
+        title: 'Citas 100% verificables con link a la fuente',
+        description: 'Cada fallo incluye link directo a SAIJ, CSJN, JUBA o JUSCABA. Sin alucinaciones, sin inventos.'
       },
       {
         icon: 'i-lucide-wallet',
-        title: 'Precio accesible',
-        description: 'Planes desde $3,990/mes. Menos de lo que cobrás por 15 minutos de consulta.'
+        title: 'Sin suscripciones costosas de grandes editoriales',
+        description: 'Planes desde $3,990 ARS/mes. Acceso a jurisprudencia de calidad sin arruinar tu presupuesto.'
+      },
+      {
+        icon: 'i-lucide-message-circle',
+        title: 'Búsqueda en lenguaje natural',
+        description: 'Preguntá como le preguntarías a un colega: "¿hay fallos sobre despido durante período de prueba con embarazo?"'
       }
     ],
+    forWho: [
+      'Abogados que trabajan de forma independiente',
+      'Profesionales que necesitan respuestas rápidas',
+      'Abogados que valoran la precisión sobre la cantidad'
+    ],
+    notForWho: [
+      'Estudios grandes que ya tienen suscripción a editoriales tradicionales',
+      'Quienes solo buscan jurisprudencia de forma esporádica (usá el plan gratuito)'
+    ],
     pricing: {
-      plan: 'Básico',
+      plan: 'Individual',
       price: '$3,990',
       features: [
-        '50 búsquedas por día',
-        'SAIJ + CSJN',
-        '5 reportes IA/mes',
+        'Búsquedas ilimitadas',
+        'SAIJ + CSJN + JUBA + JUSCABA',
+        'Citas verificables',
         'Exportar a Word',
-        'Links verificables'
+        'Búsqueda en lenguaje natural'
       ],
       highlighted: true
     },
     cta: {
-      primary: 'Empezar prueba gratis',
-      secondary: 'Ver todos los planes'
+      primary: 'Probalo gratis',
+      secondary: 'Ver planes'
     },
     faqs: [
       {
-        question: '¿Cuánto tiempo puedo probar Jurídica gratis?',
-        answer: 'Podés probar Jurídica completamente gratis con 5 búsquedas por día, sin necesidad de tarjeta de crédito.'
+        question: '¿Es mejor que buscar directo en SAIJ?',
+        answer: 'Sí. Jurídica busca en SAIJ + CSJN + JUBA + JUSCABA simultáneamente, y usa IA para mostrarte los fallos más relevantes primero. SAIJ solo te da resultados por keywords.'
       },
       {
-        question: '¿Jurídica reemplaza la lectura de fallos?',
-        answer: 'No. Jurídica te ayuda a encontrar los fallos relevantes más rápido, pero siempre deberías leer el fallo completo. Por eso cada resultado incluye link directo a la fuente oficial.'
+        question: '¿Puedo confiar en las citas para un escrito judicial?',
+        answer: '100%. Cada cita incluye link directo a la fuente oficial. A diferencia de ChatGPT, Jurídica nunca inventa fallos.'
       },
       {
-        question: '¿Puedo exportar los resultados a Word?',
-        answer: 'Sí, con el plan Básico y superiores podés exportar búsquedas y reportes a formato Word listo para presentar.'
-      },
-      {
-        question: '¿Qué pasa si ChatGPT inventa citas?',
-        answer: 'Ese es exactamente el problema que resuelve Jurídica. A diferencia de ChatGPT que puede "alucinar" citas falsas, Jurídica solo muestra resultados de fuentes oficiales verificables.'
+        question: '¿Cuánto cuesta?',
+        answer: 'Plan gratuito con 10 búsquedas/mes. Plan Individual desde $3,990 ARS/mes con búsquedas ilimitadas.'
       }
     ]
   },
   'estudios-juridicos': {
     slug: 'estudios-juridicos',
     title: 'Jurídica para Estudios Jurídicos',
-    metaTitle: 'Mejor Buscador de Jurisprudencia para Estudios Jurídicos | Jurídica',
-    metaDescription: 'Solución de búsqueda de jurisprudencia argentina para estudios jurídicos. Múltiples usuarios, reportes ilimitados, API access. SAIJ, CSJN, JUBA, JUSCABA.',
-    heroTitle: 'El mejor buscador de jurisprudencia para estudios jurídicos',
-    heroSubtitle: 'Tu equipo necesita acceso rápido a jurisprudencia verificable. Jurídica centraliza la búsqueda y elimina las horas perdidas.',
+    metaTitle: 'Jurídica para Estudios Jurídicos | Búsqueda de Jurisprudencia en Equipo',
+    metaDescription: 'Potenciá la investigación jurídica de tu equipo. Jurídica permite que varios abogados busquen jurisprudencia argentina con IA, compartan resultados y mantengan un repositorio de fallos relevantes.',
+    heroTitle: 'Jurisprudencia argentina para todo tu estudio jurídico',
+    heroSubtitle: 'Los estudios jurídicos que usan Jurídica reducen un 60% el tiempo de investigación. Tu equipo puede buscar, guardar y compartir fallos relevantes, con la seguridad de que todas las citas son verificables.',
     benefits: [
       {
         icon: 'i-lucide-users',
-        title: 'Hasta 5 usuarios incluidos',
-        description: 'Todo tu equipo con acceso a búsquedas ilimitadas y reportes compartidos.'
+        title: 'Múltiples usuarios por cuenta',
+        description: 'Plan Estudio con acceso para todo tu equipo. Cada abogado con su perfil y búsquedas guardadas.'
       },
       {
-        icon: 'i-lucide-infinity',
-        title: 'Reportes ilimitados',
-        description: 'Generá todos los informes de jurisprudencia que necesites con análisis de IA.'
+        icon: 'i-lucide-library',
+        title: 'Biblioteca de fallos compartida',
+        description: 'Guardá fallos importantes y compartilos con colegas. Nunca pierdas ese fallo clave que encontraste hace meses.'
       },
       {
-        icon: 'i-lucide-code',
-        title: 'API Access',
-        description: 'Integrá Jurídica con tu sistema de gestión de casos existente.'
+        icon: 'i-lucide-file-text',
+        title: 'Citas estandarizadas para escritos',
+        description: 'Exportá citas en formato listo para copiar y pegar en tus escritos. Consistencia en todo el estudio.'
       },
       {
-        icon: 'i-lucide-headphones',
-        title: 'Soporte prioritario',
-        description: 'Respuesta en menos de 4 horas hábiles para cualquier consulta.'
+        icon: 'i-lucide-layers',
+        title: '4 fuentes en una búsqueda',
+        description: 'SAIJ, CSJN, JUBA y JUSCABA. No más abrir 4 pestañas y buscar en cada base por separado.'
       }
+    ],
+    forWho: [
+      'Estudios jurídicos de 2 a 50 abogados',
+      'Equipos que necesitan compartir investigación',
+      'Estudios que buscan estandarizar sus citas jurídicas'
+    ],
+    notForWho: [
+      'Abogados que trabajan solos (mejor plan Individual)',
+      'Empresas que necesitan integración con sistemas de gestión de casos (próximamente)'
     ],
     pricing: {
       plan: 'Estudio',
-      price: '$24,990',
+      price: '$9,990',
       features: [
         'Hasta 5 usuarios',
         'Búsquedas ilimitadas',
         'Todas las fuentes',
-        'Reportes IA ilimitados',
-        'API access',
+        'Biblioteca compartida',
+        'Citas estandarizadas',
         'Soporte prioritario'
       ],
       highlighted: true
     },
     cta: {
-      primary: 'Contactar ventas',
-      secondary: 'Agendar demo'
+      primary: 'Solicitar demo para tu estudio',
+      secondary: 'Ver plan Estudio'
     },
     faqs: [
       {
-        question: '¿Puedo agregar más de 5 usuarios?',
-        answer: 'Sí, contactanos para un plan personalizado con la cantidad de usuarios que necesites.'
+        question: '¿Cuántos usuarios incluye el plan Estudio?',
+        answer: 'El plan Estudio ($9,990 ARS/mes) incluye hasta 5 usuarios. Para equipos más grandes, el plan Firma ($24,990 ARS/mes) incluye usuarios ilimitados.'
       },
       {
-        question: '¿Qué incluye el API access?',
-        answer: 'Acceso a nuestra API REST para integrar búsquedas de jurisprudencia en tu sistema de gestión de casos, CRM o cualquier herramienta interna.'
+        question: '¿Se pueden ver las búsquedas de otros miembros del equipo?',
+        answer: 'Cada usuario tiene sus búsquedas privadas, pero pueden compartir fallos específicos a una biblioteca común del estudio.'
       },
       {
-        question: '¿Tienen descuentos por pago anual?',
-        answer: 'Sí, ofrecemos 2 meses gratis con el pago anual. Contactanos para más detalles.'
-      },
-      {
-        question: '¿Cómo funciona el soporte prioritario?',
-        answer: 'Tenés un canal directo de comunicación con nuestro equipo. Garantizamos respuesta en menos de 4 horas hábiles.'
+        question: '¿Tienen facturación para empresas?',
+        answer: 'Sí, factura A o B según necesites. CUIT del estudio.'
       }
     ]
   },
   'estudiantes-derecho': {
     slug: 'estudiantes-derecho',
     title: 'Jurídica para Estudiantes de Derecho',
-    metaTitle: 'Mejor Buscador de Jurisprudencia para Estudiantes de Derecho | Jurídica',
-    metaDescription: 'Buscador de jurisprudencia argentina gratuito para estudiantes de derecho. Encontrá fallos para tus trabajos prácticos con citas verificables.',
-    heroTitle: 'El mejor buscador de jurisprudencia para estudiantes de derecho',
-    heroSubtitle: 'Encontrá los fallos que necesitás para tus trabajos prácticos y exámenes. Gratis, con citas que tus profesores pueden verificar.',
+    metaTitle: 'Jurídica para Estudiantes de Derecho | Aprendé Jurisprudencia con IA',
+    metaDescription: 'Aprobá tus exámenes con jurisprudencia real. Jurídica te ayuda a encontrar fallos para tus trabajos prácticos, entender casos líderes y prepararte para la práctica profesional.',
+    heroTitle: 'La mejor herramienta para estudiantes de derecho en Argentina',
+    heroSubtitle: '¿Cansado de googlear jurisprudencia argentina y encontrar información desactualizada? Jurídica te da acceso a la misma base de datos que usan los abogados profesionales, con un plan gratuito perfecto para estudiantes.',
     benefits: [
       {
-        icon: 'i-lucide-graduation-cap',
-        title: 'Plan gratuito disponible',
-        description: '5 búsquedas diarias gratis. Suficiente para tus trabajos prácticos semanales.'
+        icon: 'i-lucide-gift',
+        title: 'Plan gratuito con 10 búsquedas mensuales',
+        description: 'Perfecto para trabajos prácticos y preparación de exámenes. Sin tarjeta de crédito.'
       },
       {
-        icon: 'i-lucide-link',
-        title: 'Citas listas para copiar',
-        description: 'Cada fallo con formato de cita académica. Solo copiá y pegá en tu TP.'
-      },
-      {
-        icon: 'i-lucide-book-open',
-        title: 'Aprendé investigación jurídica',
-        description: 'Interfaz simple que te enseña a buscar como un profesional.'
+        icon: 'i-lucide-sparkles',
+        title: 'Explicaciones de fallos con IA',
+        description: 'No solo encontrás el fallo — la IA te explica los hechos, el holding y por qué es relevante.'
       },
       {
         icon: 'i-lucide-check-circle',
-        title: 'Fuentes verificables',
-        description: 'Tus profesores pueden verificar cada cita. Sin riesgo de plagio involuntario.'
+        title: 'Citas correctas desde el día 1',
+        description: 'Aprendé a citar jurisprudencia correctamente. Cada fallo viene con la cita en formato estándar.'
+      },
+      {
+        icon: 'i-lucide-briefcase',
+        title: 'Preparación para la práctica real',
+        description: 'Usá las mismas herramientas que vas a usar cuando ejerzas. Jurídica es usado por estudios en todo el país.'
       }
+    ],
+    forWho: [
+      'Estudiantes de abogacía en universidades argentinas',
+      'Estudiantes de posgrados y maestrías en derecho',
+      'Graduados recientes preparando su primera causa'
+    ],
+    notForWho: [
+      'Estudiantes de derecho de otros países (solo jurisprudencia argentina)',
+      'Quienes buscan resúmenes de doctrina (somos un buscador de jurisprudencia)'
     ],
     pricing: {
       plan: 'Free',
       price: '$0',
       features: [
-        '5 búsquedas por día',
-        'Acceso a SAIJ',
+        '10 búsquedas por mes',
+        'Acceso a todas las fuentes',
         'Links verificables',
         'Formato de cita académica',
         'Sin tarjeta de crédito'
@@ -245,313 +275,384 @@ export const solutionPages: Record<string, SolutionPage> = {
     },
     faqs: [
       {
-        question: '¿Es realmente gratis para estudiantes?',
-        answer: 'Sí, el plan Free es completamente gratuito y no requiere tarjeta de crédito. Incluye 5 búsquedas por día.'
+        question: '¿Es realmente gratis?',
+        answer: 'Sí, 10 búsquedas por mes totalmente gratis. Si necesitás más, el plan Individual cuesta $3,990 ARS/mes.'
       },
       {
-        question: '¿Puedo usar Jurídica para mi tesis?',
-        answer: 'Absolutamente. Jurídica es ideal para investigación jurídica. Para tesis extensas, te recomendamos el plan Básico por sus reportes de IA.'
+        question: '¿Puedo usarlo para mi tesis?',
+        answer: 'Absolutamente. Jurídica es perfecto para investigación académica. Todas las citas son verificables y correctamente formateadas.'
       },
       {
-        question: '¿Las citas son válidas académicamente?',
-        answer: 'Sí. Jurídica proporciona links directos a fuentes oficiales (SAIJ, CSJN, etc.) que cumplen con los estándares de citación académica argentina.'
-      },
-      {
-        question: '¿Qué diferencia hay con buscar en Google?',
-        answer: 'Google puede mostrar fuentes desactualizadas o no oficiales. Jurídica busca directamente en las bases de datos oficiales y garantiza que cada resultado sea verificable.'
+        question: '¿Tienen descuento para estudiantes?',
+        answer: 'El plan gratuito suele ser suficiente para estudiantes. Si necesitás más, contactanos con tu certificado de alumno regular.'
       }
     ]
   }
 }
 
-// Comparison Pages
+// Comparison Pages - Content from Growth team
 export const comparisonPages: Record<string, ComparisonPage> = {
   'juridica-vs-chatgpt': {
     slug: 'juridica-vs-chatgpt',
     competitor: 'ChatGPT',
     title: 'Jurídica vs ChatGPT',
-    metaTitle: 'Jurídica vs ChatGPT: Comparación para Búsqueda Jurídica Argentina | 2024',
-    metaDescription: 'Comparación detallada entre Jurídica y ChatGPT para búsqueda de jurisprudencia argentina. Descubrí por qué las citas verificables importan.',
-    heroTitle: 'Jurídica vs ChatGPT',
-    heroSubtitle: '¿ChatGPT para buscar jurisprudencia? Te contamos por qué abogados están siendo sancionados por citas falsas.',
+    metaTitle: 'Jurídica vs ChatGPT para Jurisprudencia Argentina | Comparación 2026',
+    metaDescription: 'ChatGPT inventa fallos. Jurídica te da citas verificables. Comparación detallada para abogados argentinos que necesitan jurisprudencia confiable.',
+    heroTitle: 'Jurídica vs ChatGPT: ¿Cuál es mejor para buscar jurisprudencia argentina?',
+    heroSubtitle: 'Si usaste ChatGPT para buscar jurisprudencia argentina, probablemente te inventó un fallo. Jurídica conecta directo con SAIJ, CSJN, JUBA y JUSCABA para darte citas que realmente existen.',
     comparison: [
-      { feature: 'Citas verificables con link', juridica: true, competitor: false },
-      { feature: 'Búsqueda en SAIJ oficial', juridica: true, competitor: false },
-      { feature: 'Búsqueda en CSJN', juridica: true, competitor: false },
-      { feature: 'Sin alucinaciones', juridica: true, competitor: false },
-      { feature: 'Fallos actualizados 2024', juridica: true, competitor: 'Datos hasta 2023' },
-      { feature: 'Gratis para empezar', juridica: true, competitor: true },
-      { feature: 'Exportar a Word', juridica: true, competitor: false },
-      { feature: 'Reportes estructurados', juridica: true, competitor: 'Texto libre' },
-      { feature: 'Diseñado para abogados', juridica: true, competitor: false }
+      { feature: 'Citas verificables', juridica: '✅ Siempre - link directo a fuente oficial', competitor: '❌ Inventa fallos que no existen', importance: 'critical' },
+      { feature: 'Acceso a SAIJ/CSJN/JUBA/JUSCABA', juridica: '✅ Búsqueda en las 4 bases', competitor: '❌ No tiene acceso a bases de datos', importance: 'critical' },
+      { feature: 'Actualización de jurisprudencia', juridica: '✅ Sincronizado con fuentes oficiales', competitor: '❌ Datos de entrenamiento desactualizados', importance: 'high' },
+      { feature: 'Explicación de conceptos', juridica: '⚠️ Básica, enfocada en búsqueda', competitor: '✅ Excelente para conceptos generales', importance: 'medium' },
+      { feature: 'Redacción de escritos', juridica: '❌ No es su función', competitor: '✅ Útil para borradores', importance: 'medium' },
+      { feature: 'Precio', juridica: 'Gratis a $24,990 ARS/mes', competitor: 'Gratis o $20 USD/mes (Plus)', importance: 'medium' },
+      { feature: 'Específico para Argentina', juridica: '✅ 100% enfocado', competitor: '❌ Genérico, mezcla jurisdicciones', importance: 'high' }
     ],
     whyJuridica: [
       {
-        title: 'ChatGPT inventa citas que no existen',
-        description: 'El problema de las "alucinaciones" de IA es real. ChatGPT puede generar citas de fallos que nunca existieron, exponiendo al abogado a sanciones del colegio profesional.'
+        title: 'ChatGPT alucina jurisprudencia',
+        description: 'Cuando le pedís un fallo específico, muchas veces inventa la carátula, el número de expediente, e incluso el contenido. Esto es peligroso para abogados que citan esos fallos inexistentes en escritos judiciales.'
       },
       {
-        title: 'Jurídica busca en fuentes oficiales',
-        description: 'Cada resultado de Jurídica viene de SAIJ, CSJN, JUBA o JUSCABA. No generamos texto: buscamos en bases de datos reales.'
+        title: 'Ejemplo real del problema',
+        description: 'Si le preguntás a ChatGPT "¿hay fallos de la CSJN sobre prescripción de acciones laborales?", te puede dar "García c/ Empresa XYZ (2019)" — un fallo que no existe. Si lo citás en un escrito, quedás expuesto a sanciones.'
       },
       {
-        title: 'Link directo a la fuente',
-        description: 'Cada cita incluye un link que podés verificar en segundos. El juez, tu cliente o el colegio pueden confirmar que el fallo existe.'
+        title: 'Jurídica busca en fuentes reales',
+        description: 'Jurídica busca directamente en las bases de datos oficiales. Cada resultado incluye el link a SAIJ, CSJN, JUBA o JUSCABA donde podés verificar que el fallo existe y leer el texto completo.'
       }
     ],
-    verdict: 'ChatGPT es útil para muchas cosas, pero no para buscar jurisprudencia argentina. El riesgo de citas falsas es demasiado alto para un profesional del derecho.'
+    verdict: 'Para jurisprudencia argentina verificable, Jurídica es la única opción confiable. ChatGPT es útil para conceptos generales, pero inventa fallos específicos.',
+    verdictDetail: {
+      winner: 'Jurídica',
+      summary: 'Para jurisprudencia argentina verificable, Jurídica es la única opción confiable. ChatGPT es útil para conceptos generales, pero inventa fallos específicos.',
+      useCase: {
+        juridica: 'Cuando necesitás citas para un escrito judicial o investigación seria',
+        competitor: 'Cuando querés entender un concepto legal general o redactar un borrador'
+      }
+    }
   },
   'juridica-vs-fallobot': {
     slug: 'juridica-vs-fallobot',
     competitor: 'FalloBot',
     title: 'Jurídica vs FalloBot',
-    metaTitle: 'Jurídica vs FalloBot: Comparación de Buscadores Jurídicos | 2024',
-    metaDescription: 'Comparación entre Jurídica y FalloBot para búsqueda de jurisprudencia argentina. Cobertura, precios y características.',
-    heroTitle: 'Jurídica vs FalloBot',
-    heroSubtitle: 'Dos opciones para buscar jurisprudencia argentina. ¿Cuál es mejor para vos?',
+    metaTitle: 'Jurídica vs FalloBot | ¿Cuál Buscador de Jurisprudencia es Mejor?',
+    metaDescription: 'Comparativa detallada entre Jurídica y FalloBot. Fuentes, precios, funcionalidades y cuál conviene según tu caso.',
+    heroTitle: 'Jurídica vs FalloBot: Comparación de buscadores de jurisprudencia argentina',
+    heroSubtitle: 'Tanto Jurídica como FalloBot son herramientas de legaltech argentina para buscar jurisprudencia. Acá te explicamos las diferencias para que elijas la que mejor se adapta a tus necesidades.',
     comparison: [
-      { feature: 'Búsqueda en SAIJ', juridica: true, competitor: true },
-      { feature: 'Búsqueda en CSJN', juridica: true, competitor: true },
-      { feature: 'Búsqueda en JUBA', juridica: true, competitor: false },
-      { feature: 'Búsqueda en JUSCABA', juridica: true, competitor: false },
-      { feature: 'Reportes con IA', juridica: true, competitor: false },
-      { feature: 'Plan gratuito', juridica: '5 búsquedas/día', competitor: '3 búsquedas/día' },
-      { feature: 'Exportar a Word', juridica: true, competitor: 'Solo PDF' },
-      { feature: 'API para integración', juridica: true, competitor: false },
-      { feature: 'Multi-usuario', juridica: 'Hasta 5', competitor: 'Solo 1' }
+      { feature: 'Búsqueda con IA', juridica: '✅ Lenguaje natural + ranking inteligente', competitor: '⚠️ Búsqueda tradicional por keywords', importance: 'high' },
+      { feature: 'Fuentes unificadas', juridica: '✅ SAIJ + CSJN + JUBA + JUSCABA', competitor: '⚠️ Depende del plan', importance: 'high' },
+      { feature: 'Explicación de fallos', juridica: '✅ IA resume hechos y holding', competitor: '❌ Solo texto del fallo', importance: 'medium' },
+      { feature: 'Plan gratuito', juridica: '✅ 10 búsquedas/mes', competitor: '⚠️ Limitado', importance: 'medium' },
+      { feature: 'Soporte', juridica: '✅ Chat en vivo', competitor: '⚠️ Email', importance: 'low' }
     ],
     whyJuridica: [
       {
-        title: 'Más fuentes de datos',
-        description: 'Jurídica incluye JUBA (Buenos Aires) y JUSCABA (CABA), dos fuentes críticas que FalloBot no tiene.'
+        title: 'Búsqueda con IA real',
+        description: 'Jurídica tiene ventaja en IA y explicaciones. Podés buscar en lenguaje natural y la IA rankea por relevancia.'
       },
       {
-        title: 'Reportes inteligentes',
-        description: 'Generá informes de jurisprudencia con análisis de argumentos y tendencias. FalloBot solo muestra resultados.'
+        title: 'Más fuentes unificadas',
+        description: 'Acceso a SAIJ + CSJN + JUBA + JUSCABA en una sola búsqueda.'
       },
       {
-        title: 'Mejor para equipos',
-        description: 'Con el plan Estudio, hasta 5 usuarios pueden usar Jurídica. Ideal para estudios jurídicos.'
+        title: 'Resúmenes automáticos',
+        description: 'La IA resume los hechos y el holding de cada fallo para que encuentres lo que necesitás más rápido.'
       }
     ],
-    verdict: 'FalloBot es una opción válida, pero Jurídica ofrece más fuentes, reportes con IA y mejor soporte para equipos.'
+    verdict: 'Depende del uso. Jurídica tiene ventaja en IA y explicaciones. FalloBot tiene foco en ciertos fueros específicos. Ambos son opciones válidas de legaltech argentina.',
+    verdictDetail: {
+      winner: 'Depende del uso',
+      summary: 'Jurídica tiene ventaja en IA y explicaciones. FalloBot tiene foco en ciertos fueros específicos. Ambos son opciones válidas de legaltech argentina.',
+      useCase: {
+        juridica: 'Búsqueda con IA, explicaciones de fallos, múltiples fuentes unificadas',
+        competitor: 'Fueros específicos, usuarios que prefieren interfaz tradicional'
+      }
+    }
   },
   'juridica-vs-saij-directo': {
     slug: 'juridica-vs-saij-directo',
     competitor: 'SAIJ Directo',
     title: 'Jurídica vs Buscar en SAIJ Directo',
-    metaTitle: 'Jurídica vs SAIJ: Por qué usar un buscador unificado | 2024',
-    metaDescription: '¿Vale la pena usar Jurídica si SAIJ es gratis? Comparamos tiempos de búsqueda, usabilidad y funcionalidades.',
-    heroTitle: 'Jurídica vs Buscar en SAIJ Directo',
-    heroSubtitle: 'SAIJ es gratis. Entonces, ¿por qué pagar por Jurídica?',
+    metaTitle: 'Jurídica vs Buscar Directo en SAIJ | ¿Vale la Pena?',
+    metaDescription: 'SAIJ es gratis pero limitado. Jurídica agrega IA, múltiples fuentes y ahorra horas de búsqueda. Comparación honesta para abogados argentinos.',
+    heroTitle: '¿Por qué usar Jurídica si SAIJ es gratis?',
+    heroSubtitle: 'SAIJ es gratuito y oficial, ¿por qué pagarías por Jurídica? Porque ahorrás tiempo, buscás en más fuentes simultáneamente, y la IA te ayuda a encontrar lo relevante.',
     comparison: [
-      { feature: 'Costo', juridica: 'Desde $0', competitor: 'Gratis' },
-      { feature: 'Incluye CSJN', juridica: true, competitor: false },
-      { feature: 'Incluye JUBA', juridica: true, competitor: false },
-      { feature: 'Incluye JUSCABA', juridica: true, competitor: false },
-      { feature: 'Interfaz moderna', juridica: true, competitor: false },
-      { feature: 'Búsqueda unificada', juridica: true, competitor: false },
-      { feature: 'Reportes con IA', juridica: true, competitor: false },
-      { feature: 'Alertas de nuevos fallos', juridica: true, competitor: false },
-      { feature: 'Tiempo promedio búsqueda', juridica: '30 segundos', competitor: '5-10 minutos' }
+      { feature: 'Precio', juridica: 'Desde $3,990 ARS/mes (hay plan gratis)', competitor: '✅ Gratis', importance: 'high' },
+      { feature: 'Fuentes incluidas', juridica: '✅ SAIJ + CSJN + JUBA + JUSCABA', competitor: 'Solo SAIJ', importance: 'high' },
+      { feature: 'Búsqueda con IA', juridica: '✅ Lenguaje natural', competitor: '❌ Solo keywords', importance: 'high' },
+      { feature: 'Tiempo promedio de búsqueda', juridica: '2-5 minutos', competitor: '15-60 minutos', importance: 'critical' },
+      { feature: 'Ranking de relevancia', juridica: '✅ IA ordena por relevancia', competitor: '❌ Orden cronológico o alfabético', importance: 'high' },
+      { feature: 'Resumen del fallo', juridica: '✅ Automático', competitor: '❌ Tenés que leer todo', importance: 'medium' },
+      { feature: 'Guardar búsquedas', juridica: '✅ Biblioteca personal', competitor: '❌ Manual', importance: 'medium' }
     ],
     whyJuridica: [
       {
         title: 'Tu tiempo vale dinero',
-        description: 'Si cobrás $10,000/hora, perder 10 minutos buscando en 4 páginas diferentes te cuesta $1,666. Jurídica lo hace en 30 segundos.'
+        description: 'Si buscás jurisprudencia 5 veces por semana y cada búsqueda te ahorra 30 minutos, son 10 horas mensuales. ¿Cuánto vale tu hora? El plan Individual de Jurídica cuesta $3,990 ARS — menos que 1 hora de muchos abogados.'
       },
       {
         title: 'SAIJ no es la única fuente',
-        description: 'Para una investigación completa necesitás SAIJ, CSJN, JUBA y JUSCABA. Con SAIJ solo tenés 25% de la información.'
+        description: 'Buscar en SAIJ directo funciona, pero es lento. Tenés que usar los keywords exactos, revisar decenas de resultados irrelevantes, y después repetir en CSJN, JUBA y JUSCABA por separado.'
       },
       {
-        title: 'La interfaz de SAIJ es de los 90',
-        description: 'Sin ofender a InfoLeg, pero buscar en SAIJ es frustrante. Jurídica tiene una interfaz moderna diseñada para productividad.'
+        title: 'Jurídica potencia SAIJ',
+        description: 'Jurídica no reemplaza SAIJ — lo potencia. Buscás en lenguaje natural, la IA te muestra lo más relevante primero, y encima buscás en CSJN, JUBA y JUSCABA al mismo tiempo.'
       }
     ],
-    verdict: 'SAIJ es gratuito y útil, pero si tu tiempo vale algo, Jurídica se paga solo con las horas que ahorrás.'
+    verdict: 'SAIJ es excelente para búsquedas ocasionales. Jurídica es para abogados que buscan jurisprudencia regularmente y valoran su tiempo.',
+    verdictDetail: {
+      winner: 'Jurídica para uso profesional',
+      summary: 'SAIJ es excelente para búsquedas ocasionales. Jurídica es para abogados que buscan jurisprudencia regularmente y valoran su tiempo.',
+      useCase: {
+        juridica: 'Búsquedas frecuentes, ahorro de tiempo, múltiples fuentes',
+        competitor: 'Búsquedas esporádicas, presupuesto cero, solo necesitás SAIJ'
+      }
+    }
   }
 }
 
-// Guide Pages
+// Guide Pages (Best X for Y) - Content from Growth team
 export const guidePages: Record<string, GuidePage> = {
   'mejor-buscador-jurisprudencia-argentina': {
     slug: 'mejor-buscador-jurisprudencia-argentina',
     title: 'Mejor Buscador de Jurisprudencia Argentina',
-    metaTitle: 'Mejor Buscador de Jurisprudencia Argentina 2024 | Guía Completa',
-    metaDescription: 'Guía completa de los mejores buscadores de jurisprudencia argentina. Comparamos SAIJ, CSJN, JUBA, JUSCABA y alternativas con IA.',
-    heroTitle: 'El Mejor Buscador de Jurisprudencia Argentina en 2024',
-    heroSubtitle: 'Guía completa para encontrar fallos, leyes y doctrina en Argentina de forma rápida y confiable.',
+    metaTitle: 'Mejor Buscador de Jurisprudencia Argentina 2026 | Comparativa',
+    metaDescription: 'Análisis de los mejores buscadores de jurisprudencia argentina: Jurídica, SAIJ, CSJN, FalloBot y más. Comparativa actualizada con precios, fuentes y funcionalidades.',
+    heroTitle: '¿Cuál es el mejor buscador de jurisprudencia argentina en 2026?',
+    heroSubtitle: 'Elegir el buscador de jurisprudencia correcto te puede ahorrar horas de trabajo. Analizamos las opciones disponibles para abogados argentinos en 2026.',
     content: [
       {
         type: 'h2',
-        text: '¿Por qué es difícil buscar jurisprudencia en Argentina?'
+        text: 'Las opciones disponibles en 2026'
       },
       {
         type: 'p',
-        text: 'Argentina tiene múltiples bases de datos jurídicas que no están conectadas entre sí. SAIJ, CSJN, JUBA, JUSCABA... cada una con su propia interfaz y criterios de búsqueda. Un abogado puede perder horas buscando un fallo que existe pero está en otra base de datos.'
+        text: 'Argentina tiene varias opciones para buscar jurisprudencia, desde bases de datos oficiales gratuitas hasta herramientas con IA y editoriales tradicionales.'
       },
       {
         type: 'h2',
-        text: 'Las principales fuentes de jurisprudencia argentina'
+        text: 'Jurídica - Buscador con IA'
       },
       {
         type: 'list',
         items: [
-          'SAIJ (Sistema Argentino de Información Jurídica): La base más completa de legislación nacional',
-          'CSJN (Corte Suprema de Justicia de la Nación): Fallos de la máxima instancia judicial',
-          'JUBA (Jurisprudencia de Buenos Aires): Base de datos de la provincia de Buenos Aires',
-          'JUSCABA: Jurisprudencia de la Ciudad Autónoma de Buenos Aires'
+          '✅ Búsqueda con inteligencia artificial en lenguaje natural',
+          '✅ 4 fuentes unificadas (SAIJ, CSJN, JUBA, JUSCABA)',
+          '✅ Citas verificables con link a fuente oficial',
+          '✅ Resúmenes automáticos de fallos',
+          '✅ Plan gratuito disponible',
+          '⚠️ Planes pagos para uso intensivo',
+          'Precio: Gratis - $24,990 ARS/mes',
+          'Mejor para: Abogados que buscan frecuentemente y valoran su tiempo'
         ]
       },
       {
         type: 'h2',
-        text: '¿Qué hace a un buscador jurídico "bueno"?'
+        text: 'SAIJ - Base de datos oficial'
       },
       {
         type: 'list',
         items: [
-          'Cobertura: ¿Busca en todas las fuentes relevantes?',
-          'Velocidad: ¿Cuánto tarda en encontrar resultados?',
-          'Verificabilidad: ¿Cada resultado tiene link a la fuente oficial?',
-          'Usabilidad: ¿La interfaz es fácil de usar?',
-          'Extras: ¿Ofrece reportes, alertas, exportación?'
+          '✅ Gratuito y oficial',
+          '✅ Base de datos completa',
+          '✅ Actualización constante',
+          '⚠️ Búsqueda solo por keywords',
+          '⚠️ Sin ranking de relevancia',
+          '⚠️ Interfaz anticuada',
+          'Precio: Gratis',
+          'Mejor para: Búsquedas ocasionales con presupuesto cero'
+        ]
+      },
+      {
+        type: 'h2',
+        text: 'CSJN - Corte Suprema'
+      },
+      {
+        type: 'list',
+        items: [
+          '✅ Gratuito',
+          '✅ Fallos de Corte Suprema actualizados',
+          '⚠️ Solo fallos de CSJN',
+          '⚠️ Sin jurisprudencia provincial',
+          'Precio: Gratis',
+          'Mejor para: Cuando específicamente necesitás fallos de Corte'
+        ]
+      },
+      {
+        type: 'h2',
+        text: 'La Ley / Thomson Reuters - Editorial tradicional'
+      },
+      {
+        type: 'list',
+        items: [
+          '✅ Doctrina + jurisprudencia',
+          '✅ Sumarios elaborados',
+          '✅ Trayectoria',
+          '⚠️ Muy costoso ($$$)',
+          '⚠️ Interfaz tradicional',
+          '⚠️ Contratos anuales',
+          'Precio: Desde $50,000+ ARS/mes',
+          'Mejor para: Estudios grandes con presupuesto'
         ]
       },
       {
         type: 'callout',
-        text: 'Jurídica es el único buscador que unifica SAIJ, CSJN, JUBA y JUSCABA en una sola búsqueda, con citas verificables y reportes de IA.'
+        text: 'Nuestra recomendación: Para la mayoría de los abogados argentinos en 2026, Jurídica ofrece el mejor balance entre funcionalidad, precio y ahorro de tiempo. La IA realmente marca la diferencia cuando buscás jurisprudencia regularmente.'
       },
       {
         type: 'h2',
-        text: '¿ChatGPT sirve para buscar jurisprudencia?'
+        text: '¿Puedo usar ChatGPT para buscar jurisprudencia?'
       },
       {
         type: 'p',
-        text: 'No. ChatGPT y otros LLMs pueden "alucinar" citas de fallos que no existen. Varios abogados en Argentina y otros países han sido sancionados por presentar citas generadas por IA que resultaron ser falsas. Para investigación jurídica profesional, necesitás fuentes verificables.'
+        text: 'No es recomendable. ChatGPT inventa fallos que no existen. Podés usarlo para conceptos generales pero no para citas.'
       }
     ],
     faqs: [
       {
-        question: '¿Cuál es el mejor buscador de jurisprudencia argentina gratuito?',
-        answer: 'SAIJ es completamente gratuito pero solo cubre legislación federal. Para una búsqueda más completa, Jurídica ofrece un plan gratuito con 5 búsquedas diarias que incluye múltiples fuentes.'
+        question: '¿Cuál es el buscador de jurisprudencia más completo?',
+        answer: 'En términos de fuentes unificadas, Jurídica (SAIJ + CSJN + JUBA + JUSCABA en una búsqueda). Las editoriales tradicionales agregan doctrina pero a precios mucho más altos.'
       },
       {
-        question: '¿Puedo confiar en las citas de ChatGPT?',
-        answer: 'No para uso profesional. ChatGPT puede generar citas de fallos inexistentes (alucinaciones). Siempre verificá cualquier cita en fuentes oficiales.'
+        question: '¿Puedo usar ChatGPT para buscar jurisprudencia argentina?',
+        answer: 'No es recomendable. ChatGPT inventa fallos que no existen. Podés usarlo para conceptos generales pero no para citas.'
       },
       {
-        question: '¿SAIJ tiene todos los fallos de Argentina?',
-        answer: 'No. SAIJ se enfoca en legislación federal y algunos fallos. Para jurisprudencia provincial necesitás JUBA (Buenos Aires), JUSCABA (CABA) y otras bases locales.'
-      },
-      {
-        question: '¿Cómo cito correctamente un fallo argentino?',
-        answer: 'El formato estándar incluye: Tribunal, Sala, Carátula, Fecha, y número de expediente si está disponible. Jurídica genera automáticamente la cita en formato académico.'
+        question: '¿Hay algún buscador gratuito bueno?',
+        answer: 'SAIJ y CSJN son gratuitos y oficiales. Jurídica tiene un plan gratuito con 10 búsquedas mensuales.'
       }
     ]
   },
   'mejor-herramienta-citas-legales-verificables': {
     slug: 'mejor-herramienta-citas-legales-verificables',
     title: 'Mejor Herramienta para Citas Legales Verificables',
-    metaTitle: 'Citas Legales Verificables en Argentina | Herramientas y Guía 2024',
-    metaDescription: 'Cómo generar citas legales verificables en Argentina. Evitá sanciones por citas falsas de IA. Herramientas y mejores prácticas.',
-    heroTitle: 'La Mejor Herramienta para Citas Legales Verificables',
-    heroSubtitle: 'Cómo garantizar que cada cita en tus escritos sea real y verificable.',
+    metaTitle: 'Mejor Herramienta para Citas Legales Verificables en Argentina',
+    metaDescription: 'Las citas jurídicas deben ser verificables. Conocé las herramientas que garantizan que tus citas de jurisprudencia argentina son reales y linkean a fuentes oficiales.',
+    heroTitle: '¿Cómo obtener citas jurídicas verificables en Argentina?',
+    heroSubtitle: 'En la era de ChatGPT, verificar que un fallo realmente existe es más importante que nunca. Estas herramientas te garantizan citas jurídicas verificables para tus escritos.',
     content: [
       {
         type: 'h2',
-        text: 'El problema de las citas falsas de IA'
+        text: 'El problema de las citas inventadas'
       },
       {
         type: 'p',
-        text: 'En 2023, varios abogados en Estados Unidos fueron sancionados por presentar citas de casos generadas por ChatGPT que no existían. El problema llegó a Argentina: colegios de abogados están alertando sobre el uso irresponsable de IA para investigación jurídica.'
+        text: 'ChatGPT y otros LLMs frecuentemente inventan fallos judiciales. Citan carátulas, números de expediente y holdings que no existen. Abogados que confían en estas citas quedan expuestos ante el tribunal.'
       },
       {
         type: 'h2',
-        text: '¿Qué es una cita verificable?'
-      },
-      {
-        type: 'p',
-        text: 'Una cita verificable es aquella que cualquier persona puede confirmar accediendo a la fuente original. En derecho argentino, esto significa un link a SAIJ, CSJN, JUBA u otra base oficial donde el fallo está publicado.'
-      },
-      {
-        type: 'h2',
-        text: 'Cómo Jurídica garantiza citas verificables'
+        text: 'La solución: fuentes con verificación'
       },
       {
         type: 'list',
         items: [
-          'Buscamos directamente en bases de datos oficiales, no generamos texto',
-          'Cada resultado incluye link directo a la fuente',
-          'No usamos IA generativa para crear contenido jurídico',
-          'Los reportes de IA citan exclusivamente fuentes verificadas'
+          'Jurídica: Cada resultado incluye link directo a SAIJ, CSJN, JUBA o JUSCABA. Podés verificar con un click. 100% verificable - nunca genera citas, solo busca en fuentes reales.',
+          'SAIJ directo: Fuente oficial del Ministerio de Justicia. Si está en SAIJ, existe.',
+          'CSJN sitio oficial: Para fallos de Corte Suprema, directo a la fuente.'
+        ]
+      },
+      {
+        type: 'h2',
+        text: 'Cómo verificar una cita de jurisprudencia'
+      },
+      {
+        type: 'list',
+        items: [
+          'Si la cita viene de ChatGPT/IA generativa: asumir que es falsa hasta verificar',
+          'Buscar la carátula exacta en SAIJ o la fuente que corresponda',
+          'Verificar número de expediente, fecha y tribunal',
+          'Leer el fallo para confirmar que el holding citado es correcto',
+          'Usar Jurídica para ahorrar tiempo: la verificación está integrada'
         ]
       },
       {
         type: 'callout',
-        text: 'Con Jurídica, cada cita que uses en un escrito tiene un link que el juez, tu cliente o el colegio pueden verificar en segundos.'
-      },
-      {
-        type: 'h2',
-        text: 'Mejores prácticas para citas jurídicas'
-      },
-      {
-        type: 'list',
-        items: [
-          'Nunca uses ChatGPT o similares para generar citas directamente',
-          'Verificá cada cita en la fuente oficial antes de incluirla',
-          'Usá herramientas especializadas en derecho argentino',
-          'Guardá el link a la fuente junto con cada cita',
-          'Actualizá citas antiguas: los fallos pueden ser modificados o revocados'
-        ]
+        text: 'No arriesgues tu reputación con citas inventadas. Cada cita que uses en un escrito debe tener un link que el juez, tu cliente o el colegio pueden verificar en segundos.'
       }
     ],
     faqs: [
       {
-        question: '¿Por qué ChatGPT genera citas falsas?',
-        answer: 'ChatGPT predice texto basándose en patrones, no busca en bases de datos. Puede generar texto que "parece" una cita jurídica válida pero que no existe en la realidad.'
+        question: '¿Por qué ChatGPT inventa fallos?',
+        answer: 'Los LLMs generan texto probabilísticamente. Cuando les pedís algo específico que no está en su entrenamiento, "alucinan" una respuesta plausible pero falsa.'
       },
       {
-        question: '¿Puedo ser sancionado por usar citas de IA?',
+        question: '¿Puedo ser sancionado por citas inventadas?',
         answer: 'Sí. Los colegios de abogados consideran falta ética presentar citas falsas, independientemente de cómo fueron generadas. La responsabilidad es del abogado firmante.'
       },
       {
-        question: '¿Jurídica usa IA?',
-        answer: 'Sí, pero de forma responsable. Usamos IA para mejorar la búsqueda y generar resúmenes, pero todo resultado proviene de fuentes oficiales verificables. Nunca generamos contenido jurídico ficticio.'
-      },
-      {
-        question: '¿Cómo exporto citas con formato correcto?',
-        answer: 'Jurídica genera automáticamente el formato de cita académica estándar para cada resultado. Podés copiarlo directamente o exportar a Word con el formato incluido.'
+        question: '¿Jurídica nunca se equivoca?',
+        answer: 'Jurídica no inventa fallos porque busca en bases de datos reales. La IA ayuda a interpretar tu búsqueda y rankear resultados, pero los fallos siempre vienen de fuentes oficiales verificables.'
       }
     ]
   },
   'como-buscar-fallos-csjn': {
     slug: 'como-buscar-fallos-csjn',
     title: 'Cómo Buscar Fallos de la CSJN',
-    metaTitle: 'Cómo Buscar Fallos de la Corte Suprema Argentina (CSJN) | Guía 2024',
-    metaDescription: 'Guía paso a paso para buscar fallos de la Corte Suprema de Justicia de la Nación. Tips, filtros y herramientas para encontrar jurisprudencia de la CSJN.',
-    heroTitle: 'Cómo Buscar Fallos de la Corte Suprema (CSJN)',
-    heroSubtitle: 'Guía completa para encontrar jurisprudencia de la máxima instancia judicial argentina.',
+    metaTitle: 'Cómo Buscar Fallos de la Corte Suprema Argentina (CSJN) | Guía 2026',
+    metaDescription: 'Guía paso a paso para buscar fallos de la CSJN. Métodos gratuitos y herramientas con IA para encontrar jurisprudencia de la Corte Suprema argentina.',
+    heroTitle: 'Cómo buscar fallos de la Corte Suprema de Justicia de la Nación',
+    heroSubtitle: 'Los fallos de la Corte Suprema de Justicia de la Nación son fundamentales para cualquier abogado argentino. Te explicamos todas las formas de buscarlos.',
     content: [
       {
         type: 'h2',
-        text: '¿Qué es la CSJN?'
-      },
-      {
-        type: 'p',
-        text: 'La Corte Suprema de Justicia de la Nación es el máximo tribunal de Argentina. Sus fallos sientan precedentes importantes para todo el sistema judicial. Buscar en su base de datos es esencial para cualquier investigación jurídica seria.'
-      },
-      {
-        type: 'h2',
-        text: 'Formas de buscar fallos de la CSJN'
+        text: 'Método 1: Sitio oficial de la CSJN'
       },
       {
         type: 'list',
         items: [
-          'Sitio oficial de la CSJN (csjn.gov.ar): Acceso gratuito pero interfaz limitada',
-          'SAIJ: Incluye algunos fallos de la Corte',
-          'Jurídica: Búsqueda unificada con filtros avanzados y reportes'
+          'URL: https://www.csjn.gov.ar',
+          '✅ Gratuito y oficial',
+          '✅ Fallos actualizados',
+          '✅ Incluye acordadas y resoluciones',
+          '⚠️ Búsqueda limitada a keywords',
+          '⚠️ Solo fallos de Corte'
         ]
+      },
+      {
+        type: 'p',
+        text: 'Cómo usar: Ir a csjn.gov.ar → Sección "Jurisprudencia" → Usar el buscador con palabras clave → Filtrar por fecha si es necesario'
+      },
+      {
+        type: 'h2',
+        text: 'Método 2: SAIJ'
+      },
+      {
+        type: 'list',
+        items: [
+          'URL: https://www.saij.gob.ar',
+          '✅ Gratuito',
+          '✅ Incluye fallos de CSJN y otros tribunales',
+          '✅ Búsqueda unificada',
+          '⚠️ Puede no tener los fallos más recientes',
+          '⚠️ Interfaz menos intuitiva'
+        ]
+      },
+      {
+        type: 'p',
+        text: 'Cómo usar: Ir a saij.gob.ar → Sección "Jurisprudencia" → Filtrar por "Corte Suprema de Justicia de la Nación" → Buscar por tema o palabras clave'
+      },
+      {
+        type: 'h2',
+        text: 'Método 3: Jurídica (con IA)'
+      },
+      {
+        type: 'list',
+        items: [
+          'URL: https://juridica.ar',
+          '✅ Búsqueda en lenguaje natural',
+          '✅ Incluye CSJN + otras fuentes',
+          '✅ IA rankea por relevancia',
+          '✅ Resúmenes automáticos',
+          '⚠️ Plan gratuito limitado a 10 búsquedas/mes'
+        ]
+      },
+      {
+        type: 'p',
+        text: 'Cómo usar: Ir a juridica.ar → Escribir tu consulta en lenguaje natural → Filtrar por CSJN si querés solo Corte → Ver resultados rankeados por relevancia'
       },
       {
         type: 'h2',
@@ -560,24 +661,14 @@ export const guidePages: Record<string, GuidePage> = {
       {
         type: 'list',
         items: [
-          'Usá el número de expediente si lo tenés (ej: "CSJ 123/2023")',
-          'Buscá por carátula: "Fernández c/ Estado Nacional"',
-          'Filtrá por fecha para fallos recientes',
-          'Usá términos específicos del derecho, no lenguaje coloquial',
-          'Probá con nombres de doctrina: "Badaro", "Halabi", "Arriola"'
+          'Buscá por concepto, no por carátula: Si no sabés la carátula exacta, buscá por el tema legal. "Prescripción laboral" te va a dar más resultados útiles que adivinar nombres.',
+          'Usá los fallos líderes como punto de partida: Fallos famosos como "Vizzoti", "Aquino", "Álvarez c/ Cencosud" suelen citar precedentes útiles.',
+          'Verificá la vigencia: Un fallo de 2005 puede haber sido modificado por jurisprudencia posterior. Siempre buscá fallos recientes sobre el mismo tema.'
         ]
       },
       {
         type: 'callout',
         text: 'En Jurídica podés buscar "acordadas CSJN 2024" o el nombre de un fallo histórico y obtener resultados con link directo a la fuente oficial.'
-      },
-      {
-        type: 'h2',
-        text: 'Fallos importantes de la CSJN'
-      },
-      {
-        type: 'p',
-        text: 'Algunos fallos de la Corte Suprema son citados constantemente: Badaro (movilidad jubilatoria), Halabi (acciones de clase), Arriola (tenencia de estupefacientes). Conocer estos precedentes es fundamental para cualquier abogado argentino.'
       }
     ],
     faqs: [
@@ -592,10 +683,6 @@ export const guidePages: Record<string, GuidePage> = {
       {
         question: '¿Puedo citar un fallo de la CSJN sin leerlo completo?',
         answer: 'No es recomendable. Los sumarios pueden no reflejar todos los matices del fallo. Siempre leé el fallo completo antes de citarlo en un escrito.'
-      },
-      {
-        question: '¿Qué diferencia hay entre un fallo y una acordada?',
-        answer: 'Los fallos resuelven casos concretos. Las acordadas son normas de funcionamiento interno de la Corte, aunque algunas tienen impacto importante (como las que regulan presentaciones electrónicas).'
       }
     ]
   }
