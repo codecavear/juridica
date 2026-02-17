@@ -160,6 +160,62 @@
       </div>
     </section>
 
+    <!-- Providers Section -->
+    <section v-if="!hasSearched" class="py-16 bg-slate-50 border-y border-slate-200/70">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10">
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
+            Fuentes jurídicas disponibles
+          </h2>
+          <p class="text-gray-600">
+            Empezá hoy con SAIJ. Estamos incorporando más proveedores oficiales.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <UCard class="border-green-200 bg-green-50/40">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <p class="font-semibold text-gray-900">SAIJ</p>
+                <p class="text-sm text-gray-600 mt-1">Sistema Argentino de Información Jurídica</p>
+              </div>
+              <UBadge color="success" variant="soft">Activo</UBadge>
+            </div>
+          </UCard>
+
+          <UCard class="border-slate-200">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <p class="font-semibold text-gray-900">CSJN</p>
+                <p class="text-sm text-gray-600 mt-1">Corte Suprema de Justicia de la Nación</p>
+              </div>
+              <UBadge color="warning" variant="subtle">Próximamente</UBadge>
+            </div>
+          </UCard>
+
+          <UCard class="border-slate-200">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <p class="font-semibold text-gray-900">JUBA</p>
+                <p class="text-sm text-gray-600 mt-1">Jurisprudencia de la Provincia de Buenos Aires</p>
+              </div>
+              <UBadge color="warning" variant="subtle">Próximamente</UBadge>
+            </div>
+          </UCard>
+
+          <UCard class="border-slate-200">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <p class="font-semibold text-gray-900">JUSCABA</p>
+                <p class="text-sm text-gray-600 mt-1">Justicia de la Ciudad Autónoma de Buenos Aires</p>
+              </div>
+              <UBadge color="warning" variant="subtle">Próximamente</UBadge>
+            </div>
+          </UCard>
+        </div>
+      </div>
+    </section>
+
     <!-- Features Section -->
     <section v-if="!hasSearched" class="py-20 bg-white">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
