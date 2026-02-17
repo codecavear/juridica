@@ -24,7 +24,7 @@
             <template #header>
               <div class="flex flex-wrap items-center gap-2">
                 <UBadge color="primary" variant="soft">Jurisprudencia</UBadge>
-                <span class="text-xs text-gray-500">CSJN · 12/03/2023</span>
+                <span class="text-xs text-gray-600">CSJN · 12/03/2023</span>
                 <UBadge color="success" variant="subtle">Fuente verificable</UBadge>
               </div>
             </template>

@@ -80,7 +80,7 @@
 
           <div class="text-center mb-8">
             <span class="text-5xl font-bold text-gray-900">{{ page.pricing.price }}</span>
-            <span class="text-gray-500">/mes</span>
+            <span class="text-gray-600">/mes</span>
           </div>
 
           <ul class="space-y-4 mb-8">
@@ -138,7 +138,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 py-12">
+    <footer class="bg-gray-900 text-gray-300 py-12">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row justify-between items-center gap-6">
           <div class="flex items-center gap-3">

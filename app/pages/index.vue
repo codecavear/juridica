@@ -67,7 +67,7 @@
             </div>
           </div>
           
-          <p class="text-center text-sm text-gray-500 mt-4">
+          <p class="text-center text-sm text-gray-600 mt-4">
             <UIcon name="i-lucide-shield-check" class="text-green-500 mr-1" />
             Sin alucinaciones. Sin citas falsas. Solo fuentes oficiales.
           </p>
@@ -121,7 +121,7 @@
         <div class="flex items-center justify-between mb-8">
           <h2 class="text-2xl font-bold text-gray-900">
             {{ results.length }} resultados
-            <span class="text-gray-500 font-normal">para "{{ lastQuery }}"</span>
+            <span class="text-gray-600 font-normal">para "{{ lastQuery }}"</span>
           </h2>
           <UButton variant="ghost" color="neutral" size="sm" @click="clearSearch">
             <UIcon name="i-lucide-x" class="mr-1" />
@@ -131,10 +131,10 @@
 
         <div v-if="results.length === 0 && hasSearched" class="text-center py-16">
           <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <UIcon name="i-lucide-search-x" class="text-3xl text-gray-400" />
+            <UIcon name="i-lucide-search-x" class="text-3xl text-gray-500" />
           </div>
           <p class="text-gray-600 text-lg">No se encontraron resultados para "{{ lastQuery }}"</p>
-          <p class="text-gray-500 text-sm mt-2">Probá con otros términos o cambiá el filtro</p>
+          <p class="text-gray-600 text-sm mt-2">Probá con otros términos o cambiá el filtro</p>
         </div>
 
         <div v-else class="space-y-4">
@@ -155,7 +155,7 @@
                   <UBadge :color="getColorForTipo(result.tipo)" variant="subtle" size="sm">
                     {{ result.tipo }}
                   </UBadge>
-                  <span v-if="result.fecha" class="text-xs text-gray-500">
+                  <span v-if="result.fecha" class="text-xs text-gray-600">
                     {{ formatDate(result.fecha) }}
                   </span>
                 </div>
@@ -165,9 +165,9 @@
                 <p v-if="result.tribunal" class="text-sm text-gray-600 mb-2">
                   <UIcon name="i-lucide-building-2" class="mr-1" />
                   {{ result.tribunal }}
-                  <span v-if="result.jurisdiccion" class="text-gray-400"> · {{ result.jurisdiccion }}</span>
+                  <span v-if="result.jurisdiccion" class="text-gray-500"> · {{ result.jurisdiccion }}</span>
                 </p>
-                <p v-if="result.sumario" class="text-sm text-gray-500 line-clamp-2">
+                <p v-if="result.sumario" class="text-sm text-gray-600 line-clamp-2">
                   {{ result.sumario }}
                 </p>
                 <div class="flex gap-2 mt-4">
@@ -326,11 +326,11 @@
           <div class="bg-white rounded-2xl p-6 border border-gray-200 flex flex-col">
             <div class="mb-6">
               <h3 class="text-lg font-bold text-gray-900">Free</h3>
-              <p class="text-sm text-gray-500 mt-1">Para probar</p>
+              <p class="text-sm text-gray-600 mt-1">Para probar</p>
             </div>
             <div class="mb-6">
               <span class="text-4xl font-bold text-gray-900">$0</span>
-              <span class="text-gray-500">/mes</span>
+              <span class="text-gray-600">/mes</span>
             </div>
             <ul class="space-y-3 mb-8 flex-1">
               <li class="flex items-start gap-2 text-sm text-gray-600">
@@ -355,11 +355,11 @@
           <div class="bg-white rounded-2xl p-6 border border-gray-200 flex flex-col">
             <div class="mb-6">
               <h3 class="text-lg font-bold text-gray-900">Básico</h3>
-              <p class="text-sm text-gray-500 mt-1">Para abogados independientes</p>
+              <p class="text-sm text-gray-600 mt-1">Para abogados independientes</p>
             </div>
             <div class="mb-6">
               <span class="text-4xl font-bold text-gray-900">$5,990</span>
-              <span class="text-gray-500">/mes</span>
+              <span class="text-gray-600">/mes</span>
             </div>
             <ul class="space-y-3 mb-8 flex-1">
               <li class="flex items-start gap-2 text-sm text-gray-600">
@@ -393,11 +393,11 @@
             </div>
             <div class="mb-6">
               <h3 class="text-lg font-bold text-gray-900">Pro</h3>
-              <p class="text-sm text-gray-500 mt-1">Para profesionales activos</p>
+              <p class="text-sm text-gray-600 mt-1">Para profesionales activos</p>
             </div>
             <div class="mb-6">
               <span class="text-4xl font-bold text-gray-900">$14,990</span>
-              <span class="text-gray-500">/mes</span>
+              <span class="text-gray-600">/mes</span>
             </div>
             <ul class="space-y-3 mb-8 flex-1">
               <li class="flex items-start gap-2 text-sm text-gray-600">
@@ -430,11 +430,11 @@
           <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 flex flex-col text-white">
             <div class="mb-6">
               <h3 class="text-lg font-bold">Estudio</h3>
-              <p class="text-sm text-gray-400 mt-1">Para estudios jurídicos</p>
+              <p class="text-sm text-gray-300 mt-1">Para estudios jurídicos</p>
             </div>
             <div class="mb-6">
               <span class="text-4xl font-bold">$24,990</span>
-              <span class="text-gray-400">/mes</span>
+              <span class="text-gray-300">/mes</span>
             </div>
             <ul class="space-y-3 mb-8 flex-1">
               <li class="flex items-start gap-2 text-sm text-gray-300">
@@ -490,7 +490,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 py-12">
+    <footer class="bg-gray-900 text-gray-300 py-12">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row justify-between items-center gap-6">
           <div class="flex items-center gap-3">

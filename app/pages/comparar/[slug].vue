@@ -69,7 +69,7 @@
               <span v-else-if="row.competitor === false" class="inline-flex items-center justify-center w-8 h-8 bg-red-100 rounded-full">
                 <UIcon name="i-lucide-x" class="text-red-600 text-lg" />
               </span>
-              <span v-else class="text-sm text-gray-500">{{ row.competitor }}</span>
+              <span v-else class="text-sm text-gray-600">{{ row.competitor }}</span>
             </div>
           </div>
         </div>
@@ -142,7 +142,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 py-12">
+    <footer class="bg-gray-900 text-gray-300 py-12">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row justify-between items-center gap-6">
           <div class="flex items-center gap-3">
