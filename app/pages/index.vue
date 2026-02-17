@@ -1,117 +1,151 @@
 <template>
-  <div class="min-h-screen">
+  <div class="min-h-screen bg-slate-50">
     <!-- Hero Section -->
-    <UPageHero
-      :ui="{ title: 'text-4xl sm:text-5xl' }"
-    >
-      <template #title>
-        <h1 class="text-4xl sm:text-5xl font-bold">
-          Jurídica - Buscador de Jurisprudencia Argentina
-        </h1>
-      </template>
-      <template #description>
-        <p class="text-lg text-muted">
-          Buscador de jurisprudencia argentina con IA. Consulta SAIJ, CSJN, JUBA y JUSCABA con citas verificables.
-        </p>
-      </template>
-      <template #links>
-        <div class="w-full max-w-2xl mx-auto mt-8">
-          <form @submit.prevent="search" class="flex flex-col sm:flex-row gap-3">
-            <UInput
-              v-model="query"
-              placeholder="Buscar fallos, leyes, doctrina..."
-              size="xl"
-              icon="i-lucide-search"
-              class="flex-1"
-              :ui="{ base: 'w-full' }"
-            />
-            <UButton
-              type="submit"
-              size="xl"
-              :loading="loading"
-              :disabled="!query.trim()"
-            >
-              Buscar
-            </UButton>
-          </form>
+    <section class="relative bg-gradient-to-b from-white to-slate-50 py-20 lg:py-32">
+      <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute -top-40 -right-40 w-80 h-80 bg-[#74acdf]/10 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
+      </div>
+      
+      <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <UBadge color="primary" variant="subtle" size="lg" class="mb-6">
+            <UIcon name="i-lucide-sparkles" class="mr-1" />
+            Potenciado por IA
+          </UBadge>
           
-          <!-- Quick filters -->
-          <div class="flex flex-wrap gap-2 mt-4 justify-center">
-            <UBadge
-              v-for="tipo in tiposDocumento"
-              :key="tipo.value"
-              :color="selectedTipo === tipo.value ? 'primary' : 'neutral'"
-              variant="subtle"
-              class="cursor-pointer"
-              @click="selectedTipo = tipo.value"
-            >
-              {{ tipo.label }}
-            </UBadge>
-          </div>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
+            Jurisprudencia argentina
+            <span class="block text-[#74acdf]">con citas verificables</span>
+          </h1>
+          
+          <p class="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-10">
+            Buscá fallos, leyes y doctrina en SAIJ, CSJN, JUBA y JUSCABA desde un solo lugar.
+            Cada resultado con link directo a la fuente oficial.
+          </p>
         </div>
-      </template>
-    </UPageHero>
+
+        <!-- Search Box -->
+        <div class="max-w-3xl mx-auto">
+          <div class="bg-white rounded-2xl shadow-xl shadow-gray-200/50 p-6 border border-gray-100">
+            <form @submit.prevent="search" class="flex flex-col sm:flex-row gap-4">
+              <UInput
+                v-model="query"
+                placeholder="Buscar fallos, leyes, doctrina..."
+                size="xl"
+                icon="i-lucide-search"
+                class="flex-1"
+                :ui="{ base: 'w-full' }"
+              />
+              <UButton
+                type="submit"
+                size="xl"
+                color="primary"
+                :loading="loading"
+                :disabled="!query.trim()"
+                class="sm:px-8"
+              >
+                <UIcon name="i-lucide-search" class="mr-2" />
+                Buscar
+              </UButton>
+            </form>
+            
+            <!-- Quick filters -->
+            <div class="flex flex-wrap gap-2 mt-5 justify-center">
+              <UBadge
+                v-for="tipo in tiposDocumento"
+                :key="tipo.value"
+                :color="selectedTipo === tipo.value ? 'primary' : 'neutral'"
+                :variant="selectedTipo === tipo.value ? 'solid' : 'subtle'"
+                size="md"
+                class="cursor-pointer transition-all hover:scale-105"
+                @click="selectedTipo = tipo.value"
+              >
+                <UIcon :name="tipo.icon" class="mr-1" />
+                {{ tipo.label }}
+              </UBadge>
+            </div>
+          </div>
+          
+          <p class="text-center text-sm text-gray-500 mt-4">
+            <UIcon name="i-lucide-shield-check" class="text-green-500 mr-1" />
+            Sin alucinaciones. Sin citas falsas. Solo fuentes oficiales.
+          </p>
+        </div>
+      </div>
+    </section>
 
     <!-- Results Section -->
-    <UPageSection v-if="results.length > 0 || hasSearched">
-      <div class="max-w-4xl mx-auto">
-        <div class="flex items-center justify-between mb-6">
-          <h2 class="text-xl font-semibold">
-            Resultados de búsqueda de jurisprudencia
-            <span class="text-muted block sm:inline">{{ results.length }} resultados para "{{ lastQuery }}"</span>
+    <section v-if="results.length > 0 || hasSearched" class="py-16 bg-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="text-2xl font-bold text-gray-900">
+            {{ results.length }} resultados
+            <span class="text-gray-500 font-normal">para "{{ lastQuery }}"</span>
           </h2>
+          <UButton variant="ghost" color="neutral" size="sm" @click="clearSearch">
+            <UIcon name="i-lucide-x" class="mr-1" />
+            Limpiar
+          </UButton>
         </div>
 
-        <div v-if="results.length === 0 && hasSearched" class="text-center py-12">
-          <UIcon name="i-lucide-search-x" class="text-4xl text-muted mb-4" />
-          <p class="text-muted">No se encontraron resultados para "{{ lastQuery }}"</p>
+        <div v-if="results.length === 0 && hasSearched" class="text-center py-16">
+          <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <UIcon name="i-lucide-search-x" class="text-3xl text-gray-400" />
+          </div>
+          <p class="text-gray-600 text-lg">No se encontraron resultados para "{{ lastQuery }}"</p>
+          <p class="text-gray-500 text-sm mt-2">Probá con otros términos o cambiá el filtro</p>
         </div>
 
         <div v-else class="space-y-4">
           <UCard
             v-for="result in results"
             :key="result.id"
-            class="hover:ring-1 hover:ring-primary/50 transition-all"
+            class="hover:shadow-lg hover:border-[#74acdf]/30 transition-all duration-200"
           >
             <div class="flex items-start gap-4">
-              <UIcon
-                :name="getIconForTipo(result.tipo)"
-                class="text-2xl text-primary mt-1 shrink-0"
-              />
+              <div class="w-12 h-12 rounded-xl bg-[#74acdf]/10 flex items-center justify-center shrink-0">
+                <UIcon
+                  :name="getIconForTipo(result.tipo)"
+                  class="text-2xl text-[#74acdf]"
+                />
+              </div>
               <div class="flex-1 min-w-0">
-                <div class="flex items-center gap-2 mb-1">
-                  <UBadge :color="getColorForTipo(result.tipo)" variant="subtle" size="xs">
+                <div class="flex items-center gap-2 mb-2">
+                  <UBadge :color="getColorForTipo(result.tipo)" variant="subtle" size="sm">
                     {{ result.tipo }}
                   </UBadge>
-                  <span v-if="result.fecha" class="text-xs text-muted">
+                  <span v-if="result.fecha" class="text-xs text-gray-500">
                     {{ formatDate(result.fecha) }}
                   </span>
                 </div>
-                <h3 class="font-medium text-lg leading-tight mb-2" itemprop="name">
+                <h3 class="font-semibold text-lg text-gray-900 leading-tight mb-2">
                   {{ result.titulo }}
                 </h3>
-                <p v-if="result.tribunal" class="text-sm text-muted mb-2">
+                <p v-if="result.tribunal" class="text-sm text-gray-600 mb-2">
+                  <UIcon name="i-lucide-building-2" class="mr-1" />
                   {{ result.tribunal }}
-                  <span v-if="result.jurisdiccion"> · {{ result.jurisdiccion }}</span>
+                  <span v-if="result.jurisdiccion" class="text-gray-400"> · {{ result.jurisdiccion }}</span>
                 </p>
-                <p v-if="result.sumario" class="text-sm text-muted line-clamp-2">
+                <p v-if="result.sumario" class="text-sm text-gray-500 line-clamp-2">
                   {{ result.sumario }}
                 </p>
-                <div class="flex gap-2 mt-3">
+                <div class="flex gap-2 mt-4">
                   <UButton
                     :to="result.url"
                     target="_blank"
-                    size="xs"
+                    size="sm"
+                    color="primary"
                     variant="soft"
                     trailing-icon="i-lucide-external-link"
                   >
-                    Ver en SAIJ
+                    Ver fuente oficial
                   </UButton>
                   <UButton
                     v-if="result.pdfUrl"
                     :to="result.pdfUrl"
                     target="_blank"
-                    size="xs"
+                    size="sm"
                     variant="ghost"
                     color="neutral"
                     trailing-icon="i-lucide-file-text"
@@ -124,52 +158,261 @@
           </UCard>
         </div>
       </div>
-    </UPageSection>
+    </section>
 
-    <!-- Features Section (shown when no search) -->
-    <UPageSection v-else>
-      <h2 class="sr-only">Características del buscador de jurisprudencia</h2>
-      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-        <UCard>
-          <template #header>
-            <div class="flex items-center gap-3">
-              <UIcon name="i-lucide-shield-check" class="text-2xl text-primary" />
-              <h3 class="font-semibold">Citas jurídicas verificables</h3>
-            </div>
-          </template>
-          <p class="text-sm text-muted">
-            Cada resultado incluye link directo a la fuente oficial. 
-            Nunca más sanciones por citas falsas.
+    <!-- Features Section -->
+    <section v-if="!hasSearched" class="py-20 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            ¿Por qué Jurídica?
+          </h2>
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+            La única plataforma que garantiza citas verificables para abogados argentinos
           </p>
-        </UCard>
+        </div>
 
-        <UCard>
-          <template #header>
-            <div class="flex items-center gap-3">
-              <UIcon name="i-lucide-database" class="text-2xl text-primary" />
-              <h3 class="font-semibold">SAIJ, CSJN y más fuentes</h3>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="bg-slate-50 rounded-2xl p-8 hover:shadow-lg transition-shadow">
+            <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-6">
+              <UIcon name="i-lucide-shield-check" class="text-3xl text-green-600" />
             </div>
-          </template>
-          <p class="text-sm text-muted">
-            Buscá en SAIJ, CSJN, JUBA y JUSCABA desde un solo lugar. 
-            Toda la jurisprudencia argentina unificada.
-          </p>
-        </UCard>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Citas verificables</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Cada resultado incluye link directo a la fuente oficial. 
+              Nunca más sanciones del colegio por citas falsas o inventadas por ChatGPT.
+            </p>
+          </div>
 
-        <UCard>
-          <template #header>
-            <div class="flex items-center gap-3">
-              <UIcon name="i-lucide-sparkles" class="text-2xl text-primary" />
-              <h3 class="font-semibold">Legaltech argentina con IA</h3>
+          <div class="bg-slate-50 rounded-2xl p-8 hover:shadow-lg transition-shadow">
+            <div class="w-14 h-14 bg-[#74acdf]/20 rounded-xl flex items-center justify-center mb-6">
+              <UIcon name="i-lucide-database" class="text-3xl text-[#74acdf]" />
             </div>
-          </template>
-          <p class="text-sm text-muted">
-            Generá reportes de jurisprudencia con análisis de argumentos.
-            Inteligencia artificial al servicio del derecho argentino.
-          </p>
-        </UCard>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Multi-fuente</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Buscá en SAIJ, CSJN, JUBA y JUSCABA desde un solo lugar. 
+              Sin perder tiempo navegando entre páginas con interfaces de los '90.
+            </p>
+          </div>
+
+          <div class="bg-slate-50 rounded-2xl p-8 hover:shadow-lg transition-shadow">
+            <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-6">
+              <UIcon name="i-lucide-sparkles" class="text-3xl text-purple-600" />
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">IA que ayuda</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Generá reportes de jurisprudencia con análisis de argumentos y tendencias.
+              Siempre con fuentes verificables que podés citar.
+            </p>
+          </div>
+        </div>
       </div>
-    </UPageSection>
+    </section>
+
+    <!-- Pricing Section -->
+    <section v-if="!hasSearched" class="py-20 bg-slate-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <UBadge color="primary" variant="subtle" size="lg" class="mb-4">
+            Planes
+          </UBadge>
+          <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            Elegí el plan que necesites
+          </h2>
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+            Desde búsquedas básicas hasta reportes ilimitados para estudios jurídicos
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Free Plan -->
+          <div class="bg-white rounded-2xl p-6 border border-gray-200 flex flex-col">
+            <div class="mb-6">
+              <h3 class="text-lg font-bold text-gray-900">Free</h3>
+              <p class="text-sm text-gray-500 mt-1">Para probar</p>
+            </div>
+            <div class="mb-6">
+              <span class="text-4xl font-bold text-gray-900">$0</span>
+              <span class="text-gray-500">/mes</span>
+            </div>
+            <ul class="space-y-3 mb-8 flex-1">
+              <li class="flex items-start gap-2 text-sm text-gray-600">
+                <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
+                5 búsquedas por día
+              </li>
+              <li class="flex items-start gap-2 text-sm text-gray-600">
+                <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
+                Acceso a SAIJ
+              </li>
+              <li class="flex items-start gap-2 text-sm text-gray-600">
+                <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
+                Links verificables
+              </li>
+            </ul>
+            <UButton block variant="outline" color="neutral" size="lg">
+              Comenzar gratis
+            </UButton>
+          </div>
+
+          <!-- Básico Plan -->
+          <div class="bg-white rounded-2xl p-6 border border-gray-200 flex flex-col">
+            <div class="mb-6">
+              <h3 class="text-lg font-bold text-gray-900">Básico</h3>
+              <p class="text-sm text-gray-500 mt-1">Para abogados independientes</p>
+            </div>
+            <div class="mb-6">
+              <span class="text-4xl font-bold text-gray-900">$3,990</span>
+              <span class="text-gray-500">/mes</span>
+            </div>
+            <ul class="space-y-3 mb-8 flex-1">
+              <li class="flex items-start gap-2 text-sm text-gray-600">
+                <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
+                50 búsquedas por día
+              </li>
+              <li class="flex items-start gap-2 text-sm text-gray-600">
+                <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
+                SAIJ + CSJN
+              </li>
+              <li class="flex items-start gap-2 text-sm text-gray-600">
+                <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
+                5 reportes IA/mes
+              </li>
+              <li class="flex items-start gap-2 text-sm text-gray-600">
+                <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
+                Exportar a Word
+              </li>
+            </ul>
+            <UButton block variant="soft" color="primary" size="lg">
+              Elegir Básico
+            </UButton>
+          </div>
+
+          <!-- Pro Plan -->
+          <div class="bg-white rounded-2xl p-6 border-2 border-[#74acdf] flex flex-col relative">
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+              <UBadge color="primary" variant="solid" size="sm">
+                Más popular
+              </UBadge>
+            </div>
+            <div class="mb-6">
+              <h3 class="text-lg font-bold text-gray-900">Pro</h3>
+              <p class="text-sm text-gray-500 mt-1">Para profesionales activos</p>
+            </div>
+            <div class="mb-6">
+              <span class="text-4xl font-bold text-gray-900">$9,990</span>
+              <span class="text-gray-500">/mes</span>
+            </div>
+            <ul class="space-y-3 mb-8 flex-1">
+              <li class="flex items-start gap-2 text-sm text-gray-600">
+                <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
+                Búsquedas ilimitadas
+              </li>
+              <li class="flex items-start gap-2 text-sm text-gray-600">
+                <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
+                Todas las fuentes
+              </li>
+              <li class="flex items-start gap-2 text-sm text-gray-600">
+                <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
+                30 reportes IA/mes
+              </li>
+              <li class="flex items-start gap-2 text-sm text-gray-600">
+                <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
+                Alertas de jurisprudencia
+              </li>
+              <li class="flex items-start gap-2 text-sm text-gray-600">
+                <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
+                Historial de búsquedas
+              </li>
+            </ul>
+            <UButton block color="primary" size="lg">
+              Elegir Pro
+            </UButton>
+          </div>
+
+          <!-- Estudio Plan -->
+          <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 flex flex-col text-white">
+            <div class="mb-6">
+              <h3 class="text-lg font-bold">Estudio</h3>
+              <p class="text-sm text-gray-400 mt-1">Para estudios jurídicos</p>
+            </div>
+            <div class="mb-6">
+              <span class="text-4xl font-bold">$24,990</span>
+              <span class="text-gray-400">/mes</span>
+            </div>
+            <ul class="space-y-3 mb-8 flex-1">
+              <li class="flex items-start gap-2 text-sm text-gray-300">
+                <UIcon name="i-lucide-check" class="text-[#74acdf] mt-0.5 shrink-0" />
+                Todo lo de Pro
+              </li>
+              <li class="flex items-start gap-2 text-sm text-gray-300">
+                <UIcon name="i-lucide-check" class="text-[#74acdf] mt-0.5 shrink-0" />
+                Hasta 5 usuarios
+              </li>
+              <li class="flex items-start gap-2 text-sm text-gray-300">
+                <UIcon name="i-lucide-check" class="text-[#74acdf] mt-0.5 shrink-0" />
+                Reportes IA ilimitados
+              </li>
+              <li class="flex items-start gap-2 text-sm text-gray-300">
+                <UIcon name="i-lucide-check" class="text-[#74acdf] mt-0.5 shrink-0" />
+                API access
+              </li>
+              <li class="flex items-start gap-2 text-sm text-gray-300">
+                <UIcon name="i-lucide-check" class="text-[#74acdf] mt-0.5 shrink-0" />
+                Soporte prioritario
+              </li>
+            </ul>
+            <UButton block variant="solid" class="bg-[#74acdf] hover:bg-[#5a9cd0] text-gray-900 font-semibold" size="lg">
+              Contactar ventas
+            </UButton>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section v-if="!hasSearched" class="py-20 bg-gradient-to-r from-blue-600 to-[#74acdf]">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">
+          Dejá de perder tiempo con búsquedas inútiles
+        </h2>
+        <p class="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
+          Empezá a usar jurisprudencia verificable hoy. 
+          Sin tarjeta de crédito para la prueba gratis.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <UButton size="xl" color="white" variant="solid" class="text-blue-600 font-semibold">
+            <UIcon name="i-lucide-rocket" class="mr-2" />
+            Comenzar gratis
+          </UButton>
+          <UButton size="xl" variant="outline" class="border-white text-white hover:bg-white/10">
+            <UIcon name="i-lucide-play" class="mr-2" />
+            Ver demo
+          </UButton>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-[#74acdf] rounded-xl flex items-center justify-center">
+              <UIcon name="i-lucide-scale" class="text-2xl text-white" />
+            </div>
+            <span class="text-xl font-bold text-white">Jurídica</span>
+          </div>
+          <div class="flex gap-8 text-sm">
+            <a href="#" class="hover:text-white transition-colors">Términos</a>
+            <a href="#" class="hover:text-white transition-colors">Privacidad</a>
+            <a href="#" class="hover:text-white transition-colors">Contacto</a>
+          </div>
+          <p class="text-sm">
+            © {{ new Date().getFullYear() }} Jurídica. Todos los derechos reservados.
+          </p>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -194,10 +437,10 @@ const hasSearched = ref(false)
 const lastQuery = ref('')
 
 const tiposDocumento = [
-  { value: 'jurisprudencia', label: 'Jurisprudencia' },
-  { value: 'legislacion', label: 'Legislación' },
-  { value: 'doctrina', label: 'Doctrina' },
-  { value: 'todo', label: 'Todo' }
+  { value: 'jurisprudencia', label: 'Jurisprudencia', icon: 'i-lucide-gavel' },
+  { value: 'legislacion', label: 'Legislación', icon: 'i-lucide-scroll' },
+  { value: 'doctrina', label: 'Doctrina', icon: 'i-lucide-book-open' },
+  { value: 'todo', label: 'Todo', icon: 'i-lucide-layers' }
 ]
 
 async function search() {
@@ -222,6 +465,13 @@ async function search() {
   } finally {
     loading.value = false
   }
+}
+
+function clearSearch() {
+  query.value = ''
+  results.value = []
+  hasSearched.value = false
+  lastQuery.value = ''
 }
 
 function getIconForTipo(tipo: string): string {
