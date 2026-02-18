@@ -1,0 +1,102 @@
+<script setup lang="ts">
+import type { NavigationMenuItem } from '@nuxt/ui'
+
+const items: NavigationMenuItem[] = [
+  { label: 'Cómo usar', to: '/#como-usar' },
+  { label: 'Fuentes', to: '/#fuentes' },
+  { label: 'Planes', to: '/#planes' },
+  { label: 'Demo', to: '/demo' },
+  { label: 'Guías', to: '/mejor-buscador-jurisprudencia-argentina' }
+]
+</script>
+
+<template>
+  <UHeader title="Jurídica">
+    <template #left>
+      <NuxtLink to="/" class="flex items-center gap-2">
+        <UIcon name="i-lucide-scale" class="w-6 h-6 text-primary" />
+        <span class="font-bold text-lg">Jurídica</span>
+      </NuxtLink>
+    </template>
+
+    <UNavigationMenu :items="items" />
+
+    <template #right>
+      <UColorModeButton />
+      <UButton
+        to="/ingresar"
+        color="primary"
+        variant="soft"
+        size="sm"
+      >
+        Iniciar sesión
+      </UButton>
+    </template>
+
+    <template #body>
+      <UNavigationMenu :items="items" orientation="vertical" class="-mx-2.5" />
+    </template>
+  </UHeader>
+
+  <UMain>
+    <slot />
+  </UMain>
+
+  <UFooter class="border-t border-default">
+    <template #left>
+      <div class="flex items-center gap-2 text-sm text-muted">
+        <UIcon name="i-lucide-scale" class="w-4 h-4" />
+        <span class="font-medium">Jurídica</span>
+      </div>
+    </template>
+
+    <template #center>
+      <div class="w-full py-6">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
+          <div>
+            <p class="font-semibold text-highlighted mb-2">Producto</p>
+            <div class="space-y-1 text-muted">
+              <NuxtLink to="/demo" class="block hover:text-primary">Demo</NuxtLink>
+              <NuxtLink to="/busqueda?q=despido&tipo=jurisprudencia" class="block hover:text-primary">Búsqueda ejemplo</NuxtLink>
+              <NuxtLink to="/#planes" class="block hover:text-primary">Planes</NuxtLink>
+            </div>
+          </div>
+
+          <div>
+            <p class="font-semibold text-highlighted mb-2">Recursos</p>
+            <div class="space-y-1 text-muted">
+              <NuxtLink to="/mejor-buscador-jurisprudencia-argentina" class="block hover:text-primary">Mejor buscador 2026</NuxtLink>
+              <NuxtLink to="/mejor-herramienta-citas-legales-verificables" class="block hover:text-primary">Citas verificables</NuxtLink>
+              <NuxtLink to="/como-buscar-fallos-csjn" class="block hover:text-primary">Guía CSJN</NuxtLink>
+            </div>
+          </div>
+
+          <div>
+            <p class="font-semibold text-highlighted mb-2">Fuentes</p>
+            <div class="space-y-1 text-muted">
+              <span class="block">SAIJ (activo)</span>
+              <span class="block">CSJN (próximamente)</span>
+              <span class="block">JUBA (próximamente)</span>
+              <span class="block">JUSCABA (próximamente)</span>
+            </div>
+          </div>
+
+          <div>
+            <p class="font-semibold text-highlighted mb-2">Legal</p>
+            <div class="space-y-1 text-muted">
+              <NuxtLink to="/terminos" class="block hover:text-primary">Términos</NuxtLink>
+              <NuxtLink to="/privacidad" class="block hover:text-primary">Privacidad</NuxtLink>
+              <NuxtLink to="/ingresar" class="block hover:text-primary">Iniciar sesión</NuxtLink>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <template #right>
+      <div class="text-xs text-muted">
+        © {{ new Date().getFullYear() }} Jurídica
+      </div>
+    </template>
+  </UFooter>
+</template>
