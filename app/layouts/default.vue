@@ -22,7 +22,6 @@ const items: NavigationMenuItem[] = [
     <UNavigationMenu :items="items" />
 
     <template #right>
-      <UColorModeButton />
       <UButton
         to="/ingresar"
         color="primary"
