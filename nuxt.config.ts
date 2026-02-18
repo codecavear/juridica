@@ -2,7 +2,8 @@
 export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
-    '@nuxt/ui'
+    '@nuxt/ui',
+    'nuxt-auth-utils'
   ],
 
   devtools: {
@@ -75,6 +76,16 @@ export default defineNuxtConfig({
     // Server-only
     anthropicApiKey: process.env.ANTHROPIC_API_KEY,
     openaiApiKey: process.env.OPENAI_API_KEY,
+    oauth: {
+      google: {
+        clientId: process.env.NUXT_OAUTH_GOOGLE_CLIENT_ID,
+        clientSecret: process.env.NUXT_OAUTH_GOOGLE_CLIENT_SECRET,
+        redirectURL: process.env.NUXT_OAUTH_GOOGLE_REDIRECT_URL
+          || (process.env.NODE_ENV === 'development'
+            ? 'http://localhost:3000/auth/google'
+            : 'https://juridica.ar/auth/google')
+      }
+    },
     // Public
     public: {
       appName: 'Jurídica'

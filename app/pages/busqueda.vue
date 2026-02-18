@@ -223,8 +223,20 @@ function extractJsonBlock(input: string): string | null {
 }
 
 function asStringArray(value: unknown): string[] {
+  if (typeof value === 'string') {
+    try {
+      const parsed = JSON.parse(value)
+      if (Array.isArray(parsed)) return parsed.map(v => String(v).trim()).filter(Boolean)
+    } catch { /* not a JSON string */ }
+    return value.trim() ? [value.trim()] : []
+  }
   if (!Array.isArray(value)) return []
   return value.map(v => String(v).trim()).filter(Boolean)
+}
+
+function looksLikeJson(str: string): boolean {
+  const trimmed = str.trim()
+  return (trimmed.startsWith('{') || trimmed.includes('"title"') || trimmed.includes('"summary"'))
 }
 
 function normalizeSummaryPayload(raw: ReportSummary | null): ReportSummary {
@@ -232,7 +244,7 @@ function normalizeSummaryPayload(raw: ReportSummary | null): ReportSummary {
 
   // Safety net: if `summary` looks like a JSON string, try to parse it
   // This handles cases where the server fallback stored raw AI output as summary
-  if (typeof raw.summary === 'string') {
+  if (typeof raw.summary === 'string' && looksLikeJson(raw.summary)) {
     const candidate = extractJsonBlock(raw.summary)
     if (candidate) {
       try {
@@ -246,8 +258,19 @@ function normalizeSummaryPayload(raw: ReportSummary | null): ReportSummary {
           recommendations: asStringArray(parsed.recommendations || raw.recommendations)
         }
       } catch {
-        // Fall through to normal handling
+        // JSON was malformed/truncated — strip it from display
+        // Show a clean message instead of raw JSON
       }
+    }
+
+    // summary contains raw JSON that couldn't be parsed — don't display it as-is
+    return {
+      title: raw.title || 'Reporte',
+      summary: 'No se pudo procesar el resumen correctamente. Intentá regenerar el reporte.',
+      keyFindings: asStringArray(raw.keyFindings),
+      arguments: Array.isArray(raw.arguments) ? raw.arguments : [],
+      risks: asStringArray(raw.risks),
+      recommendations: asStringArray(raw.recommendations)
     }
   }
 

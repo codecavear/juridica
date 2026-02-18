@@ -14,6 +14,7 @@ interface OpenAIResponse {
     message?: {
       content?: string
     }
+    finish_reason?: string
   }>
   usage?: {
     total_tokens?: number
@@ -106,6 +107,112 @@ async function ensureUserId(dbCtx: Awaited<ReturnType<typeof getDbContext>>, use
   return created?.id || null
 }
 
+function repairTruncatedJson(
+  raw: string,
+  query: string,
+  sourceResults: SAIJSearchResult[]
+): Record<string, unknown> {
+  let jsonStr = raw.trim()
+
+  const fenced = jsonStr.match(/```(?:json)?\s*([\s\S]*?)```/i)
+  if (fenced?.[1]) jsonStr = fenced[1].trim()
+
+  const objStart = jsonStr.indexOf('{')
+  if (objStart >= 0) jsonStr = jsonStr.slice(objStart)
+
+  // Strip trailing incomplete content back to the last complete value
+  // Then close all open brackets/braces
+  function tryBalancedRepair(str: string): Record<string, unknown> | null {
+    // Trim back to the last cleanly closed value boundary
+    const cutpoints = [
+      str.lastIndexOf(',"'),
+      str.lastIndexOf(', "'),
+      str.lastIndexOf('",'),
+      str.lastIndexOf('"},'),
+      str.lastIndexOf('}],'),
+      str.lastIndexOf('"],'),
+      str.lastIndexOf('}]'),
+    ]
+
+    const candidates = [
+      str,
+      ...cutpoints.filter(i => i > 0).sort((a, b) => b - a).map(i => str.slice(0, i))
+    ]
+
+    for (const base of candidates) {
+      // Close any open string (count unescaped quotes)
+      let unescaped = 0
+      for (let i = 0; i < base.length; i++) {
+        if (base[i] === '"' && (i === 0 || base[i - 1] !== '\\')) unescaped++
+      }
+      let closed = unescaped % 2 !== 0 ? base + '"' : base
+
+      // Remove trailing colon or comma that would be invalid
+      closed = closed.replace(/[,:]\s*$/, '')
+
+      // Balance brackets and braces
+      const openBrackets = (closed.match(/\[/g) || []).length - (closed.match(/\]/g) || []).length
+      const openBraces = (closed.match(/\{/g) || []).length - (closed.match(/\}/g) || []).length
+
+      for (let i = 0; i < openBrackets; i++) closed += ']'
+      for (let i = 0; i < openBraces; i++) closed += '}'
+
+      try {
+        return JSON.parse(closed) as Record<string, unknown>
+      } catch {
+        // Try next cutpoint
+      }
+    }
+    return null
+  }
+
+  const repaired = tryBalancedRepair(jsonStr)
+  if (repaired) {
+    console.info('[Reports] Repaired truncated JSON successfully')
+    return repaired
+  }
+
+  // Last resort: extract completed fields with regex
+  const extractField = (field: string): string | null => {
+    const match = raw.match(new RegExp(`"${field}"\\s*:\\s*"((?:[^"\\\\]|\\\\.)*)"`, 's'))
+    return match?.[1] || null
+  }
+
+  const extractArray = (field: string): string[] => {
+    const match = raw.match(new RegExp(`"${field}"\\s*:\\s*\\[(.*?)\\]`, 's'))
+    if (!match?.[1]) return []
+    const items: string[] = []
+    const itemRegex = /"((?:[^"\\]|\\.)*)"/g
+    let m
+    while ((m = itemRegex.exec(match[1])) !== null) {
+      items.push(m[1])
+    }
+    return items
+  }
+
+  console.warn('[Reports] JSON repair failed, extracting fields with regex')
+
+  return {
+    title: extractField('title') || `Reporte: ${query}`,
+    summary: extractField('summary') || 'No se pudo procesar el resumen completo.',
+    keyFindings: extractArray('keyFindings'),
+    arguments: [],
+    risks: extractArray('risks').length
+      ? extractArray('risks')
+      : ['La respuesta IA fue truncada o malformada.'],
+    recommendations: extractArray('recommendations').length
+      ? extractArray('recommendations')
+      : ['Regenerar reporte con los mismos documentos.'],
+    citations: sourceResults.slice(0, 8).map((r) => ({
+      id: r.uuid,
+      titulo: r.titulo || r.caratula || r.uuid,
+      url: r.url || '',
+      extracto: (r.texto || '').slice(0, 280)
+    })),
+    disclaimer: 'Este reporte es informativo y no reemplaza asesoramiento legal profesional.'
+  }
+}
+
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig(event)
   const body = await readBody<GenerateReportBody>(event)
@@ -167,7 +274,7 @@ export default defineEventHandler(async (event) => {
     body: JSON.stringify({
       model: 'gpt-4.1-mini',
       temperature: 0.2,
-      max_tokens: 900,
+      max_tokens: 2500,
       messages: [
         {
           role: 'system',
@@ -192,12 +299,17 @@ export default defineEventHandler(async (event) => {
 
   const aiData = await aiResponse.json() as OpenAIResponse
   const rawContent = aiData?.choices?.[0]?.message?.content
+  const finishReason = aiData?.choices?.[0]?.finish_reason
 
   if (!rawContent) {
     throw createError({
       statusCode: 502,
       message: 'OpenAI returned empty content'
     })
+  }
+
+  if (finishReason === 'length') {
+    console.warn('[Reports] OpenAI response was truncated (finish_reason=length)')
   }
 
   let parsed: Record<string, unknown>
@@ -215,22 +327,8 @@ export default defineEventHandler(async (event) => {
 
     parsed = JSON.parse(jsonContent)
   } catch {
-    // Fallback: still return usable payload with strict citations from source
-    parsed = {
-      title: `Reporte: ${query}`,
-      summary: rawContent,
-      keyFindings: [],
-      arguments: [],
-      risks: ['La respuesta IA no vino en JSON válido. Revisar prompt/parseo.'],
-      recommendations: ['Regenerar reporte con los mismos documentos.'],
-      citations: sourceResults.slice(0, 8).map((r) => ({
-        id: r.uuid,
-        titulo: r.titulo || r.caratula || r.uuid,
-        url: r.url || '',
-        extracto: (r.texto || '').slice(0, 280)
-      })),
-      disclaimer: 'Este reporte es informativo y no reemplaza asesoramiento legal profesional.'
-    }
+    // Try to repair truncated JSON before giving up
+    parsed = repairTruncatedJson(rawContent, query, sourceResults)
   }
 
   const citations = Array.isArray(parsed.citations)

@@ -5,6 +5,9 @@ export const users = pgTable('users', {
   id: uuid('id').primaryKey().defaultRandom(),
   email: text('email').notNull().unique(),
   name: text('name'),
+  avatar: text('avatar'),
+  provider: text('provider').default('magic-link').notNull(), // magic-link, google
+  providerId: text('provider_id'), // Google sub ID
   plan: text('plan').default('free').notNull(), // free, basico, pro, estudio
   searchesUsedToday: integer('searches_used_today').default(0).notNull(),
   reportsUsedThisMonth: integer('reports_used_this_month').default(0).notNull(),
