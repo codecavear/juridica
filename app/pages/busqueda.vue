@@ -18,8 +18,8 @@
 
       <div class="grid lg:grid-cols-5 gap-6">
         <!-- AI Summary -->
-        <div class="lg:col-span-2">
-          <UCard class="lg:sticky lg:top-24">
+        <div class="lg:col-span-2 min-h-0">
+          <UCard class="lg:sticky lg:top-24" :ui="{ body: 'max-h-[68vh] overflow-y-auto pr-1' }">
             <template #header>
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
@@ -43,22 +43,27 @@
             </div>
 
             <div v-else-if="summary" class="space-y-4 text-sm">
-              <div>
-                <p class="font-medium text-highlighted mb-1">Resumen</p>
-                <p class="text-toned">{{ summary.summary }}</p>
+              <div v-if="summaryView.title">
+                <p class="font-medium text-highlighted mb-1">Título</p>
+                <p class="text-toned">{{ summaryView.title }}</p>
               </div>
 
-              <div v-if="summary.keyFindings?.length">
+              <div>
+                <p class="font-medium text-highlighted mb-1">Resumen</p>
+                <p class="text-toned whitespace-pre-line">{{ summaryView.summary || 'Sin resumen disponible' }}</p>
+              </div>
+
+              <div v-if="summaryView.keyFindings?.length">
                 <p class="font-medium text-highlighted mb-1">Hallazgos clave</p>
                 <ul class="list-disc ml-5 text-toned space-y-1">
-                  <li v-for="(item, idx) in summary.keyFindings" :key="`k-${idx}`">{{ item }}</li>
+                  <li v-for="(item, idx) in summaryView.keyFindings" :key="`k-${idx}`">{{ item }}</li>
                 </ul>
               </div>
 
-              <div v-if="summary.risks?.length">
+              <div v-if="summaryView.risks?.length">
                 <p class="font-medium text-highlighted mb-1">Riesgos</p>
                 <ul class="list-disc ml-5 text-toned space-y-1">
-                  <li v-for="(item, idx) in summary.risks" :key="`r-${idx}`">{{ item }}</li>
+                  <li v-for="(item, idx) in summaryView.risks" :key="`r-${idx}`">{{ item }}</li>
                 </ul>
               </div>
             </div>
@@ -164,6 +169,7 @@ interface SearchResultCard {
 }
 
 interface ReportSummary {
+  title?: string
   summary?: string
   keyFindings?: string[]
   risks?: string[]
@@ -179,6 +185,65 @@ const resultsLoading = ref(true)
 const summaryLoading = ref(true)
 const summaryError = ref('')
 const toast = useToast()
+
+function extractJsonBlock(input: string): string | null {
+  const fenced = input.match(/```json\s*([\s\S]*?)```/i)
+  if (fenced?.[1]) return fenced[1].trim()
+
+  const start = input.indexOf('{')
+  const end = input.lastIndexOf('}')
+  if (start >= 0 && end > start) return input.slice(start, end + 1)
+
+  return null
+}
+
+function asStringArray(value: unknown): string[] {
+  if (!Array.isArray(value)) return []
+  return value.map(v => String(v).trim()).filter(Boolean)
+}
+
+function normalizeSummaryPayload(raw: ReportSummary | null): ReportSummary {
+  if (!raw) return {}
+
+  // Caso ideal: ya viene estructurado
+  if (Array.isArray(raw.keyFindings) || Array.isArray(raw.risks) || raw.title) {
+    return {
+      title: raw.title,
+      summary: raw.summary,
+      keyFindings: asStringArray(raw.keyFindings),
+      risks: asStringArray(raw.risks)
+    }
+  }
+
+  const candidate = typeof raw.summary === 'string' ? extractJsonBlock(raw.summary) : null
+  if (!candidate) {
+    return {
+      title: raw.title,
+      summary: raw.summary,
+      keyFindings: asStringArray(raw.keyFindings),
+      risks: asStringArray(raw.risks)
+    }
+  }
+
+  try {
+    const parsed = JSON.parse(candidate) as Record<string, unknown>
+    return {
+      title: typeof parsed.title === 'string' ? parsed.title : raw.title,
+      summary: typeof parsed.summary === 'string' ? parsed.summary : raw.summary,
+      keyFindings: asStringArray(parsed.keyFindings),
+      risks: asStringArray(parsed.risks)
+    }
+  } catch {
+    return {
+      title: raw.title,
+      summary: raw.summary,
+      keyFindings: asStringArray(raw.keyFindings),
+      risks: asStringArray(raw.risks)
+    }
+  }
+}
+
+const summaryView = computed<ReportSummary>(() => normalizeSummaryPayload(summary.value))
 
 function calcImportance(r: ApiSearchResult, q: string) {
   let score = 50
@@ -273,7 +338,7 @@ function buildPlainText() {
     `Fecha: ${new Date().toLocaleString('es-AR')}`,
     '',
     '=== AI SUMMARY ===',
-    summary.value?.summary || 'Sin resumen disponible',
+    summaryView.value.summary || 'Sin resumen disponible',
     '',
     '=== FUENTES ==='
   ]
@@ -300,7 +365,7 @@ function exportAsMarkdown() {
   md += `- **Búsqueda:** ${queryText.value}\n`
   md += `- **Tipo:** ${tipo.value}\n`
   md += `- **Fecha:** ${new Date().toLocaleString('es-AR')}\n\n`
-  md += `## AI Summary\n\n${summary.value?.summary || 'Sin resumen disponible'}\n\n`
+  md += `## Resumen IA\n\n${summaryView.value.summary || 'Sin resumen disponible'}\n\n`
   md += `## Fuentes\n\n`
 
   sortedResults.value.forEach((r, idx) => {
