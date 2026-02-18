@@ -14,12 +14,12 @@
             Potenciado por IA
           </UBadge>
           
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-highlighted mb-6 tracking-tight">
             Jurisprudencia argentina
             <span class="block text-[#74acdf]">con citas verificables</span>
           </h1>
           
-          <p class="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-10">
+          <p class="text-lg sm:text-xl text-muted max-w-2xl mx-auto mb-10">
             Buscá fallos, leyes y doctrina en SAIJ, CSJN, JUBA y JUSCABA desde un solo lugar.
             Cada resultado con link directo a la fuente oficial.
           </p>
@@ -67,7 +67,7 @@
             </div>
           </div>
           
-          <p class="text-center text-sm text-gray-600 mt-4">
+          <p class="text-center text-sm text-muted mt-4">
             <UIcon name="i-lucide-shield-check" class="text-green-500 mr-1" />
             Sin alucinaciones. Sin citas falsas. Solo fuentes oficiales.
           </p>
@@ -79,8 +79,8 @@
     <section id="como-usar" v-if="!hasSearched" class="py-12 bg-white border-y border-slate-100">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-8">
-          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Cómo usar Jurídica</h2>
-          <p class="text-gray-600">En 3 pasos: buscás, validás fuente, y usás el resultado en tu escrito</p>
+          <h2 class="text-2xl sm:text-3xl font-bold text-highlighted mb-2">Cómo usar Jurídica</h2>
+          <p class="text-muted">En 3 pasos: buscás, validás fuente, y usás el resultado en tu escrito</p>
         </div>
 
         <div class="grid md:grid-cols-3 gap-4">
@@ -88,8 +88,8 @@
             <div class="flex items-start gap-3">
               <UBadge color="primary" variant="soft">1</UBadge>
               <div>
-                <p class="font-semibold text-gray-900">Escribí tu consulta</p>
-                <p class="text-sm text-gray-600 mt-1">Ej: “despido por abandono de trabajo” o “amparo de salud urgente”.</p>
+                <p class="font-semibold text-highlighted">Escribí tu consulta</p>
+                <p class="text-sm text-muted mt-1">Ej: “despido por abandono de trabajo” o “amparo de salud urgente”.</p>
               </div>
             </div>
           </UCard>
@@ -97,8 +97,8 @@
             <div class="flex items-start gap-3">
               <UBadge color="primary" variant="soft">2</UBadge>
               <div>
-                <p class="font-semibold text-gray-900">Filtrá por tipo</p>
-                <p class="text-sm text-gray-600 mt-1">Elegí jurisprudencia, legislación o doctrina para acotar resultados.</p>
+                <p class="font-semibold text-highlighted">Filtrá por tipo</p>
+                <p class="text-sm text-muted mt-1">Elegí jurisprudencia, legislación o doctrina para acotar resultados.</p>
               </div>
             </div>
           </UCard>
@@ -106,8 +106,8 @@
             <div class="flex items-start gap-3">
               <UBadge color="primary" variant="soft">3</UBadge>
               <div>
-                <p class="font-semibold text-gray-900">Abrí la fuente oficial</p>
-                <p class="text-sm text-gray-600 mt-1">Cada resultado tiene link verificable para citar con respaldo real.</p>
+                <p class="font-semibold text-highlighted">Abrí la fuente oficial</p>
+                <p class="text-sm text-muted mt-1">Cada resultado tiene link verificable para citar con respaldo real.</p>
               </div>
             </div>
           </UCard>
@@ -119,9 +119,9 @@
     <section v-if="results.length > 0 || hasSearched" class="py-16 bg-white">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between mb-8">
-          <h2 class="text-2xl font-bold text-gray-900">
+          <h2 class="text-2xl font-bold text-highlighted">
             {{ results.length }} resultados
-            <span class="text-gray-600 font-normal">para "{{ lastQuery }}"</span>
+            <span class="text-muted font-normal">para "{{ lastQuery }}"</span>
           </h2>
           <UButton variant="ghost" color="neutral" size="sm" @click="clearSearch">
             <UIcon name="i-lucide-x" class="mr-1" />
@@ -131,10 +131,10 @@
 
         <div v-if="results.length === 0 && hasSearched" class="text-center py-16">
           <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <UIcon name="i-lucide-search-x" class="text-3xl text-gray-500" />
+            <UIcon name="i-lucide-search-x" class="text-3xl text-dimmed" />
           </div>
-          <p class="text-gray-600 text-lg">No se encontraron resultados para "{{ lastQuery }}"</p>
-          <p class="text-gray-600 text-sm mt-2">Probá con otros términos o cambiá el filtro</p>
+          <p class="text-muted text-lg">No se encontraron resultados para "{{ lastQuery }}"</p>
+          <p class="text-muted text-sm mt-2">Probá con otros términos o cambiá el filtro</p>
         </div>
 
         <div v-else class="space-y-4">
@@ -155,19 +155,19 @@
                   <UBadge :color="getColorForTipo(result.tipo)" variant="subtle" size="sm">
                     {{ result.tipo }}
                   </UBadge>
-                  <span v-if="result.fecha" class="text-xs text-gray-600">
+                  <span v-if="result.fecha" class="text-xs text-muted">
                     {{ formatDate(result.fecha) }}
                   </span>
                 </div>
-                <h3 class="font-semibold text-lg text-gray-900 leading-tight mb-2">
+                <h3 class="font-semibold text-lg text-highlighted leading-tight mb-2">
                   {{ result.titulo }}
                 </h3>
-                <p v-if="result.tribunal" class="text-sm text-gray-600 mb-2">
+                <p v-if="result.tribunal" class="text-sm text-muted mb-2">
                   <UIcon name="i-lucide-building-2" class="mr-1" />
                   {{ result.tribunal }}
-                  <span v-if="result.jurisdiccion" class="text-gray-500"> · {{ result.jurisdiccion }}</span>
+                  <span v-if="result.jurisdiccion" class="text-dimmed"> · {{ result.jurisdiccion }}</span>
                 </p>
-                <p v-if="result.sumario" class="text-sm text-gray-600 line-clamp-2">
+                <p v-if="result.sumario" class="text-sm text-muted line-clamp-2">
                   {{ result.sumario }}
                 </p>
                 <div class="flex gap-2 mt-4">
@@ -205,10 +205,10 @@
     <section id="fuentes" v-if="!hasSearched" class="py-16 bg-slate-50 border-y border-slate-200/70">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-10">
-          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
+          <h2 class="text-2xl sm:text-3xl font-bold text-highlighted mb-3">
             Fuentes jurídicas disponibles
           </h2>
-          <p class="text-gray-600">
+          <p class="text-muted">
             Empezá hoy con SAIJ. Estamos incorporando más proveedores oficiales.
           </p>
         </div>
@@ -281,10 +281,10 @@
     <section v-if="!hasSearched" class="py-20 bg-white">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-          <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+          <h2 class="text-3xl sm:text-4xl font-bold text-highlighted mb-4">
             ¿Por qué Jurídica?
           </h2>
-          <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p class="text-lg text-muted max-w-2xl mx-auto">
             La única plataforma que garantiza citas verificables para abogados argentinos
           </p>
         </div>
@@ -294,8 +294,8 @@
             <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-6">
               <UIcon name="i-lucide-shield-check" class="text-3xl text-green-600" />
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">Citas verificables</h3>
-            <p class="text-gray-600 leading-relaxed">
+            <h3 class="text-xl font-bold text-highlighted mb-3">Citas verificables</h3>
+            <p class="text-muted leading-relaxed">
               Cada resultado incluye link directo a la fuente oficial. 
               Nunca más sanciones del colegio por citas falsas o inventadas por ChatGPT.
             </p>
@@ -305,8 +305,8 @@
             <div class="w-14 h-14 bg-[#74acdf]/20 rounded-xl flex items-center justify-center mb-6">
               <UIcon name="i-lucide-database" class="text-3xl text-[#74acdf]" />
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">Multi-fuente</h3>
-            <p class="text-gray-600 leading-relaxed">
+            <h3 class="text-xl font-bold text-highlighted mb-3">Multi-fuente</h3>
+            <p class="text-muted leading-relaxed">
               Buscá en SAIJ, CSJN, JUBA y JUSCABA desde un solo lugar. 
               Sin perder tiempo navegando entre páginas con interfaces de los '90.
             </p>
@@ -316,8 +316,8 @@
             <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-6">
               <UIcon name="i-lucide-sparkles" class="text-3xl text-purple-600" />
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">IA que ayuda</h3>
-            <p class="text-gray-600 leading-relaxed">
+            <h3 class="text-xl font-bold text-highlighted mb-3">IA que ayuda</h3>
+            <p class="text-muted leading-relaxed">
               Generá reportes de jurisprudencia con análisis de argumentos y tendencias.
               Siempre con fuentes verificables que podés citar.
             </p>
@@ -333,10 +333,10 @@
           <UBadge color="primary" variant="subtle" size="lg" class="mb-4">
             Planes
           </UBadge>
-          <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+          <h2 class="text-3xl sm:text-4xl font-bold text-highlighted mb-4">
             Elegí el plan que necesites
           </h2>
-          <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p class="text-lg text-muted max-w-2xl mx-auto">
             Desde búsquedas básicas hasta reportes ilimitados para estudios jurídicos
           </p>
         </div>
@@ -345,28 +345,28 @@
           <!-- Free Plan -->
           <div class="bg-white rounded-2xl p-6 border border-gray-200 flex flex-col">
             <div class="mb-6">
-              <h3 class="text-lg font-bold text-gray-900">Free</h3>
-              <p class="text-sm text-gray-600 mt-1">Para probar</p>
+              <h3 class="text-lg font-bold text-highlighted">Free</h3>
+              <p class="text-sm text-muted mt-1">Para probar</p>
             </div>
             <div class="mb-6">
-              <span class="text-4xl font-bold text-gray-900">$0</span>
-              <span class="text-gray-600">/mes</span>
+              <span class="text-4xl font-bold text-highlighted">$0</span>
+              <span class="text-muted">/mes</span>
             </div>
             <ul class="space-y-3 mb-8 flex-1">
-              <li class="flex items-start gap-2 text-sm text-gray-600">
+              <li class="flex items-start gap-2 text-sm text-muted">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
                 3 búsquedas por día
               </li>
-              <li class="flex items-start gap-2 text-sm text-gray-600">
+              <li class="flex items-start gap-2 text-sm text-muted">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
                 Acceso a SAIJ
               </li>
-              <li class="flex items-start gap-2 text-sm text-gray-600">
+              <li class="flex items-start gap-2 text-sm text-muted">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
                 Links verificables
               </li>
             </ul>
-            <UButton block variant="outline" color="neutral" size="lg">
+            <UButton to="/busqueda?q=despido&tipo=jurisprudencia" block variant="outline" color="neutral" size="lg">
               Comenzar gratis
             </UButton>
           </div>
@@ -374,32 +374,32 @@
           <!-- Básico Plan -->
           <div class="bg-white rounded-2xl p-6 border border-gray-200 flex flex-col">
             <div class="mb-6">
-              <h3 class="text-lg font-bold text-gray-900">Básico</h3>
-              <p class="text-sm text-gray-600 mt-1">Para abogados independientes</p>
+              <h3 class="text-lg font-bold text-highlighted">Básico</h3>
+              <p class="text-sm text-muted mt-1">Para abogados independientes</p>
             </div>
             <div class="mb-6">
-              <span class="text-4xl font-bold text-gray-900">$5,990</span>
-              <span class="text-gray-600">/mes</span>
+              <span class="text-4xl font-bold text-highlighted">$5,990</span>
+              <span class="text-muted">/mes</span>
             </div>
             <ul class="space-y-3 mb-8 flex-1">
-              <li class="flex items-start gap-2 text-sm text-gray-600">
+              <li class="flex items-start gap-2 text-sm text-muted">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
                 10 búsquedas por día
               </li>
-              <li class="flex items-start gap-2 text-sm text-gray-600">
+              <li class="flex items-start gap-2 text-sm text-muted">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
                 SAIJ + CSJN
               </li>
-              <li class="flex items-start gap-2 text-sm text-gray-600">
+              <li class="flex items-start gap-2 text-sm text-muted">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
                 5 reportes IA/mes
               </li>
-              <li class="flex items-start gap-2 text-sm text-gray-600">
+              <li class="flex items-start gap-2 text-sm text-muted">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
                 Exportar a Word
               </li>
             </ul>
-            <UButton block variant="soft" color="primary" size="lg">
+            <UButton to="/login" block variant="soft" color="primary" size="lg">
               Elegir Básico
             </UButton>
           </div>
@@ -412,36 +412,36 @@
               </UBadge>
             </div>
             <div class="mb-6">
-              <h3 class="text-lg font-bold text-gray-900">Pro</h3>
-              <p class="text-sm text-gray-600 mt-1">Para profesionales activos</p>
+              <h3 class="text-lg font-bold text-highlighted">Pro</h3>
+              <p class="text-sm text-muted mt-1">Para profesionales activos</p>
             </div>
             <div class="mb-6">
-              <span class="text-4xl font-bold text-gray-900">$14,990</span>
-              <span class="text-gray-600">/mes</span>
+              <span class="text-4xl font-bold text-highlighted">$14,990</span>
+              <span class="text-muted">/mes</span>
             </div>
             <ul class="space-y-3 mb-8 flex-1">
-              <li class="flex items-start gap-2 text-sm text-gray-600">
+              <li class="flex items-start gap-2 text-sm text-muted">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
                 100 búsquedas por día
               </li>
-              <li class="flex items-start gap-2 text-sm text-gray-600">
+              <li class="flex items-start gap-2 text-sm text-muted">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
                 Todas las fuentes
               </li>
-              <li class="flex items-start gap-2 text-sm text-gray-600">
+              <li class="flex items-start gap-2 text-sm text-muted">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
                 30 reportes IA/mes
               </li>
-              <li class="flex items-start gap-2 text-sm text-gray-600">
+              <li class="flex items-start gap-2 text-sm text-muted">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
                 Alertas de jurisprudencia
               </li>
-              <li class="flex items-start gap-2 text-sm text-gray-600">
+              <li class="flex items-start gap-2 text-sm text-muted">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
                 Historial de búsquedas
               </li>
             </ul>
-            <UButton block color="primary" size="lg">
+            <UButton to="/login" block color="primary" size="lg">
               Elegir Pro
             </UButton>
           </div>
@@ -478,7 +478,7 @@
                 Soporte prioritario
               </li>
             </ul>
-            <UButton block variant="solid" class="bg-[#74acdf] hover:bg-[#5a9cd0] text-gray-900 font-semibold" size="lg">
+            <UButton to="/login" block variant="solid" class="bg-[#74acdf] hover:bg-[#5a9cd0] text-highlighted font-semibold" size="lg">
               Contactar ventas
             </UButton>
           </div>
@@ -491,33 +491,33 @@
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between gap-4 mb-6">
           <div>
-            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900">Recursos para empezar</h2>
-            <p class="text-gray-600">Guías prácticas, comparativas y demo del producto.</p>
+            <h2 class="text-2xl sm:text-3xl font-bold text-highlighted">Recursos para empezar</h2>
+            <p class="text-muted">Guías prácticas, comparativas y demo del producto.</p>
           </div>
         </div>
 
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <UCard class="hover:ring-1 hover:ring-primary/30 transition-all">
-            <p class="font-semibold text-gray-900 mb-2">Demo interactiva</p>
-            <p class="text-sm text-gray-600 mb-4">Mirá cómo se ve un resultado real con AI summary.</p>
+            <p class="font-semibold text-highlighted mb-2">Demo interactiva</p>
+            <p class="text-sm text-muted mb-4">Mirá cómo se ve un resultado real con AI summary.</p>
             <UButton to="/demo" size="sm" variant="soft" color="primary">Ver demo</UButton>
           </UCard>
 
           <UCard class="hover:ring-1 hover:ring-primary/30 transition-all">
-            <p class="font-semibold text-gray-900 mb-2">Mejor buscador 2026</p>
-            <p class="text-sm text-gray-600 mb-4">Comparativa para elegir herramienta jurídica en Argentina.</p>
+            <p class="font-semibold text-highlighted mb-2">Mejor buscador 2026</p>
+            <p class="text-sm text-muted mb-4">Comparativa para elegir herramienta jurídica en Argentina.</p>
             <UButton to="/mejor-buscador-jurisprudencia-argentina" size="sm" variant="soft" color="primary">Leer guía</UButton>
           </UCard>
 
           <UCard class="hover:ring-1 hover:ring-primary/30 transition-all">
-            <p class="font-semibold text-gray-900 mb-2">Citas verificables</p>
-            <p class="text-sm text-gray-600 mb-4">Cómo evitar citas inventadas y reducir riesgo profesional.</p>
+            <p class="font-semibold text-highlighted mb-2">Citas verificables</p>
+            <p class="text-sm text-muted mb-4">Cómo evitar citas inventadas y reducir riesgo profesional.</p>
             <UButton to="/mejor-herramienta-citas-legales-verificables" size="sm" variant="soft" color="primary">Leer guía</UButton>
           </UCard>
 
           <UCard class="hover:ring-1 hover:ring-primary/30 transition-all">
-            <p class="font-semibold text-gray-900 mb-2">Guía CSJN</p>
-            <p class="text-sm text-gray-600 mb-4">Paso a paso para buscar fallos de la Corte Suprema.</p>
+            <p class="font-semibold text-highlighted mb-2">Guía CSJN</p>
+            <p class="text-sm text-muted mb-4">Paso a paso para buscar fallos de la Corte Suprema.</p>
             <UButton to="/como-buscar-fallos-csjn" size="sm" variant="soft" color="primary">Ver paso a paso</UButton>
           </UCard>
         </div>
@@ -535,11 +535,11 @@
           Sin tarjeta de crédito para la prueba gratis.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <UButton size="xl" color="white" variant="solid" class="text-blue-600 font-semibold">
+          <UButton to="/busqueda?q=despido&tipo=jurisprudencia" size="xl" color="white" variant="solid" class="text-blue-600 font-semibold">
             <UIcon name="i-lucide-rocket" class="mr-2" />
             Comenzar gratis
           </UButton>
-          <UButton size="xl" variant="outline" class="border-white text-white hover:bg-white/10">
+          <UButton to="/demo" size="xl" variant="outline" class="border-white text-white hover:bg-white/10">
             <UIcon name="i-lucide-play" class="mr-2" />
             Ver demo
           </UButton>
