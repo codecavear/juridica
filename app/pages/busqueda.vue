@@ -9,7 +9,9 @@
           </p>
         </div>
         <div class="flex items-center gap-2">
-          <UButton variant="outline" color="neutral" icon="i-lucide-save" @click="saveSearch">Guardar</UButton>
+          <UDropdownMenu :items="saveItems">
+            <UButton variant="outline" color="neutral" icon="i-lucide-save">Guardar</UButton>
+          </UDropdownMenu>
           <UButton to="/" color="primary" variant="soft" icon="i-lucide-search">Hacer nueva búsqueda</UButton>
         </div>
       </div>
@@ -251,6 +253,92 @@ function saveSearch() {
     toast.add({ title: 'No se pudo guardar', color: 'warning', icon: 'i-lucide-alert-circle' })
   }
 }
+
+function downloadFile(filename: string, content: string, mime = 'text/plain;charset=utf-8') {
+  const blob = new Blob([content], { type: mime })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename
+  document.body.appendChild(a)
+  a.click()
+  a.remove()
+  URL.revokeObjectURL(url)
+}
+
+function buildPlainText() {
+  const lines = [
+    `Búsqueda: ${queryText.value}`,
+    `Tipo: ${tipo.value}`,
+    `Fecha: ${new Date().toLocaleString('es-AR')}`,
+    '',
+    '=== AI SUMMARY ===',
+    summary.value?.summary || 'Sin resumen disponible',
+    '',
+    '=== FUENTES ==='
+  ]
+
+  for (const [idx, r] of sortedResults.value.entries()) {
+    lines.push(`${idx + 1}. ${r.titulo}`)
+    lines.push(`   Tipo: ${r.tipo} | Importancia: ${r.importance}`)
+    if (r.tribunal) lines.push(`   Tribunal: ${r.tribunal}`)
+    if (r.fecha) lines.push(`   Fecha: ${r.fecha}`)
+    if (r.url && r.url !== '#') lines.push(`   Fuente: ${r.url}`)
+    if (r.sumario) lines.push(`   Extracto: ${r.sumario}`)
+    lines.push('')
+  }
+
+  return lines.join('\n')
+}
+
+function exportAsText() {
+  downloadFile(`juridica-${Date.now()}.txt`, buildPlainText())
+}
+
+function exportAsMarkdown() {
+  let md = `# Resultado de búsqueda Jurídica\n\n`
+  md += `- **Búsqueda:** ${queryText.value}\n`
+  md += `- **Tipo:** ${tipo.value}\n`
+  md += `- **Fecha:** ${new Date().toLocaleString('es-AR')}\n\n`
+  md += `## AI Summary\n\n${summary.value?.summary || 'Sin resumen disponible'}\n\n`
+  md += `## Fuentes\n\n`
+
+  sortedResults.value.forEach((r, idx) => {
+    md += `### ${idx + 1}. ${r.titulo}\n`
+    md += `- Tipo: ${r.tipo}\n- Importancia: ${r.importance}\n`
+    if (r.tribunal) md += `- Tribunal: ${r.tribunal}\n`
+    if (r.fecha) md += `- Fecha: ${r.fecha}\n`
+    if (r.url && r.url !== '#') md += `- Fuente: ${r.url}\n`
+    if (r.sumario) md += `\n${r.sumario}\n`
+    md += `\n`
+  })
+
+  downloadFile(`juridica-${Date.now()}.md`, md, 'text/markdown;charset=utf-8')
+}
+
+function exportAsDoc() {
+  const html = `<!doctype html><html><head><meta charset="utf-8"><title>Reporte Jurídica</title></head><body><pre>${buildPlainText().replace(/</g, '&lt;')}</pre></body></html>`
+  downloadFile(`juridica-${Date.now()}.doc`, html, 'application/msword')
+}
+
+function exportAsJson() {
+  const payload = {
+    query: queryText.value,
+    tipo: tipo.value,
+    generatedAt: new Date().toISOString(),
+    summary: summary.value,
+    results: sortedResults.value
+  }
+  downloadFile(`juridica-${Date.now()}.json`, JSON.stringify(payload, null, 2), 'application/json;charset=utf-8')
+}
+
+const saveItems = [[
+  { label: 'Guardar búsqueda', icon: 'i-lucide-bookmark-plus', onSelect: saveSearch },
+  { label: 'Descargar TXT', icon: 'i-lucide-file-text', onSelect: exportAsText },
+  { label: 'Descargar Markdown', icon: 'i-lucide-file-code', onSelect: exportAsMarkdown },
+  { label: 'Descargar DOC', icon: 'i-lucide-file', onSelect: exportAsDoc },
+  { label: 'Descargar JSON', icon: 'i-lucide-braces', onSelect: exportAsJson }
+]]
 
 async function loadSearch() {
   resultsLoading.value = true
