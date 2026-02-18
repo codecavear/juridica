@@ -21,13 +21,13 @@ interface OpenAIResponse {
 }
 
 function buildPrompt(query: string, docs: SAIJSearchResult[]) {
-  const compactDocs = docs.slice(0, 8).map((d, i) => ({
+  const compactDocs = docs.slice(0, 5).map((d, i) => ({
     id: d.uuid,
     titulo: d.titulo || d.caratula || `Documento ${i + 1}`,
     fecha: d.fecha || null,
     tribunal: d.tribunal || null,
     jurisdiccion: d.jurisdiccion || null,
-    extracto: (d.texto || '').slice(0, 800),
+    extracto: (d.texto || '').slice(0, 350),
     url: d.url || null
   }))
 
@@ -167,6 +167,7 @@ export default defineEventHandler(async (event) => {
     body: JSON.stringify({
       model: 'gpt-4.1-mini',
       temperature: 0.2,
+      max_tokens: 900,
       messages: [
         {
           role: 'system',
