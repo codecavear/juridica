@@ -15,8 +15,8 @@
           </UBadge>
           
           <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-highlighted mb-6 tracking-tight">
-            Jurisprudencia argentina
-            <span class="block text-[#74acdf]">con citas verificables</span>
+            Jurisprudencia argentina en minutos
+            <span class="block text-[#74acdf]">con fuentes verificables</span>
           </h1>
           
           <p class="text-lg sm:text-xl text-muted max-w-2xl mx-auto mb-10">
@@ -70,7 +70,7 @@
           
           <p class="text-center text-sm text-muted mt-4">
             <UIcon name="i-lucide-shield-check" class="text-green-500 mr-1" />
-            SAIJ activo hoy. Siempre con enlace verificable a fuente oficial.
+            Gratis para empezar · Sin tarjeta · Enlace verificable a fuente oficial
           </p>
         </div>
       </div>
@@ -81,7 +81,7 @@
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-8">
           <h2 class="text-2xl sm:text-3xl font-bold text-highlighted mb-2">Cómo usar Jurídica</h2>
-          <p class="text-muted">En 3 pasos: consultás, validás la fuente y armás mejor tu escrito</p>
+          <p class="text-muted">En 3 pasos: escribís, Jurídica ordena, validás y usás en tu escrito</p>
         </div>
 
         <div class="grid md:grid-cols-3 gap-4">
@@ -90,7 +90,7 @@
               <UBadge color="primary" variant="soft">1</UBadge>
               <div>
                 <p class="font-semibold text-highlighted">Escribí tu consulta</p>
-                <p class="text-sm text-muted mt-1">Ej: “despido por abandono de trabajo” o “amparo de salud urgente”.</p>
+                <p class="text-sm text-muted mt-1">En lenguaje natural, como trabajás todos los días.</p>
               </div>
             </div>
           </UCard>
@@ -98,8 +98,8 @@
             <div class="flex items-start gap-3">
               <UBadge color="primary" variant="soft">2</UBadge>
               <div>
-                <p class="font-semibold text-highlighted">Filtrá por tipo</p>
-                <p class="text-sm text-muted mt-1">Filtrá por tipo y priorizá lo más relevante para tu caso.</p>
+                <p class="font-semibold text-highlighted">Jurídica busca y ordena</p>
+                <p class="text-sm text-muted mt-1">Prioriza resultados relevantes y muestra fuente oficial verificable.</p>
               </div>
             </div>
           </UCard>
@@ -107,8 +107,8 @@
             <div class="flex items-start gap-3">
               <UBadge color="primary" variant="soft">3</UBadge>
               <div>
-                <p class="font-semibold text-highlighted">Abrí la fuente oficial</p>
-                <p class="text-sm text-muted mt-1">Cada resultado tiene link verificable para citar con respaldo real.</p>
+                <p class="font-semibold text-highlighted">Validá y usá en tu escrito</p>
+                <p class="text-sm text-muted mt-1">Con respaldo documental real y menos fricción operativa.</p>
               </div>
             </div>
           </UCard>
@@ -533,6 +533,17 @@
       </div>
     </section>
 
+    <!-- FAQ legal-trust -->
+    <section v-if="!hasSearched" class="py-16 bg-slate-50 border-y border-slate-100">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-8">
+          <h2 class="text-2xl sm:text-3xl font-bold text-highlighted mb-2">Preguntas frecuentes</h2>
+          <p class="text-muted">Precisión, citabilidad y privacidad en investigación jurídica.</p>
+        </div>
+        <UAccordion :items="homeFaqItems" />
+      </div>
+    </section>
+
     <!-- CTA Section -->
     <section v-if="!hasSearched" class="py-20 bg-gradient-to-r from-blue-600 to-[#74acdf]">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -552,6 +563,7 @@
             Ver demo
           </UButton>
         </div>
+        <p class="text-white/80 text-sm mt-5">¿Preferís mensajería? WhatsApp y Telegram en roadmap cercano.</p>
       </div>
     </section>
 
@@ -616,6 +628,25 @@ const tiposDocumento = [
   { value: 'legislacion', label: 'Legislación', icon: 'i-lucide-scroll', enabled: false },
   { value: 'doctrina', label: 'Doctrina', icon: 'i-lucide-book-open', enabled: false },
   { value: 'todo', label: 'Todo', icon: 'i-lucide-layers', enabled: false }
+]
+
+const homeFaqItems = [
+  {
+    label: '¿Puedo citar directamente lo que devuelve Jurídica?',
+    content: 'Usalo como base de investigación y validá siempre la fuente oficial enlazada antes de citar en un escrito.'
+  },
+  {
+    label: '¿Jurídica inventa fallos o citas?',
+    content: 'No. Jurídica prioriza resultados con referencia verificable a fuente oficial.'
+  },
+  {
+    label: '¿Qué pasa con la privacidad de mis búsquedas?',
+    content: 'Tus consultas no se publican y se procesan para entregar resultados y mejorar la experiencia de uso.'
+  },
+  {
+    label: '¿Necesito tarjeta para probar?',
+    content: 'No. Podés empezar gratis.'
+  }
 ]
 
 async function search() {
