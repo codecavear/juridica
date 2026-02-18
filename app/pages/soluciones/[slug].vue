@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-slate-50">
+  <div class="min-h-screen bg-default">
     <!-- Hero Section -->
     <section class="relative bg-gradient-to-b from-white to-slate-50 py-16 lg:py-24">
       <div class="absolute inset-0 overflow-hidden">
@@ -13,11 +13,11 @@
           Solución especializada
         </UBadge>
 
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 tracking-tight leading-tight">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-highlighted mb-6 tracking-tight leading-tight">
           {{ page.heroTitle }}
         </h1>
 
-        <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto mb-10">
+        <p class="text-lg sm:text-xl text-muted max-w-3xl mx-auto mb-10">
           {{ page.heroSubtitle }}
         </p>
 
@@ -37,7 +37,7 @@
     <section class="py-16 bg-white">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+          <h2 class="text-2xl sm:text-3xl font-bold text-highlighted mb-4">
             Beneficios clave
           </h2>
         </div>
@@ -46,23 +46,23 @@
           <div
             v-for="benefit in page.benefits"
             :key="benefit.title"
-            class="bg-slate-50 rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-shadow"
+            class="bg-default rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-shadow"
           >
             <div class="w-14 h-14 bg-[#74acdf]/20 rounded-xl flex items-center justify-center mb-5">
               <UIcon :name="benefit.icon" class="text-3xl text-[#74acdf]" />
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">{{ benefit.title }}</h3>
-            <p class="text-gray-600 leading-relaxed">{{ benefit.description }}</p>
+            <h3 class="text-xl font-bold text-highlighted mb-3">{{ benefit.title }}</h3>
+            <p class="text-muted leading-relaxed">{{ benefit.description }}</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Pricing Section -->
-    <section class="py-16 bg-slate-50">
+    <section class="py-16 bg-default">
       <div class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-10">
-          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+          <h2 class="text-2xl sm:text-3xl font-bold text-highlighted mb-4">
             Plan recomendado para vos
           </h2>
         </div>
@@ -75,19 +75,19 @@
             <UBadge v-if="page.pricing.highlighted" color="primary" variant="solid" size="md" class="mb-4">
               Recomendado
             </UBadge>
-            <h3 class="text-2xl font-bold text-gray-900">{{ page.pricing.plan }}</h3>
+            <h3 class="text-2xl font-bold text-highlighted">{{ page.pricing.plan }}</h3>
           </div>
 
           <div class="text-center mb-8">
-            <span class="text-5xl font-bold text-gray-900">{{ page.pricing.price }}</span>
-            <span class="text-gray-600">/mes</span>
+            <span class="text-5xl font-bold text-highlighted">{{ page.pricing.price }}</span>
+            <span class="text-muted">/mes</span>
           </div>
 
           <ul class="space-y-4 mb-8">
             <li
               v-for="feature in page.pricing.features"
               :key="feature"
-              class="flex items-center gap-3 text-gray-600"
+              class="flex items-center gap-3 text-muted"
             >
               <UIcon name="i-lucide-check" class="text-green-500 shrink-0" />
               {{ feature }}
@@ -105,7 +105,7 @@
     <section class="py-16 bg-white">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+          <h2 class="text-2xl sm:text-3xl font-bold text-highlighted mb-4">
             Preguntas frecuentes
           </h2>
         </div>

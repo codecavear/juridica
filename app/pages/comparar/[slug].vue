@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-slate-50">
+  <div class="min-h-screen bg-default">
     <!-- Hero Section -->
     <section class="relative bg-gradient-to-b from-white to-slate-50 py-16 lg:py-24">
       <div class="absolute inset-0 overflow-hidden">
@@ -13,11 +13,11 @@
           Comparación
         </UBadge>
 
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-highlighted mb-6 tracking-tight">
           {{ page.heroTitle }}
         </h1>
 
-        <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+        <p class="text-lg sm:text-xl text-muted max-w-3xl mx-auto">
           {{ page.heroSubtitle }}
         </p>
       </div>
@@ -27,12 +27,12 @@
     <section class="py-16 bg-white">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+          <h2 class="text-2xl sm:text-3xl font-bold text-highlighted mb-4">
             Comparación de funcionalidades
           </h2>
         </div>
 
-        <div class="bg-slate-50 rounded-2xl overflow-hidden">
+        <div class="bg-default rounded-2xl overflow-hidden">
           <!-- Header -->
           <div class="grid grid-cols-3 bg-gray-900 text-white">
             <div class="p-4 font-semibold">Característica</div>
@@ -50,9 +50,9 @@
             v-for="(row, index) in page.comparison"
             :key="row.feature"
             class="grid grid-cols-3 border-b border-gray-200 last:border-b-0"
-            :class="index % 2 === 0 ? 'bg-white' : 'bg-slate-50'"
+            :class="index % 2 === 0 ? 'bg-white' : 'bg-default'"
           >
-            <div class="p-4 text-gray-700 font-medium">{{ row.feature }}</div>
+            <div class="p-4 text-toned font-medium">{{ row.feature }}</div>
             <div class="p-4 text-center">
               <span v-if="row.juridica === true" class="inline-flex items-center justify-center w-8 h-8 bg-green-100 rounded-full">
                 <UIcon name="i-lucide-check" class="text-green-600 text-lg" />
@@ -60,7 +60,7 @@
               <span v-else-if="row.juridica === false" class="inline-flex items-center justify-center w-8 h-8 bg-red-100 rounded-full">
                 <UIcon name="i-lucide-x" class="text-red-600 text-lg" />
               </span>
-              <span v-else class="text-sm text-gray-700 font-medium">{{ row.juridica }}</span>
+              <span v-else class="text-sm text-toned font-medium">{{ row.juridica }}</span>
             </div>
             <div class="p-4 text-center">
               <span v-if="row.competitor === true" class="inline-flex items-center justify-center w-8 h-8 bg-green-100 rounded-full">
@@ -69,7 +69,7 @@
               <span v-else-if="row.competitor === false" class="inline-flex items-center justify-center w-8 h-8 bg-red-100 rounded-full">
                 <UIcon name="i-lucide-x" class="text-red-600 text-lg" />
               </span>
-              <span v-else class="text-sm text-gray-600">{{ row.competitor }}</span>
+              <span v-else class="text-sm text-muted">{{ row.competitor }}</span>
             </div>
           </div>
         </div>
@@ -77,10 +77,10 @@
     </section>
 
     <!-- Why Jurídica Section -->
-    <section class="py-16 bg-slate-50">
+    <section class="py-16 bg-default">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+          <h2 class="text-2xl sm:text-3xl font-bold text-highlighted mb-4">
             Por qué elegir Jurídica
           </h2>
         </div>
@@ -96,8 +96,8 @@
                 <UIcon name="i-lucide-check-circle" class="text-xl text-[#74acdf]" />
               </div>
               <div>
-                <h3 class="text-lg font-bold text-gray-900 mb-2">{{ reason.title }}</h3>
-                <p class="text-gray-600 leading-relaxed">{{ reason.description }}</p>
+                <h3 class="text-lg font-bold text-highlighted mb-2">{{ reason.title }}</h3>
+                <p class="text-muted leading-relaxed">{{ reason.description }}</p>
               </div>
             </div>
           </div>

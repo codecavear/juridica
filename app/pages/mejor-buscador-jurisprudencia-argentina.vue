@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-slate-50">
+  <div class="min-h-screen bg-default">
     <!-- Hero Section -->
     <section class="relative bg-gradient-to-b from-white to-slate-50 py-16 lg:py-24">
       <div class="absolute inset-0 overflow-hidden">
@@ -13,11 +13,11 @@
           Guía completa
         </UBadge>
 
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 tracking-tight leading-tight">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-highlighted mb-6 tracking-tight leading-tight">
           {{ page.heroTitle }}
         </h1>
 
-        <p class="text-lg sm:text-xl text-gray-600">
+        <p class="text-lg sm:text-xl text-muted">
           {{ page.heroSubtitle }}
         </p>
       </div>
@@ -28,17 +28,17 @@
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <article class="prose prose-lg prose-slate max-w-none">
           <template v-for="(block, index) in page.content" :key="index">
-            <h2 v-if="block.type === 'h2'" class="text-2xl font-bold text-gray-900 mt-10 mb-4">
+            <h2 v-if="block.type === 'h2'" class="text-2xl font-bold text-highlighted mt-10 mb-4">
               {{ block.text }}
             </h2>
-            <p v-else-if="block.type === 'p'" class="text-gray-600 leading-relaxed mb-6">
+            <p v-else-if="block.type === 'p'" class="text-muted leading-relaxed mb-6">
               {{ block.text }}
             </p>
             <ul v-else-if="block.type === 'list'" class="space-y-3 mb-6">
               <li
                 v-for="item in block.items"
                 :key="item"
-                class="flex items-start gap-3 text-gray-600"
+                class="flex items-start gap-3 text-muted"
               >
                 <UIcon name="i-lucide-check-circle" class="text-[#74acdf] mt-1 shrink-0" />
                 <span>{{ item }}</span>
@@ -50,7 +50,7 @@
             >
               <div class="flex gap-3">
                 <UIcon name="i-lucide-lightbulb" class="text-[#74acdf] text-xl shrink-0" />
-                <p class="text-gray-700 font-medium">{{ block.text }}</p>
+                <p class="text-toned font-medium">{{ block.text }}</p>
               </div>
             </div>
           </template>
@@ -59,10 +59,10 @@
     </section>
 
     <!-- FAQ Section -->
-    <section class="py-16 bg-slate-50">
+    <section class="py-16 bg-default">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+          <h2 class="text-2xl sm:text-3xl font-bold text-highlighted mb-4">
             Preguntas frecuentes
           </h2>
         </div>
