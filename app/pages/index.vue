@@ -20,8 +20,8 @@
           </h1>
           
           <p class="text-lg sm:text-xl text-muted max-w-2xl mx-auto mb-10">
-            Buscá fallos, leyes y doctrina en SAIJ, CSJN, JUBA y JUSCABA desde un solo lugar.
-            Cada resultado con link directo a la fuente oficial.
+            Encontrá jurisprudencia argentina en minutos, con links verificables a fuentes oficiales.
+            Menos tiempo buscando. Más tiempo argumentando mejor.
           </p>
         </div>
 
@@ -70,7 +70,7 @@
           
           <p class="text-center text-sm text-muted mt-4">
             <UIcon name="i-lucide-shield-check" class="text-green-500 mr-1" />
-            Sin alucinaciones. Sin citas falsas. Solo fuentes oficiales.
+            SAIJ activo hoy. Siempre con enlace verificable a fuente oficial.
           </p>
         </div>
       </div>
@@ -81,7 +81,7 @@
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-8">
           <h2 class="text-2xl sm:text-3xl font-bold text-highlighted mb-2">Cómo usar Jurídica</h2>
-          <p class="text-muted">En 3 pasos: buscás, validás fuente, y usás el resultado en tu escrito</p>
+          <p class="text-muted">En 3 pasos: consultás, validás la fuente y armás mejor tu escrito</p>
         </div>
 
         <div class="grid md:grid-cols-3 gap-4">
@@ -99,7 +99,7 @@
               <UBadge color="primary" variant="soft">2</UBadge>
               <div>
                 <p class="font-semibold text-highlighted">Filtrá por tipo</p>
-                <p class="text-sm text-muted mt-1">Elegí jurisprudencia, legislación o doctrina para acotar resultados.</p>
+                <p class="text-sm text-muted mt-1">Filtrá por tipo y priorizá lo más relevante para tu caso.</p>
               </div>
             </div>
           </UCard>
@@ -210,7 +210,7 @@
             Fuentes jurídicas disponibles
           </h2>
           <p class="text-muted">
-            Empezá hoy con SAIJ. Estamos incorporando más proveedores oficiales.
+            Empezá hoy con SAIJ y sumá nuevas fuentes oficiales a medida que se habilitan.
           </p>
         </div>
 
@@ -294,7 +294,7 @@
             ¿Por qué Jurídica?
           </h2>
           <p class="text-lg text-muted max-w-2xl mx-auto">
-            La única plataforma que garantiza citas verificables para abogados argentinos
+            Diseñada para abogados y estudios que necesitan velocidad con respaldo documental
           </p>
         </div>
 
@@ -305,8 +305,8 @@
             </div>
             <h3 class="text-xl font-bold text-highlighted mb-3">Citas verificables</h3>
             <p class="text-muted leading-relaxed">
-              Cada resultado incluye link directo a la fuente oficial. 
-              Nunca más sanciones del colegio por citas falsas o inventadas por ChatGPT.
+              Cada resultado incluye enlace directo a la fuente oficial.
+              Verificás rápido y reducís riesgo de citar información no chequeada.
             </p>
           </div>
 
@@ -316,8 +316,8 @@
             </div>
             <h3 class="text-xl font-bold text-highlighted mb-3">Multi-fuente</h3>
             <p class="text-muted leading-relaxed">
-              Buscá en SAIJ, CSJN, JUBA y JUSCABA desde un solo lugar. 
-              Sin perder tiempo navegando entre páginas con interfaces de los '90.
+              Centralizá la investigación en una sola experiencia.
+              Hoy con SAIJ activo y nuevas fuentes oficiales en despliegue progresivo.
             </p>
           </div>
 
@@ -327,8 +327,8 @@
             </div>
             <h3 class="text-xl font-bold text-highlighted mb-3">IA que ayuda</h3>
             <p class="text-muted leading-relaxed">
-              Generá reportes de jurisprudencia con análisis de argumentos y tendencias.
-              Siempre con fuentes verificables que podés citar.
+              Obtené un resumen IA para orientarte más rápido en cada tema.
+              Siempre con referencias verificables para validar antes de citar.
             </p>
           </div>
         </div>
@@ -346,7 +346,7 @@
             Elegí el plan que necesites
           </h2>
           <p class="text-lg text-muted max-w-2xl mx-auto">
-            Desde búsquedas básicas hasta reportes ilimitados para estudios jurídicos
+            Precios simples en ARS para profesional independiente o estudio jurídico
           </p>
         </div>
 
@@ -397,7 +397,7 @@
               </li>
               <li class="flex items-start gap-2 text-sm text-muted">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
-                SAIJ + CSJN
+                SAIJ hoy + nuevas fuentes al activarse
               </li>
               <li class="flex items-start gap-2 text-sm text-muted">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
@@ -435,19 +435,19 @@
               </li>
               <li class="flex items-start gap-2 text-sm text-muted">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
-                Todas las fuentes
+                Mayor cobertura de fuentes oficiales
               </li>
               <li class="flex items-start gap-2 text-sm text-muted">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
-                30 reportes IA/mes
+                Exportes TXT, DOC, Markdown y JSON
               </li>
               <li class="flex items-start gap-2 text-sm text-muted">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
-                Alertas de jurisprudencia
+                Resumen IA de apoyo
               </li>
               <li class="flex items-start gap-2 text-sm text-muted">
                 <UIcon name="i-lucide-check" class="text-green-500 mt-0.5 shrink-0" />
-                Historial de búsquedas
+                Guardado e historial de consultas
               </li>
             </ul>
             <UButton to="/ingresar" block color="primary" size="lg">
@@ -537,11 +537,10 @@
     <section v-if="!hasSearched" class="py-20 bg-gradient-to-r from-blue-600 to-[#74acdf]">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">
-          Dejá de perder tiempo con búsquedas inútiles
+          Investigá mejor, argumentá con respaldo
         </h2>
         <p class="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
-          Empezá a usar jurisprudencia verificable hoy. 
-          Sin tarjeta de crédito para la prueba gratis.
+          Probá Jurídica gratis y validá cada resultado con fuente oficial antes de citar.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <UButton to="/busqueda?q=despido&tipo=jurisprudencia" size="xl" color="white" variant="solid" class="text-blue-600 font-semibold">
