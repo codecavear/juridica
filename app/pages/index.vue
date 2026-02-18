@@ -213,42 +213,62 @@
           </p>
         </div>
 
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <UCard class="border-green-200 bg-green-50/40">
-            <div class="flex items-start justify-between gap-3">
-              <div>
-                <p class="font-semibold text-gray-900">SAIJ</p>
-                <p class="text-sm text-gray-600 mt-1">Sistema Argentino de Información Jurídica</p>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <UCard>
+            <div class="space-y-3">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-elevated ring ring-inset ring-accented flex items-center justify-center">
+                  <UIcon name="i-lucide-scale" class="text-primary" />
+                </div>
+                <div>
+                  <p class="font-semibold text-highlighted">SAIJ</p>
+                  <p class="text-sm text-muted mt-0.5">Sistema Argentino de Información Jurídica</p>
+                </div>
               </div>
               <UBadge color="success" variant="soft">Activo</UBadge>
             </div>
           </UCard>
 
           <UCard>
-            <div class="flex items-start justify-between gap-3">
-              <div>
-                <p class="font-semibold text-gray-900">CSJN</p>
-                <p class="text-sm text-gray-600 mt-1">Corte Suprema de Justicia de la Nación</p>
+            <div class="space-y-3">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-elevated ring ring-inset ring-accented flex items-center justify-center">
+                  <UIcon name="i-lucide-building-2" class="text-primary" />
+                </div>
+                <div>
+                  <p class="font-semibold text-highlighted">CSJN</p>
+                  <p class="text-sm text-muted mt-0.5">Corte Suprema de Justicia de la Nación</p>
+                </div>
               </div>
               <UBadge color="warning" variant="subtle">Próximamente</UBadge>
             </div>
           </UCard>
 
           <UCard>
-            <div class="flex items-start justify-between gap-3">
-              <div>
-                <p class="font-semibold text-gray-900">JUBA</p>
-                <p class="text-sm text-gray-600 mt-1">Jurisprudencia de la Provincia de Buenos Aires</p>
+            <div class="space-y-3">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-elevated ring ring-inset ring-accented flex items-center justify-center">
+                  <UIcon name="i-lucide-landmark" class="text-primary" />
+                </div>
+                <div>
+                  <p class="font-semibold text-highlighted">JUBA</p>
+                  <p class="text-sm text-muted mt-0.5">Jurisprudencia de la Provincia de Buenos Aires</p>
+                </div>
               </div>
               <UBadge color="warning" variant="subtle">Próximamente</UBadge>
             </div>
           </UCard>
 
           <UCard>
-            <div class="flex items-start justify-between gap-3">
-              <div>
-                <p class="font-semibold text-gray-900">JUSCABA</p>
-                <p class="text-sm text-gray-600 mt-1">Justicia de la Ciudad Autónoma de Buenos Aires</p>
+            <div class="space-y-3">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-elevated ring ring-inset ring-accented flex items-center justify-center">
+                  <UIcon name="i-lucide-building" class="text-primary" />
+                </div>
+                <div>
+                  <p class="font-semibold text-highlighted">JUSCABA</p>
+                  <p class="text-sm text-muted mt-0.5">Justicia de la Ciudad Autónoma de Buenos Aires</p>
+                </div>
               </div>
               <UBadge color="warning" variant="subtle">Próximamente</UBadge>
             </div>
