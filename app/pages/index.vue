@@ -84,7 +84,7 @@
         </div>
 
         <div class="grid md:grid-cols-3 gap-4">
-          <UCard class="bg-white border border-slate-200">
+          <UCard>
             <div class="flex items-start gap-3">
               <UBadge color="primary" variant="soft">1</UBadge>
               <div>
@@ -93,7 +93,7 @@
               </div>
             </div>
           </UCard>
-          <UCard class="bg-white border border-slate-200">
+          <UCard>
             <div class="flex items-start gap-3">
               <UBadge color="primary" variant="soft">2</UBadge>
               <div>
@@ -102,7 +102,7 @@
               </div>
             </div>
           </UCard>
-          <UCard class="bg-white border border-slate-200">
+          <UCard>
             <div class="flex items-start gap-3">
               <UBadge color="primary" variant="soft">3</UBadge>
               <div>
@@ -224,7 +224,7 @@
             </div>
           </UCard>
 
-          <UCard class="bg-white border-slate-200">
+          <UCard>
             <div class="flex items-start justify-between gap-3">
               <div>
                 <p class="font-semibold text-gray-900">CSJN</p>
@@ -234,7 +234,7 @@
             </div>
           </UCard>
 
-          <UCard class="bg-white border-slate-200">
+          <UCard>
             <div class="flex items-start justify-between gap-3">
               <div>
                 <p class="font-semibold text-gray-900">JUBA</p>
@@ -244,7 +244,7 @@
             </div>
           </UCard>
 
-          <UCard class="bg-white border-slate-200">
+          <UCard>
             <div class="flex items-start justify-between gap-3">
               <div>
                 <p class="font-semibold text-gray-900">JUSCABA</p>
@@ -477,25 +477,25 @@
         </div>
 
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <UCard class="bg-white border border-slate-200 hover:border-primary/40 transition-colors">
+          <UCard class="hover:ring-1 hover:ring-primary/30 transition-all">
             <p class="font-semibold text-gray-900 mb-2">Demo interactiva</p>
             <p class="text-sm text-gray-600 mb-4">Mirá cómo se ve un resultado real con AI summary.</p>
             <UButton to="/demo" size="sm" variant="soft" color="primary">Ver demo</UButton>
           </UCard>
 
-          <UCard class="bg-white border border-slate-200 hover:border-primary/40 transition-colors">
+          <UCard class="hover:ring-1 hover:ring-primary/30 transition-all">
             <p class="font-semibold text-gray-900 mb-2">Mejor buscador 2026</p>
             <p class="text-sm text-gray-600 mb-4">Comparativa para elegir herramienta jurídica en Argentina.</p>
             <UButton to="/mejor-buscador-jurisprudencia-argentina" size="sm" variant="soft" color="primary">Leer guía</UButton>
           </UCard>
 
-          <UCard class="bg-white border border-slate-200 hover:border-primary/40 transition-colors">
+          <UCard class="hover:ring-1 hover:ring-primary/30 transition-all">
             <p class="font-semibold text-gray-900 mb-2">Citas verificables</p>
             <p class="text-sm text-gray-600 mb-4">Cómo evitar citas inventadas y reducir riesgo profesional.</p>
             <UButton to="/mejor-herramienta-citas-legales-verificables" size="sm" variant="soft" color="primary">Leer guía</UButton>
           </UCard>
 
-          <UCard class="bg-white border border-slate-200 hover:border-primary/40 transition-colors">
+          <UCard class="hover:ring-1 hover:ring-primary/30 transition-all">
             <p class="font-semibold text-gray-900 mb-2">Guía CSJN</p>
             <p class="text-sm text-gray-600 mb-4">Paso a paso para buscar fallos de la Corte Suprema.</p>
             <UButton to="/como-buscar-fallos-csjn" size="sm" variant="soft" color="primary">Ver paso a paso</UButton>

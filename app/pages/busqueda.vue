@@ -16,7 +16,7 @@
       <div class="grid lg:grid-cols-3 gap-6">
         <!-- AI Summary -->
         <div class="lg:col-span-1">
-          <UCard class="bg-white border border-slate-200 lg:sticky lg:top-24">
+          <UCard class="lg:sticky lg:top-24">
             <template #header>
               <div class="flex items-center justify-between">
                 <h2 class="font-semibold text-gray-900">AI Summary</h2>
@@ -70,11 +70,11 @@
           <UCard
             v-for="result in sortedResults"
             :key="result.id"
-            class="bg-white border border-slate-200 hover:shadow-md transition-shadow"
+            class="hover:ring-1 hover:ring-primary/30 transition-all"
           >
             <div class="flex items-start gap-4">
-              <div class="w-11 h-11 rounded-xl bg-[#74acdf]/10 flex items-center justify-center shrink-0">
-                <UIcon :name="getIconForTipo(result.tipo)" class="text-xl text-[#74acdf]" />
+              <div class="w-11 h-11 rounded-xl bg-elevated ring ring-inset ring-accented flex items-center justify-center shrink-0">
+                <UIcon :name="getIconForTipo(result.tipo)" class="text-xl text-primary" />
               </div>
 
               <div class="flex-1 min-w-0">
