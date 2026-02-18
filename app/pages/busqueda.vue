@@ -5,7 +5,7 @@
         <div>
           <h1 class="text-2xl sm:text-3xl font-bold text-highlighted">Resultados de búsqueda</h1>
           <p class="text-muted">
-            {{ sortedResults.length }} resultados para "{{ queryText }}"
+            {{ resultsLoading ? 'Buscando resultados...' : `${sortedResults.length} resultados para "${queryText}"` }}
           </p>
         </div>
         <div class="flex items-center gap-2">
@@ -76,7 +76,14 @@
             <UBadge color="neutral" variant="soft">{{ sortedResults.length }} fuentes</UBadge>
           </div>
 
+          <template v-if="resultsLoading">
+            <UCard v-for="n in 3" :key="`s-${n}`" class="animate-pulse">
+              <div class="h-24 rounded bg-elevated" />
+            </UCard>
+          </template>
+
           <UCard
+            v-else-if="sortedResults.length"
             v-for="(result, idx) in sortedResults"
             :key="result.id"
             class="hover:ring-1 hover:ring-primary/30 transition-all"
@@ -118,6 +125,10 @@
                 </div>
               </div>
             </div>
+          </UCard>
+
+          <UCard v-else>
+            <p class="text-muted">No encontramos resultados para esta búsqueda. Probá con otros términos.</p>
           </UCard>
         </div>
       </div>
@@ -162,7 +173,8 @@ const tipo = computed(() => String(route.query.tipo || 'jurisprudencia'))
 
 const sortedResults = ref<SearchResultCard[]>([])
 const summary = ref<ReportSummary | null>(null)
-const summaryLoading = ref(false)
+const resultsLoading = ref(true)
+const summaryLoading = ref(true)
 const summaryError = ref('')
 const toast = useToast()
 
@@ -241,20 +253,37 @@ function saveSearch() {
 }
 
 async function loadSearch() {
-  if (!queryText.value || queryText.value.length < 2) return
+  resultsLoading.value = true
 
-  const data = await $fetch<{ results: ApiSearchResult[] }>('/api/search', {
-    params: { q: queryText.value, tipo: tipo.value, limit: 20 }
-  })
+  if (!queryText.value || queryText.value.length < 2) {
+    sortedResults.value = []
+    resultsLoading.value = false
+    return
+  }
 
-  sortedResults.value = normalizeAndSort(data.results || [], queryText.value)
+  try {
+    const data = await $fetch<{ results: ApiSearchResult[] }>('/api/search', {
+      params: { q: queryText.value, tipo: tipo.value, limit: 20 }
+    })
+
+    sortedResults.value = normalizeAndSort(data.results || [], queryText.value)
+  } catch (error) {
+    console.error(error)
+    sortedResults.value = []
+  } finally {
+    resultsLoading.value = false
+  }
 }
 
 async function loadSummary() {
-  if (!queryText.value || !sortedResults.value.length) return
-
   summaryLoading.value = true
   summaryError.value = ''
+  summary.value = null
+
+  if (!queryText.value || !sortedResults.value.length) {
+    summaryLoading.value = false
+    return
+  }
 
   try {
     const response = await $fetch<{ report?: ReportSummary }>('/api/reports/generate', {
@@ -284,8 +313,12 @@ async function loadSummary() {
   }
 }
 
-await loadSearch()
-await loadSummary()
+onMounted(async () => {
+  // Mostrar loading de summary apenas se abre tras click en Buscar
+  summaryLoading.value = true
+  await loadSearch()
+  await loadSummary()
+})
 
 useSeoMeta({
   title: queryText.value ? `Resultados: ${queryText.value} | Jurídica` : 'Búsqueda | Jurídica',
