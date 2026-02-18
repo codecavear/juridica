@@ -1,10 +1,10 @@
 <template>
-  <div class="min-h-screen bg-slate-50 py-8">
+  <div class="min-h-screen bg-default py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
         <div>
-          <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Resultados de búsqueda</h1>
-          <p class="text-gray-600">
+          <h1 class="text-2xl sm:text-3xl font-bold text-highlighted">Resultados de búsqueda</h1>
+          <p class="text-muted">
             {{ sortedResults.length }} resultados para "{{ queryText }}"
           </p>
         </div>
@@ -19,46 +19,46 @@
           <UCard class="lg:sticky lg:top-24">
             <template #header>
               <div class="flex items-center justify-between">
-                <h2 class="font-semibold text-gray-900">AI Summary</h2>
+                <h2 class="font-semibold text-highlighted">AI Summary</h2>
                 <UBadge color="info" variant="subtle">gpt-4.1-mini</UBadge>
               </div>
             </template>
 
-            <div v-if="summaryLoading" class="py-8 text-center text-gray-600">
+            <div v-if="summaryLoading" class="py-8 text-center text-muted">
               <UIcon name="i-lucide-loader-2" class="animate-spin mr-2" />
               Analizando jurisprudencia...
             </div>
 
             <div v-else-if="summaryError" class="space-y-3">
               <UAlert color="warning" variant="soft" title="No se pudo generar el resumen IA" :description="summaryError" />
-              <p class="text-sm text-gray-600">
+              <p class="text-sm text-muted">
                 Podés revisar igual los fallos oficiales del panel derecho.
               </p>
             </div>
 
             <div v-else-if="summary" class="space-y-4 text-sm">
               <div>
-                <p class="font-medium text-gray-900 mb-1">Resumen</p>
-                <p class="text-gray-700">{{ summary.summary }}</p>
+                <p class="font-medium text-highlighted mb-1">Resumen</p>
+                <p class="text-toned">{{ summary.summary }}</p>
               </div>
 
               <div v-if="summary.keyFindings?.length">
-                <p class="font-medium text-gray-900 mb-1">Hallazgos clave</p>
-                <ul class="list-disc ml-5 text-gray-700 space-y-1">
+                <p class="font-medium text-highlighted mb-1">Hallazgos clave</p>
+                <ul class="list-disc ml-5 text-toned space-y-1">
                   <li v-for="(item, idx) in summary.keyFindings" :key="`k-${idx}`">{{ item }}</li>
                 </ul>
               </div>
 
               <div v-if="summary.risks?.length">
-                <p class="font-medium text-gray-900 mb-1">Riesgos</p>
-                <ul class="list-disc ml-5 text-gray-700 space-y-1">
+                <p class="font-medium text-highlighted mb-1">Riesgos</p>
+                <ul class="list-disc ml-5 text-toned space-y-1">
                   <li v-for="(item, idx) in summary.risks" :key="`r-${idx}`">{{ item }}</li>
                 </ul>
               </div>
             </div>
 
             <template #footer>
-              <p class="text-xs text-gray-500">
+              <p class="text-xs text-dimmed">
                 Resultado orientativo. Validá siempre con fuentes oficiales antes de presentar escritos.
               </p>
             </template>
@@ -81,17 +81,17 @@
                 <div class="flex flex-wrap items-center gap-2 mb-2">
                   <UBadge :color="getColorForTipo(result.tipo)" variant="subtle" size="sm">{{ result.tipo }}</UBadge>
                   <UBadge color="neutral" variant="soft" size="sm">Importancia {{ result.importance }}</UBadge>
-                  <span v-if="result.fecha" class="text-xs text-gray-600">{{ formatDate(result.fecha) }}</span>
+                  <span v-if="result.fecha" class="text-xs text-muted">{{ formatDate(result.fecha) }}</span>
                 </div>
 
-                <h3 class="font-semibold text-lg text-gray-900 mb-2">{{ result.titulo }}</h3>
+                <h3 class="font-semibold text-lg text-highlighted mb-2">{{ result.titulo }}</h3>
 
-                <p v-if="result.tribunal" class="text-sm text-gray-600 mb-2">
+                <p v-if="result.tribunal" class="text-sm text-muted mb-2">
                   {{ result.tribunal }}
-                  <span v-if="result.jurisdiccion" class="text-gray-500"> · {{ result.jurisdiccion }}</span>
+                  <span v-if="result.jurisdiccion" class="text-dimmed"> · {{ result.jurisdiccion }}</span>
                 </p>
 
-                <p v-if="result.sumario" class="text-sm text-gray-700 line-clamp-3">{{ result.sumario }}</p>
+                <p v-if="result.sumario" class="text-sm text-toned line-clamp-3">{{ result.sumario }}</p>
 
                 <div class="flex gap-2 mt-4">
                   <UButton
