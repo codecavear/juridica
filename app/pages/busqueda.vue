@@ -9,7 +9,8 @@
           </p>
         </div>
         <div class="flex items-center gap-2">
-          <UButton to="/" variant="outline" color="neutral" icon="i-lucide-arrow-left">Volver</UButton>
+          <UButton variant="outline" color="neutral" icon="i-lucide-save" @click="saveSearch">Guardar</UButton>
+          <UButton to="/" color="primary" variant="soft" icon="i-lucide-search">Hacer nueva búsqueda</UButton>
         </div>
       </div>
 
@@ -19,7 +20,10 @@
           <UCard class="lg:sticky lg:top-24">
             <template #header>
               <div class="flex items-center justify-between">
-                <h2 class="font-semibold text-highlighted">AI Summary</h2>
+                <div class="flex items-center gap-2">
+                  <h2 class="font-semibold text-highlighted">AI Summary</h2>
+                  <UBadge color="primary" variant="soft" size="sm">1/1</UBadge>
+                </div>
                 <UBadge color="info" variant="subtle">gpt-4.1-mini</UBadge>
               </div>
             </template>
@@ -67,8 +71,13 @@
 
         <!-- Results -->
         <div class="lg:col-span-2 space-y-4">
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-semibold text-highlighted">Fuentes oficiales (desde 1/2)</h2>
+            <UBadge color="neutral" variant="soft">{{ sortedResults.length }} fuentes</UBadge>
+          </div>
+
           <UCard
-            v-for="result in sortedResults"
+            v-for="(result, idx) in sortedResults"
             :key="result.id"
             class="hover:ring-1 hover:ring-primary/30 transition-all"
           >
@@ -80,6 +89,7 @@
               <div class="flex-1 min-w-0">
                 <div class="flex flex-wrap items-center gap-2 mb-2">
                   <UBadge :color="getColorForTipo(result.tipo)" variant="subtle" size="sm">{{ result.tipo }}</UBadge>
+                  <UBadge color="primary" variant="soft" size="sm">1/{{ idx + 2 }}</UBadge>
                   <UBadge color="neutral" variant="soft" size="sm">Importancia {{ result.importance }}</UBadge>
                   <span v-if="result.fecha" class="text-xs text-muted">{{ formatDate(result.fecha) }}</span>
                 </div>
@@ -154,6 +164,7 @@ const sortedResults = ref<SearchResultCard[]>([])
 const summary = ref<ReportSummary | null>(null)
 const summaryLoading = ref(false)
 const summaryError = ref('')
+const toast = useToast()
 
 function calcImportance(r: ApiSearchResult, q: string) {
   let score = 50
@@ -212,6 +223,21 @@ function formatDate(dateStr: string): string {
   const date = new Date(dateStr)
   if (Number.isNaN(date.getTime())) return dateStr
   return date.toLocaleDateString('es-AR', { year: 'numeric', month: 'short', day: 'numeric' })
+}
+
+function saveSearch() {
+  try {
+    const key = 'juridica_saved_searches'
+    const existing = JSON.parse(localStorage.getItem(key) || '[]') as Array<{ q: string, tipo: string, savedAt: string }>
+    const next = [
+      { q: queryText.value, tipo: tipo.value, savedAt: new Date().toISOString() },
+      ...existing.filter(item => !(item.q === queryText.value && item.tipo === tipo.value))
+    ].slice(0, 20)
+    localStorage.setItem(key, JSON.stringify(next))
+    toast.add({ title: 'Búsqueda guardada', color: 'success', icon: 'i-lucide-check' })
+  } catch {
+    toast.add({ title: 'No se pudo guardar', color: 'warning', icon: 'i-lucide-alert-circle' })
+  }
 }
 
 async function loadSearch() {
