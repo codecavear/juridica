@@ -1,15 +1,15 @@
 <template>
   <div class="min-h-screen bg-default">
-    <section class="py-14 border-b border-default bg-white">
+    <section class="py-14 border-b border-default bg-default">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <UBadge color="primary" variant="subtle" class="mb-4">
           <UIcon name="i-lucide-flask-conical" class="mr-1" />
           Demo
         </UBadge>
-        <h1 class="text-3xl sm:text-4xl font-bold text-highlighted mb-3">
+        <h1 class="text-3xl sm:text-4xl font-bold text-black mb-3">
           Así se ve un resultado en Jurídica
         </h1>
-        <p class="text-muted max-w-3xl">
+        <p class="text-slate-700 max-w-3xl">
           Ejemplo realista de búsqueda + lectura rápida + reporte IA con citas verificables.
           Todo orientado a que puedas decidir rápido si un fallo te sirve.
         </p>

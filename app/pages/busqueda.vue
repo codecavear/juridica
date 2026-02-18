@@ -16,14 +16,14 @@
         </div>
       </div>
 
-      <div class="grid lg:grid-cols-3 gap-6">
+      <div class="grid lg:grid-cols-5 gap-6">
         <!-- AI Summary -->
-        <div class="lg:col-span-1">
+        <div class="lg:col-span-2">
           <UCard class="lg:sticky lg:top-24">
             <template #header>
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                  <h2 class="font-semibold text-highlighted">AI Summary</h2>
+                  <h2 class="font-semibold text-highlighted">Resumen IA</h2>
                   <UBadge color="primary" variant="soft" size="sm">1/1</UBadge>
                 </div>
                 <UBadge color="info" variant="subtle">gpt-4.1-mini</UBadge>
@@ -72,9 +72,9 @@
         </div>
 
         <!-- Results -->
-        <div class="lg:col-span-2 space-y-4">
+        <div class="lg:col-span-3 space-y-4">
           <div class="flex items-center justify-between">
-            <h2 class="text-lg font-semibold text-highlighted">Fuentes oficiales (desde 1/2)</h2>
+            <h2 class="text-lg font-semibold text-highlighted">Fuentes oficiales (continuación: 1/2)</h2>
             <UBadge color="neutral" variant="soft">{{ sortedResults.length }} fuentes</UBadge>
           </div>
 

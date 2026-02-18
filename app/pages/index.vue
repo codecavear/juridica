@@ -354,7 +354,7 @@
           <!-- Free Plan -->
           <div class="bg-white rounded-2xl p-6 border border-gray-200 flex flex-col">
             <div class="mb-6">
-              <h3 class="text-lg font-bold text-highlighted">Free</h3>
+              <h3 class="text-lg font-bold text-highlighted">Gratis</h3>
               <p class="text-sm text-muted mt-1">Para probar</p>
             </div>
             <div class="mb-6">
@@ -408,7 +408,7 @@
                 Exportar a Word
               </li>
             </ul>
-            <UButton to="/login" block variant="soft" color="primary" size="lg">
+            <UButton to="/iniciar-sesion" block variant="soft" color="primary" size="lg">
               Elegir Básico
             </UButton>
           </div>
@@ -450,7 +450,7 @@
                 Historial de búsquedas
               </li>
             </ul>
-            <UButton to="/login" block color="primary" size="lg">
+            <UButton to="/iniciar-sesion" block color="primary" size="lg">
               Elegir Pro
             </UButton>
           </div>
@@ -480,14 +480,14 @@
               </li>
               <li class="flex items-start gap-2 text-sm text-gray-300">
                 <UIcon name="i-lucide-check" class="text-[#74acdf] mt-0.5 shrink-0" />
-                API access
+                Acceso API
               </li>
               <li class="flex items-start gap-2 text-sm text-gray-300">
                 <UIcon name="i-lucide-check" class="text-[#74acdf] mt-0.5 shrink-0" />
                 Soporte prioritario
               </li>
             </ul>
-            <UButton to="/login" block variant="solid" class="bg-[#74acdf] hover:bg-[#5a9cd0] text-highlighted font-semibold" size="lg">
+            <UButton to="/iniciar-sesion" block variant="solid" class="bg-[#74acdf] hover:bg-[#5a9cd0] text-highlighted font-semibold" size="lg">
               Contactar ventas
             </UButton>
           </div>
