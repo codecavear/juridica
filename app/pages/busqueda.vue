@@ -60,10 +60,27 @@
                 </ul>
               </div>
 
+              <div v-if="summaryView.arguments?.length">
+                <p class="font-medium text-highlighted mb-1">Argumentos</p>
+                <div class="space-y-2">
+                  <div v-for="(arg, idx) in summaryView.arguments" :key="`a-${idx}`" class="border-l-2 border-primary/30 pl-3">
+                    <p class="text-toned font-medium">{{ arg.point }}</p>
+                    <p v-if="arg.support" class="text-muted text-xs mt-0.5">{{ arg.support }}</p>
+                  </div>
+                </div>
+              </div>
+
               <div v-if="summaryView.risks?.length">
                 <p class="font-medium text-highlighted mb-1">Riesgos</p>
                 <ul class="list-disc ml-5 text-toned space-y-1">
                   <li v-for="(item, idx) in summaryView.risks" :key="`r-${idx}`">{{ item }}</li>
+                </ul>
+              </div>
+
+              <div v-if="summaryView.recommendations?.length">
+                <p class="font-medium text-highlighted mb-1">Recomendaciones</p>
+                <ul class="list-disc ml-5 text-toned space-y-1">
+                  <li v-for="(item, idx) in summaryView.recommendations" :key="`rec-${idx}`">{{ item }}</li>
                 </ul>
               </div>
             </div>
@@ -168,11 +185,19 @@ interface SearchResultCard {
   importance: number
 }
 
+interface ReportArgument {
+  point?: string
+  support?: string
+  sourceId?: string
+}
+
 interface ReportSummary {
   title?: string
   summary?: string
   keyFindings?: string[]
+  arguments?: ReportArgument[]
   risks?: string[]
+  recommendations?: string[]
 }
 
 const route = useRoute()
@@ -205,41 +230,34 @@ function asStringArray(value: unknown): string[] {
 function normalizeSummaryPayload(raw: ReportSummary | null): ReportSummary {
   if (!raw) return {}
 
-  // Caso ideal: ya viene estructurado
-  if (Array.isArray(raw.keyFindings) || Array.isArray(raw.risks) || raw.title) {
-    return {
-      title: raw.title,
-      summary: raw.summary,
-      keyFindings: asStringArray(raw.keyFindings),
-      risks: asStringArray(raw.risks)
+  // Safety net: if `summary` looks like a JSON string, try to parse it
+  // This handles cases where the server fallback stored raw AI output as summary
+  if (typeof raw.summary === 'string') {
+    const candidate = extractJsonBlock(raw.summary)
+    if (candidate) {
+      try {
+        const parsed = JSON.parse(candidate) as Record<string, unknown>
+        return {
+          title: typeof parsed.title === 'string' ? parsed.title : raw.title,
+          summary: typeof parsed.summary === 'string' ? parsed.summary : undefined,
+          keyFindings: asStringArray(parsed.keyFindings || raw.keyFindings),
+          arguments: Array.isArray(parsed.arguments) ? parsed.arguments as ReportArgument[] : raw.arguments,
+          risks: asStringArray(parsed.risks || raw.risks),
+          recommendations: asStringArray(parsed.recommendations || raw.recommendations)
+        }
+      } catch {
+        // Fall through to normal handling
+      }
     }
   }
 
-  const candidate = typeof raw.summary === 'string' ? extractJsonBlock(raw.summary) : null
-  if (!candidate) {
-    return {
-      title: raw.title,
-      summary: raw.summary,
-      keyFindings: asStringArray(raw.keyFindings),
-      risks: asStringArray(raw.risks)
-    }
-  }
-
-  try {
-    const parsed = JSON.parse(candidate) as Record<string, unknown>
-    return {
-      title: typeof parsed.title === 'string' ? parsed.title : raw.title,
-      summary: typeof parsed.summary === 'string' ? parsed.summary : raw.summary,
-      keyFindings: asStringArray(parsed.keyFindings),
-      risks: asStringArray(parsed.risks)
-    }
-  } catch {
-    return {
-      title: raw.title,
-      summary: raw.summary,
-      keyFindings: asStringArray(raw.keyFindings),
-      risks: asStringArray(raw.risks)
-    }
+  return {
+    title: raw.title,
+    summary: raw.summary,
+    keyFindings: asStringArray(raw.keyFindings),
+    arguments: Array.isArray(raw.arguments) ? raw.arguments : [],
+    risks: asStringArray(raw.risks),
+    recommendations: asStringArray(raw.recommendations)
   }
 }
 

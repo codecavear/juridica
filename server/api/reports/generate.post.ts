@@ -202,7 +202,18 @@ export default defineEventHandler(async (event) => {
 
   let parsed: Record<string, unknown>
   try {
-    parsed = JSON.parse(rawContent)
+    // OpenAI sometimes wraps JSON in markdown code fences — strip them
+    let jsonContent = rawContent.trim()
+    const fenced = jsonContent.match(/```(?:json)?\s*([\s\S]*?)```/i)
+    if (fenced?.[1]) jsonContent = fenced[1].trim()
+
+    if (!jsonContent.startsWith('{')) {
+      const start = jsonContent.indexOf('{')
+      const end = jsonContent.lastIndexOf('}')
+      if (start >= 0 && end > start) jsonContent = jsonContent.slice(start, end + 1)
+    }
+
+    parsed = JSON.parse(jsonContent)
   } catch {
     // Fallback: still return usable payload with strict citations from source
     parsed = {
