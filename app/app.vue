@@ -58,6 +58,7 @@ useHead({
           <NuxtLink to="/#fuentes" class="text-muted hover:text-primary transition-colors">Fuentes</NuxtLink>
           <NuxtLink to="/#planes" class="text-muted hover:text-primary transition-colors">Planes</NuxtLink>
           <NuxtLink to="/demo" class="text-muted hover:text-primary transition-colors">Demo</NuxtLink>
+          <NuxtLink to="/mejor-buscador-jurisprudencia-argentina" class="text-muted hover:text-primary transition-colors">Guías</NuxtLink>
         </nav>
       </template>
 

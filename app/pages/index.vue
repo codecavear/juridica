@@ -466,6 +466,44 @@
       </div>
     </section>
 
+    <!-- Recursos y guías -->
+    <section v-if="!hasSearched" class="py-14 bg-white border-y border-slate-100">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between gap-4 mb-6">
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900">Recursos para empezar</h2>
+            <p class="text-gray-600">Guías prácticas, comparativas y demo del producto.</p>
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <UCard class="bg-white border border-slate-200 hover:border-primary/40 transition-colors">
+            <p class="font-semibold text-gray-900 mb-2">Demo interactiva</p>
+            <p class="text-sm text-gray-600 mb-4">Mirá cómo se ve un resultado real con AI summary.</p>
+            <UButton to="/demo" size="sm" variant="soft" color="primary">Ver demo</UButton>
+          </UCard>
+
+          <UCard class="bg-white border border-slate-200 hover:border-primary/40 transition-colors">
+            <p class="font-semibold text-gray-900 mb-2">Mejor buscador 2026</p>
+            <p class="text-sm text-gray-600 mb-4">Comparativa para elegir herramienta jurídica en Argentina.</p>
+            <UButton to="/mejor-buscador-jurisprudencia-argentina" size="sm" variant="soft" color="primary">Leer guía</UButton>
+          </UCard>
+
+          <UCard class="bg-white border border-slate-200 hover:border-primary/40 transition-colors">
+            <p class="font-semibold text-gray-900 mb-2">Citas verificables</p>
+            <p class="text-sm text-gray-600 mb-4">Cómo evitar citas inventadas y reducir riesgo profesional.</p>
+            <UButton to="/mejor-herramienta-citas-legales-verificables" size="sm" variant="soft" color="primary">Leer guía</UButton>
+          </UCard>
+
+          <UCard class="bg-white border border-slate-200 hover:border-primary/40 transition-colors">
+            <p class="font-semibold text-gray-900 mb-2">Guía CSJN</p>
+            <p class="text-sm text-gray-600 mb-4">Paso a paso para buscar fallos de la Corte Suprema.</p>
+            <UButton to="/como-buscar-fallos-csjn" size="sm" variant="soft" color="primary">Ver paso a paso</UButton>
+          </UCard>
+        </div>
+      </div>
+    </section>
+
     <!-- CTA Section -->
     <section v-if="!hasSearched" class="py-20 bg-gradient-to-r from-blue-600 to-[#74acdf]">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
