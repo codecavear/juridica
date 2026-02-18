@@ -58,11 +58,12 @@
                 :color="selectedTipo === tipo.value ? 'primary' : 'neutral'"
                 :variant="selectedTipo === tipo.value ? 'solid' : 'subtle'"
                 size="md"
-                class="cursor-pointer transition-all hover:scale-105"
-                @click="selectedTipo = tipo.value"
+                :class="tipo.enabled ? 'cursor-pointer transition-all hover:scale-105' : 'opacity-50 cursor-not-allowed'"
+                @click="tipo.enabled && (selectedTipo = tipo.value)"
               >
                 <UIcon :name="tipo.icon" class="mr-1" />
                 {{ tipo.label }}
+                <span v-if="!tipo.enabled" class="ml-1 text-[10px]">(próx.)</span>
               </UBadge>
             </div>
           </div>
@@ -216,6 +217,9 @@
         <div class="grid sm:grid-cols-2 gap-4">
           <UCard>
             <div class="space-y-3">
+              <div>
+                <UBadge color="success" variant="soft">Activo</UBadge>
+              </div>
               <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-lg bg-elevated ring ring-inset ring-accented flex items-center justify-center">
                   <UIcon name="i-lucide-scale" class="text-primary" />
@@ -225,12 +229,14 @@
                   <p class="text-sm text-muted mt-0.5">Sistema Argentino de Información Jurídica</p>
                 </div>
               </div>
-              <UBadge color="success" variant="soft">Activo</UBadge>
             </div>
           </UCard>
 
-          <UCard>
+          <UCard class="opacity-70">
             <div class="space-y-3">
+              <div>
+                <UBadge color="warning" variant="subtle">Próximamente</UBadge>
+              </div>
               <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-lg bg-elevated ring ring-inset ring-accented flex items-center justify-center">
                   <UIcon name="i-lucide-building-2" class="text-primary" />
@@ -240,12 +246,14 @@
                   <p class="text-sm text-muted mt-0.5">Corte Suprema de Justicia de la Nación</p>
                 </div>
               </div>
-              <UBadge color="warning" variant="subtle">Próximamente</UBadge>
             </div>
           </UCard>
 
-          <UCard>
+          <UCard class="opacity-70">
             <div class="space-y-3">
+              <div>
+                <UBadge color="warning" variant="subtle">Próximamente</UBadge>
+              </div>
               <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-lg bg-elevated ring ring-inset ring-accented flex items-center justify-center">
                   <UIcon name="i-lucide-landmark" class="text-primary" />
@@ -255,12 +263,14 @@
                   <p class="text-sm text-muted mt-0.5">Jurisprudencia de la Provincia de Buenos Aires</p>
                 </div>
               </div>
-              <UBadge color="warning" variant="subtle">Próximamente</UBadge>
             </div>
           </UCard>
 
-          <UCard>
+          <UCard class="opacity-70">
             <div class="space-y-3">
+              <div>
+                <UBadge color="warning" variant="subtle">Próximamente</UBadge>
+              </div>
               <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-lg bg-elevated ring ring-inset ring-accented flex items-center justify-center">
                   <UIcon name="i-lucide-building" class="text-primary" />
@@ -270,7 +280,6 @@
                   <p class="text-sm text-muted mt-0.5">Justicia de la Ciudad Autónoma de Buenos Aires</p>
                 </div>
               </div>
-              <UBadge color="warning" variant="subtle">Próximamente</UBadge>
             </div>
           </UCard>
         </div>
@@ -604,10 +613,10 @@ const hasSearched = ref(false)
 const lastQuery = ref('')
 
 const tiposDocumento = [
-  { value: 'jurisprudencia', label: 'Jurisprudencia', icon: 'i-lucide-gavel' },
-  { value: 'legislacion', label: 'Legislación', icon: 'i-lucide-scroll' },
-  { value: 'doctrina', label: 'Doctrina', icon: 'i-lucide-book-open' },
-  { value: 'todo', label: 'Todo', icon: 'i-lucide-layers' }
+  { value: 'jurisprudencia', label: 'Jurisprudencia', icon: 'i-lucide-gavel', enabled: true },
+  { value: 'legislacion', label: 'Legislación', icon: 'i-lucide-scroll', enabled: false },
+  { value: 'doctrina', label: 'Doctrina', icon: 'i-lucide-book-open', enabled: false },
+  { value: 'todo', label: 'Todo', icon: 'i-lucide-layers', enabled: false }
 ]
 
 async function search() {
