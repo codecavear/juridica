@@ -1,5 +1,5 @@
 <script setup lang="ts">
-await navigateTo('/login', { redirectCode: 302 })
+await navigateTo('/ingresar', { redirectCode: 302 })
 </script>
 
 <template>

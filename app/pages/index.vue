@@ -408,7 +408,7 @@
                 Exportar a Word
               </li>
             </ul>
-            <UButton to="/iniciar-sesion" block variant="soft" color="primary" size="lg">
+            <UButton to="/ingresar" block variant="soft" color="primary" size="lg">
               Elegir Básico
             </UButton>
           </div>
@@ -450,7 +450,7 @@
                 Historial de búsquedas
               </li>
             </ul>
-            <UButton to="/iniciar-sesion" block color="primary" size="lg">
+            <UButton to="/ingresar" block color="primary" size="lg">
               Elegir Pro
             </UButton>
           </div>
@@ -487,7 +487,7 @@
                 Soporte prioritario
               </li>
             </ul>
-            <UButton to="/iniciar-sesion" block variant="solid" class="bg-[#74acdf] hover:bg-[#5a9cd0] text-highlighted font-semibold" size="lg">
+            <UButton to="/ingresar" block variant="solid" class="bg-[#74acdf] hover:bg-[#5a9cd0] text-highlighted font-semibold" size="lg">
               Contactar ventas
             </UButton>
           </div>

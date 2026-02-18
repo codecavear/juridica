@@ -65,7 +65,7 @@ useHead({
       <template #right>
         <UColorModeButton />
         <UButton
-          to="/iniciar-sesion"
+          to="/ingresar"
           color="primary"
           variant="soft"
           size="sm"
@@ -123,7 +123,7 @@ useHead({
               <div class="space-y-1 text-muted">
                 <NuxtLink to="/terminos" class="block hover:text-primary">Términos</NuxtLink>
                 <NuxtLink to="/privacidad" class="block hover:text-primary">Privacidad</NuxtLink>
-                <NuxtLink to="/iniciar-sesion" class="block hover:text-primary">Iniciar sesión</NuxtLink>
+                <NuxtLink to="/ingresar" class="block hover:text-primary">Iniciar sesión</NuxtLink>
               </div>
             </div>
           </div>
