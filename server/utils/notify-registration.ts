@@ -1,8 +1,20 @@
 /**
- * Notify Telegram when a new user registers.
- * Uses OpenClaw's Telegram bot directly.
+ * Notify Telegram + Discord when a new user registers.
  */
 export async function notifyNewUser(user: {
+  email: string
+  name?: string | null
+  provider: string
+  plan?: string
+  coupon?: string
+}) {
+  await Promise.allSettled([
+    notifyTelegram(user),
+    notifyDiscord(user)
+  ])
+}
+
+async function notifyTelegram(user: {
   email: string
   name?: string | null
   provider: string
@@ -13,7 +25,7 @@ export async function notifyNewUser(user: {
   const chatId = process.env.TELEGRAM_NOTIFY_CHAT_ID
 
   if (!botToken || !chatId) {
-    console.log('[Notify] TELEGRAM_BOT_TOKEN or TELEGRAM_NOTIFY_CHAT_ID not set, skipping notification')
+    console.log('[Notify] TELEGRAM_BOT_TOKEN or TELEGRAM_NOTIFY_CHAT_ID not set, skipping')
     return
   }
 
@@ -39,6 +51,46 @@ export async function notifyNewUser(user: {
     })
   } catch (e) {
     console.error('[Notify] Telegram send failed:', e)
+  }
+}
+
+async function notifyDiscord(user: {
+  email: string
+  name?: string | null
+  provider: string
+  plan?: string
+  coupon?: string
+}) {
+  const botToken = process.env.DISCORD_BOT_TOKEN
+  const channelId = process.env.DISCORD_NOTIFY_CHANNEL_ID
+
+  if (!botToken || !channelId) {
+    console.log('[Notify] DISCORD_BOT_TOKEN or DISCORD_NOTIFY_CHANNEL_ID not set, skipping')
+    return
+  }
+
+  const plan = user.plan || 'free'
+  const tierLine = user.coupon ? `${plan} (cupón: ${user.coupon})` : plan
+
+  const content = [
+    `🆕 Usuario registrado en **Jurídica**!`,
+    `**Nombre:** ${user.name || 'Sin nombre'}`,
+    `**Email:** ${user.email}`,
+    `**Auth:** ${user.provider}`,
+    `**Tier:** ${tierLine}`
+  ].join('\n')
+
+  try {
+    await fetch(`https://discord.com/api/v10/channels/${channelId}/messages`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bot ${botToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ content })
+    })
+  } catch (e) {
+    console.error('[Notify] Discord send failed:', e)
   }
 }
 
