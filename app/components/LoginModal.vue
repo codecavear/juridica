@@ -89,7 +89,7 @@ watch(isOpen, (open) => {
         <!-- Magic link form -->
         <form v-else class="space-y-4" @submit.prevent="requestMagicLink">
           <UFormField label="Email" required>
-            <UInput v-model="email" type="email" placeholder="tu@email.com" icon="i-lucide-mail" size="lg" />
+            <UInput v-model="email" type="email" placeholder="tu@email.com" icon="i-lucide-mail" size="lg" class="w-full" />
           </UFormField>
 
           <p v-if="error" class="text-sm text-error">{{ error }}</p>
