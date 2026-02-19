@@ -42,7 +42,7 @@
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
                   <h2 class="font-semibold text-highlighted">
-                    Análisis IA
+                    Análisis Inteligencia Artificial
                   </h2>
                   <UBadge
                     v-if="usage.reportsLimit !== -1"
@@ -204,7 +204,7 @@
 
               <div class="space-y-2">
                 <h3 class="font-semibold text-highlighted">
-                  Análisis IA con argumentos clave
+                  Análisis Inteligencia Artificial con argumentos clave
                 </h3>
                 <p class="text-sm text-muted max-w-md mx-auto">
                   Genera un resumen inteligente de los resultados con hallazgos, argumentos y recomendaciones basados en jurisprudencia verificable.
@@ -219,7 +219,7 @@
                   icon="i-lucide-sparkles"
                   @click="loadSummary"
                 >
-                  Analizar con IA
+                  Analizar con Inteligencia Artificial
                 </UButton>
 
                 <p
