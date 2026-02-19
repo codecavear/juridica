@@ -160,6 +160,35 @@
                     <li>Revisar si existieron causas que justifiquen la ausencia del trabajador</li>
                   </ul>
                 </div>
+
+                <div>
+                  <p class="font-medium text-highlighted mb-1">
+                    Por qué este análisis importa
+                  </p>
+                  <ul class="space-y-2 text-toned">
+                    <li class="flex gap-2">
+                      <UIcon
+                        name="i-lucide-check"
+                        class="text-green-600 mt-0.5 shrink-0"
+                      />
+                      Útil para contestar despido con causa por abandono
+                    </li>
+                    <li class="flex gap-2">
+                      <UIcon
+                        name="i-lucide-check"
+                        class="text-green-600 mt-0.5 shrink-0"
+                      />
+                      Refuerza necesidad de intimación previa válida
+                    </li>
+                    <li class="flex gap-2">
+                      <UIcon
+                        name="i-lucide-check"
+                        class="text-green-600 mt-0.5 shrink-0"
+                      />
+                      Citable en escritos con link oficial verificable
+                    </li>
+                  </ul>
+                </div>
               </div>
 
               <template #footer>
