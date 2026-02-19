@@ -82,27 +82,26 @@ const footerColumns = [{
       </NuxtLink>
     </template>
 
-    <UNavigationMenu :items="items" />
-
     <template #right>
-      <!-- Desktop: full nav + avatar/login -->
-      <div
+      <UNavigationMenu
+        :items="items"
+        variant="link"
+        class="hidden lg:block"
+      />
+
+      <NuxtLink
         v-if="loggedIn"
-        class="flex items-center gap-2"
+        to="/perfil"
+        class="flex items-center gap-2 hover:opacity-80 transition-opacity"
       >
-        <NuxtLink
-          to="/perfil"
-          class="flex items-center gap-2 hover:opacity-80 transition-opacity"
-        >
-          <UAvatar
-            v-if="user?.avatar"
-            :src="user.avatar"
-            :alt="user?.name || 'Usuario'"
-            size="sm"
-          />
-          <span class="text-sm font-medium text-highlighted hidden sm:inline">{{ user?.name }}</span>
-        </NuxtLink>
-      </div>
+        <UAvatar
+          v-if="user?.avatar"
+          :src="user.avatar"
+          :alt="user?.name || 'Usuario'"
+          size="sm"
+        />
+        <span class="text-sm font-medium text-highlighted hidden lg:inline">{{ user?.name }}</span>
+      </NuxtLink>
       <UButton
         v-else
         color="primary"
@@ -110,45 +109,8 @@ const footerColumns = [{
         size="sm"
         @click="showLoginModal = true"
       >
-        Iniciar sesión
+        Ingresar
       </UButton>
-    </template>
-
-    <template #toggle="{ open, toggle }">
-      <!-- Mobile only: avatar/login NEXT TO hamburger -->
-      <NuxtLink
-        v-if="loggedIn"
-        to="/perfil"
-        class="mr-1 sm:hidden"
-      >
-        <UAvatar
-          v-if="user?.avatar"
-          :src="user.avatar"
-          :alt="user?.name || 'Usuario'"
-          size="xs"
-        />
-        <UIcon
-          v-else
-          name="i-lucide-user-circle"
-          class="size-5 text-muted"
-        />
-      </NuxtLink>
-      <UButton
-        v-else
-        color="primary"
-        variant="ghost"
-        size="xs"
-        icon="i-lucide-user"
-        class="mr-1 sm:hidden"
-        @click.stop="showLoginModal = true"
-      />
-      <UButton
-        color="neutral"
-        variant="ghost"
-        size="sm"
-        :icon="open ? 'i-lucide-x' : 'i-lucide-menu'"
-        @click="toggle"
-      />
     </template>
 
     <template #body>
