@@ -10,27 +10,6 @@ export default defineNuxtConfig({
     enabled: true
   },
 
-  css: ['~/assets/css/main.css'],
-
-  routeRules: {
-    '/': { ssr: true }
-  },
-
-  colorMode: {
-    preference: 'light'
-  },
-
-  compatibilityDate: '2025-01-15',
-
-  eslint: {
-    config: {
-      stylistic: {
-        commaDangle: 'never',
-        braceStyle: '1tbs'
-      }
-    }
-  },
-
   // App metadata
   app: {
     head: {
@@ -63,16 +42,23 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
         { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+        { rel: 'manifest', href: '/site.webmanifest' },
         { rel: 'canonical', href: 'https://juridica.ar' }
       ],
       script: [
         {
-          src: 'https://umami.codecave.ar/script.js',
-          async: true,
+          'src': 'https://umami.codecave.ar/script.js',
+          'async': true,
           'data-website-id': '6a85c908-0517-4ca6-9f86-de60b996fdba'
         }
       ]
     }
+  },
+
+  css: ['~/assets/css/main.css'],
+
+  colorMode: {
+    preference: 'light'
   },
 
   // Runtime config
@@ -93,6 +79,21 @@ export default defineNuxtConfig({
     // Public
     public: {
       appName: 'Jurídica'
+    }
+  },
+
+  routeRules: {
+    '/': { ssr: true }
+  },
+
+  compatibilityDate: '2025-01-15',
+
+  eslint: {
+    config: {
+      stylistic: {
+        commaDangle: 'never',
+        braceStyle: '1tbs'
+      }
     }
   }
 })
