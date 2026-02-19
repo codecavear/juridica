@@ -7,6 +7,12 @@ const loading = ref(false)
 const sent = ref(false)
 const error = ref('')
 
+// Coupon detection
+const couponCode = computed(() => {
+  return (route.query.cupon as string) || localStorage?.getItem('juridica_coupon') || ''
+})
+const hasCoupon = computed(() => !!couponCode.value)
+
 // Read OAuth error from query params
 const oauthError = computed(() => {
   const errorParam = route.query.error
@@ -58,6 +64,29 @@ watch(isOpen, (open) => {
   >
     <template #content>
       <div class="p-6 space-y-5">
+        <!-- Coupon Banner -->
+        <div
+          v-if="hasCoupon"
+          class="relative overflow-hidden rounded-xl bg-gradient-to-r from-amber-500/10 via-amber-400/5 to-primary/10 border border-amber-500/20 p-4"
+        >
+          <div class="flex items-center gap-3">
+            <div class="shrink-0 w-10 h-10 bg-amber-500/20 rounded-lg flex items-center justify-center">
+              <UIcon
+                name="i-lucide-gift"
+                class="text-xl text-amber-500"
+              />
+            </div>
+            <div>
+              <p class="font-bold text-highlighted text-sm">
+                🎉 ¡Tenés un cupón!
+              </p>
+              <p class="text-xs text-muted mt-0.5">
+                Registrate y obtené <span class="font-semibold text-amber-500">Plan Pro gratis por 6 meses</span> — 100 búsquedas/día + 30 reportes IA/mes
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div class="text-center">
           <div class="flex justify-center mb-3">
             <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
@@ -68,10 +97,10 @@ watch(isOpen, (open) => {
             </div>
           </div>
           <h2 class="text-2xl font-bold text-highlighted">
-            Ingresar a Jurídica
+            {{ hasCoupon ? '¡Activá tu Plan Pro!' : 'Ingresar a Jurídica' }}
           </h2>
           <p class="text-sm text-muted mt-1">
-            Accedé a búsquedas ilimitadas y reportes con IA
+            {{ hasCoupon ? 'Registrate para activar tu cupón' : 'Accedé a búsquedas ilimitadas y reportes con IA' }}
           </p>
         </div>
 

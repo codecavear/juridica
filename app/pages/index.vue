@@ -955,9 +955,23 @@
       </div>
     </footer>
   </div>
+
+  <!-- Login Modal (auto-opens with coupon) -->
+  <LoginModal v-model:open="showLoginModal" />
 </template>
 
 <script setup lang="ts">
+const route = useRoute()
+const { loggedIn } = useUserSession()
+const showLoginModal = ref(false)
+
+// Auto-open login modal if coupon in URL and not logged in
+onMounted(() => {
+  if (route.query.cupon && !loggedIn.value) {
+    showLoginModal.value = true
+  }
+})
+
 interface SearchResult {
   id: string
   tipo: string
