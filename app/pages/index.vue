@@ -630,11 +630,11 @@
               </li>
             </ul>
             <UButton
-              @click="openLogin()"
               block
               variant="soft"
               color="primary"
               size="lg"
+              @click="openLogin()"
             >
               Elegir Básico
             </UButton>
@@ -701,10 +701,10 @@
               </li>
             </ul>
             <UButton
-              @click="openLogin()"
               block
               color="primary"
               size="lg"
+              @click="openLogin()"
             >
               Elegir Pro
             </UButton>
@@ -762,11 +762,11 @@
               </li>
             </ul>
             <UButton
-              @click="openLogin()"
               block
               variant="solid"
               class="bg-[#74acdf] hover:bg-[#5a9cd0] text-highlighted font-semibold"
               size="lg"
+              @click="openLogin()"
             >
               Contactar ventas
             </UButton>
@@ -935,7 +935,9 @@
 const route = useRoute()
 const { loggedIn } = useUserSession()
 const showLoginModal = ref(false)
-const openLogin = inject<() => void>('openLogin', () => { showLoginModal.value = true })
+const openLogin = inject<() => void>('openLogin', () => {
+  showLoginModal.value = true
+})
 
 // Auto-open login modal if coupon in URL and not logged in
 onMounted(() => {
@@ -956,17 +958,17 @@ interface SearchResult {
   pdfUrl?: string
 }
 
-interface ApiSearchResult {
-  uuid: string
-  type: string
-  titulo?: string
-  caratula?: string
-  fecha?: string
-  tribunal?: string
-  jurisdiccion?: string
-  texto?: string
-  url?: string
-}
+// interface ApiSearchResult {
+//   uuid: string
+//   type: string
+//   titulo?: string
+//   caratula?: string
+//   fecha?: string
+//   tribunal?: string
+//   jurisdiccion?: string
+//   texto?: string
+//   url?: string
+// }
 
 const query = ref('')
 const selectedTipo = ref('jurisprudencia')
@@ -1067,4 +1069,52 @@ function formatDate(dateStr: string): string {
     return dateStr
   }
 }
+
+// SEO Meta
+useSeoMeta({
+  title: 'Juridica - Buscador de Jurisprudencia Argentina con IA',
+  description: 'Jurisprudencia argentina con IA. Busca fallos en SAIJ, CSJN, JUBA y JUSCABA con citas verificables y links oficiales.',
+  ogTitle: 'Juridica - Buscador de Jurisprudencia Argentina con IA',
+  ogDescription: 'Buscador de jurisprudencia argentina con IA. Consulta SAIJ, CSJN, JUBA y JUSCABA con citas verificables.',
+  ogImage: 'https://juridica.ar/og-image.png',
+  ogUrl: 'https://juridica.ar',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'Juridica - Buscador de Jurisprudencia Argentina con IA',
+  twitterDescription: 'Buscador de jurisprudencia argentina con IA. Citas verificables de SAIJ, CSJN, JUBA y JUSCABA.',
+  twitterImage: 'https://juridica.ar/og-image.png'
+})
+
+useHead({
+  link: [
+    { rel: 'canonical', href: 'https://juridica.ar' }
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebApplication',
+        'name': 'Juridica',
+        'description': 'Buscador de jurisprudencia argentina con IA. Consulta SAIJ, CSJN, JUBA y JUSCABA con citas verificables.',
+        'url': 'https://juridica.ar',
+        'applicationCategory': 'LegalApplication',
+        'operatingSystem': 'Web',
+        'offers': {
+          '@type': 'Offer',
+          'price': '0',
+          'priceCurrency': 'ARS'
+        },
+        'potentialAction': {
+          '@type': 'SearchAction',
+          'target': {
+            '@type': 'EntryPoint',
+            'urlTemplate': 'https://juridica.ar/busqueda?q={search_term_string}'
+          },
+          'query-input': 'required name=search_term_string'
+        }
+      })
+    }
+  ]
+})
 </script>
