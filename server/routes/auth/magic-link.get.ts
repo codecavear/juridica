@@ -59,6 +59,11 @@ export default defineEventHandler(async (event) => {
         .returning()
 
       user = newUser
+
+      // Notify new registration
+      const { notifyNewUser } = await import('../../utils/notify-registration')
+      const couponParam = String(query.cupon || '').trim() || undefined
+      notifyNewUser({ email: magicLink.email, provider: 'magic-link', coupon: couponParam }).catch(() => {})
     }
 
     if (!user) {

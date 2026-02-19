@@ -60,6 +60,11 @@ export default defineOAuthGoogleEventHandler({
           .returning()
 
         user = newUser
+
+        // Notify new registration
+        const { notifyNewUser } = await import('../../utils/notify-registration')
+        const couponCode = getCookie(event, 'juridica_coupon') || undefined
+        notifyNewUser({ email: googleUser.email, name: googleUser.name, provider: 'google', coupon: couponCode }).catch(() => {})
       }
 
       if (!user) {
