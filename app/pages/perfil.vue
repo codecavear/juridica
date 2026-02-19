@@ -239,10 +239,11 @@ async function handleLogout() {
                     </span>
                   </div>
                   <div v-if="profile.plan.limits.searchesPerDay !== -1">
-                    <UProgress
-                      v-model="searchPercentage"
+                    <USlider
+                      :model-value="searchPercentage"
                       :color="searchPercentage >= 90 ? 'error' : searchPercentage >= 70 ? 'warning' : 'primary'"
                       size="sm"
+                      disabled
                     />
                     <p class="text-xs text-muted mt-1">
                       de {{ profile.plan.limits.searchesPerDay }} disponibles
@@ -279,10 +280,11 @@ async function handleLogout() {
                     </span>
                   </div>
                   <div v-if="profile.plan.limits.reportsPerMonth > 0">
-                    <UProgress
-                      v-model="reportPercentage"
+                    <USlider
+                      :model-value="reportPercentage"
                       :color="reportPercentage >= 90 ? 'error' : reportPercentage >= 70 ? 'warning' : 'secondary'"
                       size="sm"
+                      disabled
                     />
                     <p class="text-xs text-muted mt-1">
                       de {{ profile.plan.limits.reportsPerMonth }} este mes
