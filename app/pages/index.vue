@@ -170,6 +170,17 @@
             </div>
           </UCard>
         </div>
+
+        <div class="text-center mt-8">
+          <UButton
+            to="/como-usar"
+            variant="ghost"
+            color="primary"
+            trailing-icon="i-lucide-arrow-right"
+          >
+            Ver guia completa con ejemplos y tips
+          </UButton>
+        </div>
       </div>
     </section>
 
@@ -434,6 +445,17 @@
               </div>
             </div>
           </UCard>
+        </div>
+
+        <div class="text-center mt-10">
+          <UButton
+            to="/fuentes"
+            variant="ghost"
+            color="primary"
+            trailing-icon="i-lucide-arrow-right"
+          >
+            Ver info completa de fuentes y cobertura
+          </UButton>
         </div>
       </div>
     </section>
@@ -771,6 +793,17 @@
               Contactar ventas
             </UButton>
           </div>
+        </div>
+
+        <div class="text-center mt-10">
+          <UButton
+            to="/planes"
+            variant="ghost"
+            color="primary"
+            trailing-icon="i-lucide-arrow-right"
+          >
+            Ver comparacion completa y FAQ
+          </UButton>
         </div>
       </div>
     </section>
