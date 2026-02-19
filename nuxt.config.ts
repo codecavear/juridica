@@ -52,7 +52,7 @@ export default defineNuxtConfig({
         {
           'src': 'https://umami.codecave.ar/script.js',
           'async': true,
-          'data-website-id': '6a85c908-0517-4ca6-9f86-de60b996fdba'
+          'data-website-id': '44df998b-2be5-4ed5-a311-fe81a161020f'
         }
       ]
     }
