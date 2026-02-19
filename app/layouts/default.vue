@@ -119,6 +119,35 @@ const footerColumns = [{
         orientation="vertical"
         class="-mx-2.5"
       />
+      <div class="mt-4 pt-4 border-t border-default">
+        <NuxtLink
+          v-if="loggedIn"
+          to="/perfil"
+          class="flex items-center gap-3 px-2.5 py-2 rounded-lg hover:bg-elevated transition-colors"
+        >
+          <UAvatar
+            v-if="user?.avatar"
+            :src="user.avatar"
+            :alt="user?.name || 'Usuario'"
+            size="sm"
+          />
+          <UIcon
+            v-else
+            name="i-lucide-user"
+            class="size-5 text-muted"
+          />
+          <span class="text-sm font-medium text-highlighted">{{ user?.name || 'Mi perfil' }}</span>
+        </NuxtLink>
+        <UButton
+          v-else
+          color="primary"
+          variant="soft"
+          block
+          @click="showLoginModal = true"
+        >
+          Ingresar
+        </UButton>
+      </div>
     </template>
   </UHeader>
 
