@@ -8,7 +8,9 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
-    "typecheck": "nuxt typecheck"
+    "typecheck": "nuxt typecheck",
+    "db:migrate": "bun run server/database/migrate.ts",
+    "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.90",

@@ -1,10 +1,26 @@
 <script setup lang="ts">
 const isOpen = defineModel<boolean>('open', { default: false })
+const route = useRoute()
 
 const email = ref('')
 const loading = ref(false)
 const sent = ref(false)
 const error = ref('')
+
+// Read OAuth error from query params
+const oauthError = computed(() => {
+  const errorParam = route.query.error
+  if (!errorParam) return ''
+  
+  const errorMessages: Record<string, string> = {
+    oauth_error: 'Error al iniciar sesión con Google. Intentá de nuevo.',
+    oauth_failed: 'No se pudo completar el inicio de sesión.',
+    db_unavailable: 'Base de datos no disponible. Intentá más tarde.',
+    user_creation_failed: 'No se pudo crear tu cuenta. Contactá a soporte.'
+  }
+  
+  return errorMessages[errorParam as string] || 'Error desconocido. Intentá de nuevo.'
+})
 
 async function requestMagicLink() {
   if (!email.value) return
@@ -48,6 +64,9 @@ watch(isOpen, (open) => {
           <h2 class="text-2xl font-bold text-highlighted">Ingresar a Jurídica</h2>
           <p class="text-sm text-muted mt-1">Accedé a búsquedas ilimitadas y reportes con IA</p>
         </div>
+
+        <!-- OAuth Error Alert -->
+        <UAlert v-if="oauthError" color="error" variant="soft" :title="oauthError" />
 
         <!-- Google OAuth -->
         <UButton

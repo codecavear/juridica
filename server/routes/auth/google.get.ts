@@ -17,10 +17,11 @@ export default defineOAuthGoogleEventHandler({
   },
 
   async onSuccess(event, { user: googleUser }) {
+    console.log('[Google OAuth] onSuccess called for:', googleUser.email)
     const dbCtx = await getDbContext()
 
     if (!dbCtx) {
-      console.error('[Google OAuth] Database not available')
+      console.error('[Google OAuth] Database not available - DATABASE_URL:', !!process.env.DATABASE_URL)
       return sendRedirect(event, '/ingresar?error=db_unavailable')
     }
 
@@ -75,14 +76,14 @@ export default defineOAuthGoogleEventHandler({
       })
 
       return sendRedirect(event, '/')
-    } catch (error) {
-      console.error('[Google OAuth] Error:', error)
-      return sendRedirect(event, '/ingresar?error=oauth_failed')
+    } catch (error: any) {
+      console.error('[Google OAuth] DB Error:', error?.message, error?.stack)
+      return sendRedirect(event, `/ingresar?error=oauth_failed&detail=${encodeURIComponent(error?.message || 'unknown')}`)
     }
   },
 
   onError(event, error) {
-    console.error('[Google OAuth] Error:', error)
-    return sendRedirect(event, '/ingresar?error=oauth_error')
+    console.error('[Google OAuth] OAuth Error:', error)
+    return sendRedirect(event, `/ingresar?error=oauth_error&detail=${encodeURIComponent(String(error))}`)
   }
 })
