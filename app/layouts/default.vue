@@ -5,7 +5,9 @@ const { loggedIn, user, clear } = useUserSession()
 const showLoginModal = ref(false)
 
 // Provide openLogin to child components
-provide('openLogin', () => { showLoginModal.value = true })
+provide('openLogin', () => {
+  showLoginModal.value = true
+})
 
 const items: NavigationMenuItem[] = [
   { label: 'Cómo usar', to: '/como-usar', exact: true },
@@ -22,7 +24,7 @@ const footerColumns = [{
     to: '/demo'
   }, {
     label: 'Precio',
-    to: '/#planes'
+    to: '/planes'
   }, {
     label: 'Búsqueda ejemplo',
     to: '/busqueda?q=despido&tipo=jurisprudencia'
@@ -63,11 +65,6 @@ const footerColumns = [{
     to: 'mailto:hola@juridica.ar'
   }]
 }]
-
-async function logout() {
-  await clear()
-  await navigateTo('/')
-}
 </script>
 
 <template>
