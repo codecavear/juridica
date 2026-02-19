@@ -39,13 +39,18 @@ async function logout() {
         v-if="loggedIn"
         class="flex items-center gap-2"
       >
-        <UAvatar
-          v-if="user?.avatar"
-          :src="user.avatar"
-          :alt="user?.name || 'Usuario'"
-          size="sm"
-        />
-        <span class="text-sm font-medium text-highlighted hidden sm:inline">{{ user?.name }}</span>
+        <NuxtLink
+          to="/perfil"
+          class="flex items-center gap-2 hover:opacity-80 transition-opacity"
+        >
+          <UAvatar
+            v-if="user?.avatar"
+            :src="user.avatar"
+            :alt="user?.name || 'Usuario'"
+            size="sm"
+          />
+          <span class="text-sm font-medium text-highlighted hidden sm:inline">{{ user?.name }}</span>
+        </NuxtLink>
         <UButton
           color="neutral"
           variant="ghost"
