@@ -1,6 +1,6 @@
 /**
  * SAIJ Adapter - Sistema Argentino de Información Jurídica
- * 
+ *
  * Public JSON API (no auth required)
  * Based on saij-mcp by hernan-cc
  */
@@ -26,16 +26,16 @@ export interface SAIJSearchResponse {
   results: SAIJSearchResult[]
 }
 
-export type DocumentType = 
-  | 'fallo'
-  | 'sumario'
-  | 'jurisprudencia'
-  | 'legislacion'
-  | 'ley'
-  | 'decreto'
-  | 'doctrina'
-  | 'dictamen'
-  | 'todo'
+export type DocumentType
+  = | 'fallo'
+    | 'sumario'
+    | 'jurisprudencia'
+    | 'legislacion'
+    | 'ley'
+    | 'decreto'
+    | 'doctrina'
+    | 'dictamen'
+    | 'todo'
 
 const SAIJ_BASE_URL = 'https://www.saij.gob.ar'
 
@@ -81,17 +81,17 @@ function parseResult(raw: Record<string, unknown>): SAIJSearchResult {
 
   // Jurisdiction
   if (content.jurisdiccion) {
-    result.jurisdiccion = typeof content.jurisdiccion === 'object' 
-      ? content.jurisdiccion.descripcion 
+    result.jurisdiccion = typeof content.jurisdiccion === 'object'
+      ? content.jurisdiccion.descripcion
       : content.jurisdiccion
   }
 
   // Descriptors
   if (content.descriptores?.descriptor) {
-    const dl = Array.isArray(content.descriptores.descriptor) 
-      ? content.descriptores.descriptor 
+    const dl = Array.isArray(content.descriptores.descriptor)
+      ? content.descriptores.descriptor
       : [content.descriptores.descriptor]
-    result.descriptores = dl.map((d: Record<string, unknown>) => 
+    result.descriptores = dl.map((d: Record<string, unknown>) =>
       (d.elegido as Record<string, string>)?.termino || ''
     ).filter(Boolean)
   }
@@ -184,7 +184,7 @@ export async function getDocument(identifier: string): Promise<SAIJSearchResult 
     })
 
     const response = await fetch(`${SAIJ_BASE_URL}/busqueda?${params}`, {
-      headers: { 
+      headers: {
         'Accept': 'application/json',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
       }
@@ -203,7 +203,7 @@ export async function getDocument(identifier: string): Promise<SAIJSearchResult 
   // Get full document
   const response = await fetch(
     `${SAIJ_BASE_URL}/view-document?guid=${encodeURIComponent(uuid)}`,
-    { headers: { 
+    { headers: {
       'Accept': 'application/json',
       'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
     } }

@@ -3,85 +3,246 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
         <div>
-          <h1 class="text-2xl sm:text-3xl font-bold text-highlighted">Resultados de búsqueda</h1>
+          <h1 class="text-2xl sm:text-3xl font-bold text-highlighted">
+            Resultados de búsqueda
+          </h1>
           <p class="text-muted">
             {{ resultsLoading ? 'Buscando resultados...' : `${sortedResults.length} resultados para "${queryText}"` }}
           </p>
         </div>
         <div class="flex items-center gap-2">
           <UDropdownMenu :items="saveItems">
-            <UButton variant="outline" color="neutral" icon="i-lucide-save">Guardar</UButton>
+            <UButton
+              variant="outline"
+              color="neutral"
+              icon="i-lucide-save"
+            >
+              Guardar
+            </UButton>
           </UDropdownMenu>
-          <UButton to="/" color="primary" variant="soft" icon="i-lucide-search">Hacer nueva búsqueda</UButton>
+          <UButton
+            to="/"
+            color="primary"
+            variant="soft"
+            icon="i-lucide-search"
+          >
+            Hacer nueva búsqueda
+          </UButton>
         </div>
       </div>
 
       <div class="grid lg:grid-cols-5 gap-6">
         <!-- AI Summary -->
         <div class="lg:col-span-2 min-h-0">
-          <UCard class="lg:sticky lg:top-24" :ui="{ body: 'max-h-[68vh] overflow-y-auto pr-1' }">
+          <UCard
+            class="lg:sticky lg:top-24"
+            :ui="{ body: 'max-h-[68vh] overflow-y-auto pr-1' }"
+          >
             <template #header>
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                  <h2 class="font-semibold text-highlighted">Resumen IA</h2>
-                  <UBadge color="primary" variant="soft" size="sm">1/1</UBadge>
+                  <h2 class="font-semibold text-highlighted">
+                    Análisis IA
+                  </h2>
+                  <UBadge
+                    v-if="usage.reportsLimit !== -1"
+                    color="primary"
+                    variant="soft"
+                    size="sm"
+                  >
+                    {{ usage.reportsThisMonth }}/{{ usage.reportsLimit }} restantes
+                  </UBadge>
                 </div>
-                <UBadge color="info" variant="subtle">gpt-4.1-mini</UBadge>
+                <UBadge
+                  color="info"
+                  variant="subtle"
+                >
+                  gpt-4.1-mini
+                </UBadge>
               </div>
             </template>
 
-            <div v-if="summaryLoading" class="py-8 text-center text-muted">
-              <UIcon name="i-lucide-loader-2" class="animate-spin mr-2" />
+            <!-- Loading state -->
+            <div
+              v-if="summaryLoading"
+              class="py-8 text-center text-muted"
+            >
+              <UIcon
+                name="i-lucide-loader-2"
+                class="animate-spin mr-2"
+              />
               Analizando jurisprudencia...
             </div>
 
-            <div v-else-if="summaryError" class="space-y-3">
-              <UAlert color="warning" variant="soft" title="No se pudo generar el resumen IA" :description="summaryError" />
+            <!-- Error state -->
+            <div
+              v-else-if="summaryError"
+              class="space-y-3"
+            >
+              <UAlert
+                color="warning"
+                variant="soft"
+                title="No se pudo generar el análisis"
+                :description="summaryError"
+              />
               <p class="text-sm text-muted">
                 Podés revisar igual los fallos oficiales del panel derecho.
               </p>
+              <UButton
+                v-if="usage.reportsThisMonth < usage.reportsLimit || usage.reportsLimit === -1"
+                color="primary"
+                variant="soft"
+                icon="i-lucide-refresh-cw"
+                @click="loadSummary"
+              >
+                Reintentar
+              </UButton>
             </div>
 
-            <div v-else-if="summary" class="space-y-4 text-sm">
+            <!-- Summary result -->
+            <div
+              v-else-if="summary && summaryRequested"
+              class="space-y-4 text-sm"
+            >
               <div v-if="summaryView.title">
-                <p class="font-medium text-highlighted mb-1">Título</p>
-                <p class="text-toned">{{ summaryView.title }}</p>
+                <p class="font-medium text-highlighted mb-1">
+                  Título
+                </p>
+                <p class="text-toned">
+                  {{ summaryView.title }}
+                </p>
               </div>
 
               <div>
-                <p class="font-medium text-highlighted mb-1">Resumen</p>
-                <p class="text-toned whitespace-pre-line">{{ summaryView.summary || 'Sin resumen disponible' }}</p>
+                <p class="font-medium text-highlighted mb-1">
+                  Resumen
+                </p>
+                <p class="text-toned whitespace-pre-line">
+                  {{ summaryView.summary || 'Sin resumen disponible' }}
+                </p>
               </div>
 
               <div v-if="summaryView.keyFindings?.length">
-                <p class="font-medium text-highlighted mb-1">Hallazgos clave</p>
+                <p class="font-medium text-highlighted mb-1">
+                  Hallazgos clave
+                </p>
                 <ul class="list-disc ml-5 text-toned space-y-1">
-                  <li v-for="(item, idx) in summaryView.keyFindings" :key="`k-${idx}`">{{ item }}</li>
+                  <li
+                    v-for="(item, idx) in summaryView.keyFindings"
+                    :key="`k-${idx}`"
+                  >
+                    {{ item }}
+                  </li>
                 </ul>
               </div>
 
               <div v-if="summaryView.arguments?.length">
-                <p class="font-medium text-highlighted mb-1">Argumentos</p>
+                <p class="font-medium text-highlighted mb-1">
+                  Argumentos
+                </p>
                 <div class="space-y-2">
-                  <div v-for="(arg, idx) in summaryView.arguments" :key="`a-${idx}`" class="border-l-2 border-primary/30 pl-3">
-                    <p class="text-toned font-medium">{{ arg.point }}</p>
-                    <p v-if="arg.support" class="text-muted text-xs mt-0.5">{{ arg.support }}</p>
+                  <div
+                    v-for="(arg, idx) in summaryView.arguments"
+                    :key="`a-${idx}`"
+                    class="border-l-2 border-primary/30 pl-3"
+                  >
+                    <p class="text-toned font-medium">
+                      {{ arg.point }}
+                    </p>
+                    <p
+                      v-if="arg.support"
+                      class="text-muted text-xs mt-0.5"
+                    >
+                      {{ arg.support }}
+                    </p>
                   </div>
                 </div>
               </div>
 
               <div v-if="summaryView.risks?.length">
-                <p class="font-medium text-highlighted mb-1">Riesgos</p>
+                <p class="font-medium text-highlighted mb-1">
+                  Riesgos
+                </p>
                 <ul class="list-disc ml-5 text-toned space-y-1">
-                  <li v-for="(item, idx) in summaryView.risks" :key="`r-${idx}`">{{ item }}</li>
+                  <li
+                    v-for="(item, idx) in summaryView.risks"
+                    :key="`r-${idx}`"
+                  >
+                    {{ item }}
+                  </li>
                 </ul>
               </div>
 
               <div v-if="summaryView.recommendations?.length">
-                <p class="font-medium text-highlighted mb-1">Recomendaciones</p>
+                <p class="font-medium text-highlighted mb-1">
+                  Recomendaciones
+                </p>
                 <ul class="list-disc ml-5 text-toned space-y-1">
-                  <li v-for="(item, idx) in summaryView.recommendations" :key="`rec-${idx}`">{{ item }}</li>
+                  <li
+                    v-for="(item, idx) in summaryView.recommendations"
+                    :key="`rec-${idx}`"
+                  >
+                    {{ item }}
+                  </li>
                 </ul>
+              </div>
+            </div>
+
+            <!-- Initial state: Show button to analyze -->
+            <div
+              v-else-if="!summaryRequested && !summaryLoading"
+              class="text-center py-8 space-y-4"
+            >
+              <div class="flex justify-center">
+                <div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                  <UIcon
+                    name="i-lucide-sparkles"
+                    class="text-3xl text-primary"
+                  />
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <h3 class="font-semibold text-highlighted">
+                  Análisis IA con argumentos clave
+                </h3>
+                <p class="text-sm text-muted max-w-md mx-auto">
+                  Genera un resumen inteligente de los resultados con hallazgos, argumentos y recomendaciones basados en jurisprudencia verificable.
+                </p>
+              </div>
+
+              <div class="flex flex-col items-center gap-2">
+                <UButton
+                  :disabled="usage.reportsThisMonth >= usage.reportsLimit && usage.reportsLimit !== -1"
+                  color="primary"
+                  size="lg"
+                  icon="i-lucide-sparkles"
+                  @click="loadSummary"
+                >
+                  Analizar con IA
+                </UButton>
+
+                <p
+                  v-if="usage.reportsThisMonth >= usage.reportsLimit && usage.reportsLimit !== -1"
+                  class="text-xs text-warning"
+                >
+                  Has alcanzado tu límite mensual. <a
+                    href="/pricing"
+                    class="underline"
+                  >Actualizá tu plan</a> para más análisis.
+                </p>
+                <p
+                  v-else-if="usage.reportsLimit !== -1"
+                  class="text-xs text-muted"
+                >
+                  Te quedan {{ usage.reportsLimit - usage.reportsThisMonth }} análisis este mes
+                </p>
+                <p
+                  v-else
+                  class="text-xs text-muted"
+                >
+                  Análisis ilimitados
+                </p>
               </div>
             </div>
 
@@ -96,43 +257,91 @@
         <!-- Results -->
         <div class="lg:col-span-3 space-y-4">
           <div class="flex items-center justify-between">
-            <h2 class="text-lg font-semibold text-highlighted">Fuentes oficiales (continuación: 1/2)</h2>
-            <UBadge color="neutral" variant="soft">{{ sortedResults.length }} fuentes</UBadge>
+            <h2 class="text-lg font-semibold text-highlighted">
+              Fuentes oficiales (continuación: 1/2)
+            </h2>
+            <UBadge
+              color="neutral"
+              variant="soft"
+            >
+              {{ sortedResults.length }} fuentes
+            </UBadge>
           </div>
 
           <template v-if="resultsLoading">
-            <UCard v-for="n in 3" :key="`s-${n}`" class="animate-pulse">
+            <UCard
+              v-for="n in 3"
+              :key="`s-${n}`"
+              class="animate-pulse"
+            >
               <div class="h-24 rounded bg-elevated" />
             </UCard>
           </template>
 
           <UCard
-            v-else-if="sortedResults.length"
             v-for="(result, idx) in sortedResults"
+            v-else-if="sortedResults.length"
             :key="result.id"
             class="hover:ring-1 hover:ring-primary/30 transition-all"
           >
             <div class="flex items-start gap-4">
               <div class="w-11 h-11 rounded-xl bg-elevated ring ring-inset ring-accented flex items-center justify-center shrink-0">
-                <UIcon :name="getIconForTipo(result.tipo)" class="text-xl text-primary" />
+                <UIcon
+                  :name="getIconForTipo(result.tipo)"
+                  class="text-xl text-primary"
+                />
               </div>
 
               <div class="flex-1 min-w-0">
                 <div class="flex flex-wrap items-center gap-2 mb-2">
-                  <UBadge :color="getColorForTipo(result.tipo)" variant="subtle" size="sm">{{ result.tipo }}</UBadge>
-                  <UBadge color="primary" variant="soft" size="sm">1/{{ idx + 2 }}</UBadge>
-                  <UBadge color="neutral" variant="soft" size="sm">Importancia {{ result.importance }}</UBadge>
-                  <span v-if="result.fecha" class="text-xs text-muted">{{ formatDate(result.fecha) }}</span>
+                  <UBadge
+                    :color="getColorForTipo(result.tipo)"
+                    variant="subtle"
+                    size="sm"
+                  >
+                    {{ result.tipo }}
+                  </UBadge>
+                  <UBadge
+                    color="primary"
+                    variant="soft"
+                    size="sm"
+                  >
+                    1/{{ idx + 2 }}
+                  </UBadge>
+                  <UBadge
+                    color="neutral"
+                    variant="soft"
+                    size="sm"
+                  >
+                    Importancia {{ result.importance }}
+                  </UBadge>
+                  <span
+                    v-if="result.fecha"
+                    class="text-xs text-muted"
+                  >{{ formatDate(result.fecha) }}</span>
                 </div>
 
-                <h3 class="font-semibold text-lg text-highlighted mb-2">{{ result.titulo }}</h3>
+                <h3 class="font-semibold text-lg text-highlighted mb-2">
+                  {{ result.titulo }}
+                </h3>
 
-                <p v-if="result.tribunal" class="text-sm text-muted mb-2">
+                <p
+                  v-if="result.tribunal"
+                  class="text-sm text-muted mb-2"
+                >
                   {{ result.tribunal }}
-                  <span v-if="result.jurisdiccion" class="text-dimmed"> · {{ result.jurisdiccion }}</span>
+                  <span
+                    v-if="result.jurisdiccion"
+                    class="text-dimmed"
+                  > · {{ result.jurisdiccion }}</span>
                 </p>
 
-                <p v-if="result.sumario" class="text-sm text-toned line-clamp-3">{{ result.sumario }}</p>
+                <p
+                  v-if="result.sumario"
+                  class="text-sm text-toned line-clamp-3"
+                >
+                  {{ result.sumario }}
+                </p>
 
                 <div class="flex gap-2 mt-4">
                   <UButton
@@ -152,7 +361,9 @@
           </UCard>
 
           <UCard v-else>
-            <p class="text-muted">No encontramos resultados para esta búsqueda. Probá con otros términos.</p>
+            <p class="text-muted">
+              No encontramos resultados para esta búsqueda. Probá con otros términos.
+            </p>
           </UCard>
         </div>
       </div>
@@ -207,9 +418,17 @@ const tipo = computed(() => String(route.query.tipo || 'jurisprudencia'))
 const sortedResults = ref<SearchResultCard[]>([])
 const summary = ref<ReportSummary | null>(null)
 const resultsLoading = ref(true)
-const summaryLoading = ref(true)
+const summaryLoading = ref(false)
 const summaryError = ref('')
+const summaryRequested = ref(false)
 const toast = useToast()
+
+// Usage tracking
+const usage = ref({
+  reportsThisMonth: 0,
+  reportsLimit: 3,
+  plan: 'free'
+})
 
 function extractJsonBlock(input: string): string | null {
   const fenced = input.match(/```json\s*([\s\S]*?)```/i)
@@ -307,7 +526,7 @@ function calcImportance(r: ApiSearchResult, q: string) {
 
 function normalizeAndSort(results: ApiSearchResult[], q: string): SearchResultCard[] {
   return results
-    .map((r) => ({
+    .map(r => ({
       id: r.uuid,
       tipo: r.type || tipo.value,
       titulo: r.titulo || r.caratula || 'Documento jurídico',
@@ -469,7 +688,26 @@ async function loadSearch() {
   }
 }
 
+async function loadUsage() {
+  try {
+    const data = await $fetch<{
+      reportsThisMonth: number
+      reportsLimit: number
+      plan: string
+    }>('/api/user/usage')
+
+    usage.value = {
+      reportsThisMonth: data.reportsThisMonth,
+      reportsLimit: data.reportsLimit,
+      plan: data.plan
+    }
+  } catch (error) {
+    console.error('Failed to load usage:', error)
+  }
+}
+
 async function loadSummary() {
+  summaryRequested.value = true
   summaryLoading.value = true
   summaryError.value = ''
   summary.value = null
@@ -499,8 +737,15 @@ async function loadSummary() {
     })
 
     summary.value = response.report || null
-  } catch (error) {
-    summaryError.value = 'No se pudo generar en este momento'
+    // Reload usage after successful report generation
+    await loadUsage()
+  } catch (error: unknown) {
+    const err = error as { statusCode?: number, message?: string }
+    if (err?.statusCode === 429) {
+      summaryError.value = err.message || 'Has alcanzado tu límite de análisis mensuales'
+    } else {
+      summaryError.value = 'No se pudo generar en este momento'
+    }
     console.error(error)
   } finally {
     summaryLoading.value = false
@@ -508,10 +753,9 @@ async function loadSummary() {
 }
 
 onMounted(async () => {
-  // Mostrar loading de summary apenas se abre tras click en Buscar
-  summaryLoading.value = true
   await loadSearch()
-  await loadSummary()
+  await loadUsage()
+  // Do NOT auto-load summary - user must click the button
 })
 
 useSeoMeta({

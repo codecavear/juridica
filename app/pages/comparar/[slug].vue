@@ -3,13 +3,21 @@
     <!-- Hero Section -->
     <section class="relative bg-gradient-to-b from-white to-slate-50 py-16 lg:py-24">
       <div class="absolute inset-0 overflow-hidden">
-        <div class="absolute -top-40 -right-40 w-80 h-80 bg-[#74acdf]/10 rounded-full blur-3xl"></div>
-        <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-red-500/5 rounded-full blur-3xl"></div>
+        <div class="absolute -top-40 -right-40 w-80 h-80 bg-[#74acdf]/10 rounded-full blur-3xl" />
+        <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-red-500/5 rounded-full blur-3xl" />
       </div>
 
       <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <UBadge color="neutral" variant="subtle" size="lg" class="mb-6">
-          <UIcon name="i-lucide-git-compare" class="mr-1" />
+        <UBadge
+          color="neutral"
+          variant="subtle"
+          size="lg"
+          class="mb-6"
+        >
+          <UIcon
+            name="i-lucide-git-compare"
+            class="mr-1"
+          />
           Comparación
         </UBadge>
 
@@ -35,14 +43,18 @@
         <div class="bg-default rounded-2xl overflow-hidden">
           <!-- Header -->
           <div class="grid grid-cols-3 bg-gray-900 text-white">
-            <div class="p-4 font-semibold">Característica</div>
+            <div class="p-4 font-semibold">
+              Característica
+            </div>
             <div class="p-4 font-semibold text-center bg-[#74acdf]">
               <div class="flex items-center justify-center gap-2">
                 <UIcon name="i-lucide-scale" />
                 Jurídica
               </div>
             </div>
-            <div class="p-4 font-semibold text-center">{{ page.competitor }}</div>
+            <div class="p-4 font-semibold text-center">
+              {{ page.competitor }}
+            </div>
           </div>
 
           <!-- Rows -->
@@ -52,24 +64,56 @@
             class="grid grid-cols-3 border-b border-gray-200 last:border-b-0"
             :class="index % 2 === 0 ? 'bg-white' : 'bg-default'"
           >
-            <div class="p-4 text-toned font-medium">{{ row.feature }}</div>
-            <div class="p-4 text-center">
-              <span v-if="row.juridica === true" class="inline-flex items-center justify-center w-8 h-8 bg-green-100 rounded-full">
-                <UIcon name="i-lucide-check" class="text-green-600 text-lg" />
-              </span>
-              <span v-else-if="row.juridica === false" class="inline-flex items-center justify-center w-8 h-8 bg-red-100 rounded-full">
-                <UIcon name="i-lucide-x" class="text-red-600 text-lg" />
-              </span>
-              <span v-else class="text-sm text-toned font-medium">{{ row.juridica }}</span>
+            <div class="p-4 text-toned font-medium">
+              {{ row.feature }}
             </div>
             <div class="p-4 text-center">
-              <span v-if="row.competitor === true" class="inline-flex items-center justify-center w-8 h-8 bg-green-100 rounded-full">
-                <UIcon name="i-lucide-check" class="text-green-600 text-lg" />
+              <span
+                v-if="row.juridica === true"
+                class="inline-flex items-center justify-center w-8 h-8 bg-green-100 rounded-full"
+              >
+                <UIcon
+                  name="i-lucide-check"
+                  class="text-green-600 text-lg"
+                />
               </span>
-              <span v-else-if="row.competitor === false" class="inline-flex items-center justify-center w-8 h-8 bg-red-100 rounded-full">
-                <UIcon name="i-lucide-x" class="text-red-600 text-lg" />
+              <span
+                v-else-if="row.juridica === false"
+                class="inline-flex items-center justify-center w-8 h-8 bg-red-100 rounded-full"
+              >
+                <UIcon
+                  name="i-lucide-x"
+                  class="text-red-600 text-lg"
+                />
               </span>
-              <span v-else class="text-sm text-muted">{{ row.competitor }}</span>
+              <span
+                v-else
+                class="text-sm text-toned font-medium"
+              >{{ row.juridica }}</span>
+            </div>
+            <div class="p-4 text-center">
+              <span
+                v-if="row.competitor === true"
+                class="inline-flex items-center justify-center w-8 h-8 bg-green-100 rounded-full"
+              >
+                <UIcon
+                  name="i-lucide-check"
+                  class="text-green-600 text-lg"
+                />
+              </span>
+              <span
+                v-else-if="row.competitor === false"
+                class="inline-flex items-center justify-center w-8 h-8 bg-red-100 rounded-full"
+              >
+                <UIcon
+                  name="i-lucide-x"
+                  class="text-red-600 text-lg"
+                />
+              </span>
+              <span
+                v-else
+                class="text-sm text-muted"
+              >{{ row.competitor }}</span>
             </div>
           </div>
         </div>
@@ -93,11 +137,18 @@
           >
             <div class="flex gap-4">
               <div class="w-10 h-10 bg-[#74acdf]/20 rounded-lg flex items-center justify-center shrink-0">
-                <UIcon name="i-lucide-check-circle" class="text-xl text-[#74acdf]" />
+                <UIcon
+                  name="i-lucide-check-circle"
+                  class="text-xl text-[#74acdf]"
+                />
               </div>
               <div>
-                <h3 class="text-lg font-bold text-highlighted mb-2">{{ reason.title }}</h3>
-                <p class="text-muted leading-relaxed">{{ reason.description }}</p>
+                <h3 class="text-lg font-bold text-highlighted mb-2">
+                  {{ reason.title }}
+                </h3>
+                <p class="text-muted leading-relaxed">
+                  {{ reason.description }}
+                </p>
               </div>
             </div>
           </div>
@@ -109,8 +160,13 @@
     <section class="py-16 bg-white">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 lg:p-12 text-center">
-          <UIcon name="i-lucide-scale" class="text-5xl text-[#74acdf] mb-6" />
-          <h2 class="text-2xl font-bold text-white mb-4">Nuestro veredicto</h2>
+          <UIcon
+            name="i-lucide-scale"
+            class="text-5xl text-[#74acdf] mb-6"
+          />
+          <h2 class="text-2xl font-bold text-white mb-4">
+            Nuestro veredicto
+          </h2>
           <p class="text-lg text-gray-300 leading-relaxed">
             {{ page.verdict }}
           </p>
@@ -128,12 +184,24 @@
           3 búsquedas diarias sin costo. Sin tarjeta de crédito.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <UButton size="xl" color="white" variant="solid" class="text-blue-600 font-semibold">
-            <UIcon name="i-lucide-rocket" class="mr-2" />
+          <UButton
+            size="xl"
+            color="white"
+            variant="solid"
+            class="text-blue-600 font-semibold"
+          >
+            <UIcon
+              name="i-lucide-rocket"
+              class="mr-2"
+            />
             Empezar gratis
           </UButton>
           <NuxtLink to="/">
-            <UButton size="xl" variant="outline" class="border-white text-white hover:bg-white/10">
+            <UButton
+              size="xl"
+              variant="outline"
+              class="border-white text-white hover:bg-white/10"
+            >
               Ver más funcionalidades
             </UButton>
           </NuxtLink>
@@ -147,14 +215,26 @@
         <div class="flex flex-col md:flex-row justify-between items-center gap-6">
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 bg-[#74acdf] rounded-xl flex items-center justify-center">
-              <UIcon name="i-lucide-scale" class="text-2xl text-white" />
+              <UIcon
+                name="i-lucide-scale"
+                class="text-2xl text-white"
+              />
             </div>
             <span class="text-xl font-bold text-white">Jurídica</span>
           </div>
           <div class="flex gap-8 text-sm">
-            <NuxtLink to="/" class="hover:text-white transition-colors">Inicio</NuxtLink>
-            <a href="#" class="hover:text-white transition-colors">Términos</a>
-            <a href="#" class="hover:text-white transition-colors">Privacidad</a>
+            <NuxtLink
+              to="/"
+              class="hover:text-white transition-colors"
+            >Inicio</NuxtLink>
+            <a
+              href="#"
+              class="hover:text-white transition-colors"
+            >Términos</a>
+            <a
+              href="#"
+              class="hover:text-white transition-colors"
+            >Privacidad</a>
           </div>
           <p class="text-sm">
             © {{ new Date().getFullYear() }} Jurídica. Todos los derechos reservados.
@@ -209,18 +289,18 @@ useHead({
       children: JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'Article',
-        headline: page.value.metaTitle,
-        description: page.value.metaDescription,
-        author: {
+        'headline': page.value.metaTitle,
+        'description': page.value.metaDescription,
+        'author': {
           '@type': 'Organization',
-          name: 'Jurídica'
+          'name': 'Jurídica'
         },
-        publisher: {
+        'publisher': {
           '@type': 'Organization',
-          name: 'Jurídica',
-          url: 'https://juridica.ar'
+          'name': 'Jurídica',
+          'url': 'https://juridica.ar'
         },
-        mainEntityOfPage: {
+        'mainEntityOfPage': {
           '@type': 'WebPage',
           '@id': `https://juridica.ar/comparar/${slug}`
         }

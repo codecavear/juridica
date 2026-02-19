@@ -1,5 +1,12 @@
 import { searchSAIJ, type DocumentType, type SAIJSearchResult } from '../../utils/saij'
 
+const planLimits: Record<string, { searchesPerDay: number, reportsPerMonth: number }> = {
+  free: { searchesPerDay: 5, reportsPerMonth: 3 },
+  basico: { searchesPerDay: 30, reportsPerMonth: 10 },
+  pro: { searchesPerDay: 100, reportsPerMonth: 30 },
+  estudio: { searchesPerDay: -1, reportsPerMonth: -1 } // -1 = unlimited
+}
+
 interface GenerateReportBody {
   query?: string
   tipo?: DocumentType
@@ -131,7 +138,7 @@ function repairTruncatedJson(
       str.lastIndexOf('"},'),
       str.lastIndexOf('}],'),
       str.lastIndexOf('"],'),
-      str.lastIndexOf('}]'),
+      str.lastIndexOf('}]')
     ]
 
     const candidates = [
@@ -203,7 +210,7 @@ function repairTruncatedJson(
     recommendations: extractArray('recommendations').length
       ? extractArray('recommendations')
       : ['Regenerar reporte con los mismos documentos.'],
-    citations: sourceResults.slice(0, 8).map((r) => ({
+    citations: sourceResults.slice(0, 8).map(r => ({
       id: r.uuid,
       titulo: r.titulo || r.caratula || r.uuid,
       url: r.url || '',
@@ -237,6 +244,54 @@ export default defineEventHandler(async (event) => {
 
   const dbCtx = await getDbContext()
 
+  // Get user session and check limits BEFORE expensive AI call
+  const session = await getUserSession(event)
+  let sessionUserId: string | null = null
+
+  if (session?.user?.id) {
+    sessionUserId = session.user.id
+
+    if (dbCtx) {
+      const { eq, and, gte, sql } = await import('drizzle-orm')
+
+      // Get user and their plan
+      const user = await dbCtx.db.query.users.findFirst({
+        where: (users, { eq }) => eq(users.id, sessionUserId)
+      })
+
+      if (user) {
+        const limits = planLimits[user.plan] || planLimits.free
+
+        // Only enforce limit if not unlimited (-1)
+        if (limits.reportsPerMonth !== -1) {
+          // Count this month's reports
+          const today = new Date()
+          const monthStart = new Date(today.getFullYear(), today.getMonth(), 1)
+
+          const [reportStats] = await dbCtx.db
+            .select({ count: sql<number>`count(*)::int` })
+            .from(dbCtx.schema.reports)
+            .where(
+              and(
+                eq(dbCtx.schema.reports.userId, sessionUserId),
+                gte(dbCtx.schema.reports.createdAt, monthStart)
+              )
+            )
+
+          const reportsThisMonth = reportStats?.count || 0
+
+          // Check if user exceeded their monthly limit
+          if (reportsThisMonth >= limits.reportsPerMonth) {
+            throw createError({
+              statusCode: 429,
+              message: `Has alcanzado tu límite de ${limits.reportsPerMonth} análisis IA mensuales. Actualizá tu plan para continuar.`
+            })
+          }
+        }
+      }
+    }
+  }
+
   // Input sources priority: explicit results -> searchId -> fresh search
   let sourceResults: SAIJSearchResult[] = []
 
@@ -269,7 +324,7 @@ export default defineEventHandler(async (event) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${openaiApiKey}`
+      'Authorization': `Bearer ${openaiApiKey}`
     },
     body: JSON.stringify({
       model: 'gpt-4.1-mini',
@@ -333,14 +388,15 @@ export default defineEventHandler(async (event) => {
 
   const citations = Array.isArray(parsed.citations)
     ? parsed.citations as Array<{ id: string, titulo: string, url: string, extracto: string }>
-    : sourceResults.slice(0, 8).map((r) => ({
-      id: r.uuid,
-      titulo: r.titulo || r.caratula || r.uuid,
-      url: r.url || '',
-      extracto: (r.texto || '').slice(0, 280)
-    }))
+    : sourceResults.slice(0, 8).map(r => ({
+        id: r.uuid,
+        titulo: r.titulo || r.caratula || r.uuid,
+        url: r.url || '',
+        extracto: (r.texto || '').slice(0, 280)
+      }))
 
-  const userId = await ensureUserId(dbCtx, body?.userId, body?.userEmail)
+  // Use session userId first, fallback to body params for backwards compatibility
+  const userId = sessionUserId || await ensureUserId(dbCtx, body?.userId, body?.userEmail)
 
   let reportId: string | null = null
 

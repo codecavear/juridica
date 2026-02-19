@@ -2,8 +2,15 @@
   <div class="min-h-screen bg-default">
     <section class="py-14 border-b border-default bg-default">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <UBadge color="primary" variant="subtle" class="mb-4">
-          <UIcon name="i-lucide-flask-conical" class="mr-1" />
+        <UBadge
+          color="primary"
+          variant="subtle"
+          class="mb-4"
+        >
+          <UIcon
+            name="i-lucide-flask-conical"
+            class="mr-1"
+          />
           Demo
         </UBadge>
         <h1 class="text-3xl sm:text-4xl font-bold text-black mb-3">
@@ -23,9 +30,19 @@
           <UCard class="border-[#74acdf]/30 shadow-sm">
             <template #header>
               <div class="flex flex-wrap items-center gap-2">
-                <UBadge color="primary" variant="soft">Jurisprudencia</UBadge>
+                <UBadge
+                  color="primary"
+                  variant="soft"
+                >
+                  Jurisprudencia
+                </UBadge>
                 <span class="text-xs text-muted">CSJN · 12/03/2023</span>
-                <UBadge color="success" variant="subtle">Fuente verificable</UBadge>
+                <UBadge
+                  color="success"
+                  variant="subtle"
+                >
+                  Fuente verificable
+                </UBadge>
               </div>
             </template>
 
@@ -45,10 +62,20 @@
 
             <template #footer>
               <div class="flex flex-wrap gap-2">
-                <UButton color="primary" variant="soft" trailing-icon="i-lucide-external-link" to="https://www.saij.gob.ar" target="_blank">
+                <UButton
+                  color="primary"
+                  variant="soft"
+                  trailing-icon="i-lucide-external-link"
+                  to="https://www.saij.gob.ar"
+                  target="_blank"
+                >
                   Ver fuente oficial
                 </UButton>
-                <UButton color="neutral" variant="outline" icon="i-lucide-bookmark">
+                <UButton
+                  color="neutral"
+                  variant="outline"
+                  icon="i-lucide-bookmark"
+                >
                   Guardar en favoritos
                 </UButton>
               </div>
@@ -58,14 +85,36 @@
           <UCard>
             <template #header>
               <div class="flex items-center justify-between">
-                <p class="font-semibold text-highlighted">Por qué este fallo importa</p>
-                <UBadge color="warning" variant="subtle">Uso práctico</UBadge>
+                <p class="font-semibold text-highlighted">
+                  Por qué este fallo importa
+                </p>
+                <UBadge
+                  color="warning"
+                  variant="subtle"
+                >
+                  Uso práctico
+                </UBadge>
               </div>
             </template>
             <ul class="space-y-2 text-sm text-toned">
-              <li class="flex gap-2"><UIcon name="i-lucide-check" class="text-green-600 mt-0.5" /> Útil para contestar despido con causa por abandono</li>
-              <li class="flex gap-2"><UIcon name="i-lucide-check" class="text-green-600 mt-0.5" /> Refuerza necesidad de intimación previa válida</li>
-              <li class="flex gap-2"><UIcon name="i-lucide-check" class="text-green-600 mt-0.5" /> Citable en escritos con link oficial verificable</li>
+              <li class="flex gap-2">
+                <UIcon
+                  name="i-lucide-check"
+                  class="text-green-600 mt-0.5"
+                /> Útil para contestar despido con causa por abandono
+              </li>
+              <li class="flex gap-2">
+                <UIcon
+                  name="i-lucide-check"
+                  class="text-green-600 mt-0.5"
+                /> Refuerza necesidad de intimación previa válida
+              </li>
+              <li class="flex gap-2">
+                <UIcon
+                  name="i-lucide-check"
+                  class="text-green-600 mt-0.5"
+                /> Citable en escritos con link oficial verificable
+              </li>
             </ul>
           </UCard>
         </div>
@@ -75,19 +124,32 @@
           <UCard class="border-purple-200 bg-purple-50/40">
             <template #header>
               <div class="flex items-center justify-between">
-                <p class="font-semibold text-highlighted">Reporte IA (demo)</p>
-                <UBadge color="info" variant="subtle">gpt-4.1-mini</UBadge>
+                <p class="font-semibold text-highlighted">
+                  Reporte IA (demo)
+                </p>
+                <UBadge
+                  color="info"
+                  variant="subtle"
+                >
+                  gpt-4.1-mini
+                </UBadge>
               </div>
             </template>
 
             <div class="space-y-3 text-sm">
               <div>
-                <p class="font-medium text-highlighted">Resumen</p>
-                <p class="text-toned">El criterio exige intimación fehaciente para configurar abandono. Si no existe, aumenta la probabilidad de despido injustificado.</p>
+                <p class="font-medium text-highlighted">
+                  Resumen
+                </p>
+                <p class="text-toned">
+                  El criterio exige intimación fehaciente para configurar abandono. Si no existe, aumenta la probabilidad de despido injustificado.
+                </p>
               </div>
 
               <div>
-                <p class="font-medium text-highlighted">Riesgos detectados</p>
+                <p class="font-medium text-highlighted">
+                  Riesgos detectados
+                </p>
                 <ul class="list-disc ml-5 text-toned space-y-1">
                   <li>Telegrama ambiguo o no recibido</li>
                   <li>Plazo de reintegro irrazonable</li>
@@ -95,21 +157,35 @@
               </div>
 
               <div>
-                <p class="font-medium text-highlighted">Recomendación</p>
-                <p class="text-toned">Verificar constancias de notificación y secuencia de intimaciones antes de cerrar estrategia procesal.</p>
+                <p class="font-medium text-highlighted">
+                  Recomendación
+                </p>
+                <p class="text-toned">
+                  Verificar constancias de notificación y secuencia de intimaciones antes de cerrar estrategia procesal.
+                </p>
               </div>
             </div>
           </UCard>
 
           <UCard>
             <template #header>
-              <p class="font-semibold text-highlighted">Citas del reporte</p>
+              <p class="font-semibold text-highlighted">
+                Citas del reporte
+              </p>
             </template>
             <div class="space-y-2 text-sm">
-              <a href="https://www.saij.gob.ar" target="_blank" class="block p-2 rounded-lg border border-default hover:border-[#74acdf] hover:bg-default">
+              <a
+                href="https://www.saij.gob.ar"
+                target="_blank"
+                class="block p-2 rounded-lg border border-default hover:border-[#74acdf] hover:bg-default"
+              >
                 CSJN, abandono de trabajo e intimación previa
               </a>
-              <a href="https://www.saij.gob.ar" target="_blank" class="block p-2 rounded-lg border border-default hover:border-[#74acdf] hover:bg-default">
+              <a
+                href="https://www.saij.gob.ar"
+                target="_blank"
+                class="block p-2 rounded-lg border border-default hover:border-[#74acdf] hover:bg-default"
+              >
                 Art. 244 LCT - criterios de aplicación
               </a>
             </div>

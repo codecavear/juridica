@@ -25,7 +25,6 @@ export default defineEventHandler(async (event) => {
   // Get user session
   const session = await getUserSession(event)
   let userId: string | null = null
-  console.log('[Search] Session:', JSON.stringify({ userId: session?.user?.id, email: session?.user?.email, hasSession: !!session }))
 
   // If user is logged in, check limits and track the search
   if (session?.user?.id) {
@@ -107,4 +106,3 @@ export default defineEventHandler(async (event) => {
     })
   }
 })
-// force rebuild 1771521258
