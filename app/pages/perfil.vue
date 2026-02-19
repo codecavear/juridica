@@ -10,24 +10,35 @@ if (!loggedIn.value) {
 
 const { data: profile, status } = await useFetch('/api/user/profile')
 
-// Fetch recent searches (placeholder data if API doesn't exist)
-const recentSearches = ref<Array<{ id: string, query: string, tipo: string, createdAt: string }>>([])
-const loadingSearches = ref(true)
+// Fetch recent activity (searches + reports)
+interface ActivitySearch {
+  id: string
+  query: string
+  tipo: string
+  resultsCount: number
+  createdAt: string
+  type: 'search'
+}
 
-onMounted(async () => {
-  try {
-    // Try to fetch from API if it exists
-    const data = await $fetch<typeof recentSearches.value>('/api/user/searches', {
-      params: { limit: 5 }
-    })
-    recentSearches.value = data
-  } catch {
-    // API doesn't exist yet, leave empty
-    recentSearches.value = []
-  } finally {
-    loadingSearches.value = false
-  }
+interface ActivityReport {
+  id: string
+  title: string
+  query: string
+  createdAt: string
+  type: 'report'
+}
+
+interface ActivityData {
+  searches: ActivitySearch[]
+  reports: ActivityReport[]
+}
+
+const { data: activity, status: activityStatus } = await useFetch<ActivityData>('/api/user/activity', {
+  default: () => ({ searches: [], reports: [] })
 })
+
+const loadingActivity = computed(() => activityStatus.value === 'pending')
+const activityTab = ref('searches')
 
 const planColors: Record<string, 'neutral' | 'primary' | 'warning' | 'success'> = {
   free: 'neutral',
@@ -55,20 +66,20 @@ const isPremium = computed(() => {
   return ['pro', 'estudio'].includes(profile.value.plan.current)
 })
 
-function searchPercentage(): number {
+const searchPercentage = computed(() => {
   if (!profile.value) return 0
   const limit = profile.value.plan.limits.searchesPerDay
   if (limit === -1) return 0
   return Math.min(100, Math.round((profile.value.usage.searchesToday / limit) * 100))
-}
+})
 
-function reportPercentage(): number {
+const reportPercentage = computed(() => {
   if (!profile.value) return 0
   const limit = profile.value.plan.limits.reportsPerMonth
   if (limit === -1) return 0
   if (limit === 0) return 100
   return Math.min(100, Math.round((profile.value.usage.reportsThisMonth / limit) * 100))
-}
+})
 
 function formatDate(date: string): string {
   return new Date(date).toLocaleDateString('es-AR', {
@@ -129,24 +140,13 @@ async function handleLogout() {
         <div class="flex flex-col sm:flex-row sm:items-center gap-6">
           <!-- Avatar & Basic Info -->
           <div class="flex items-center gap-4 flex-1">
-            <div class="relative">
-              <UAvatar
-                :src="profile.user.avatar || undefined"
-                :alt="profile.user.name || 'Usuario'"
-                size="3xl"
-                class="ring-4 ring-offset-2 ring-offset-default"
-                :class="isPremium ? 'ring-warning' : 'ring-muted/30'"
-              />
-              <div
-                v-if="isPremium"
-                class="absolute -top-1 -right-1 bg-warning text-warning-foreground rounded-full p-1"
-              >
-                <UIcon
-                  name="i-lucide-crown"
-                  class="size-4"
-                />
-              </div>
-            </div>
+            <UAvatar
+              :src="profile.user.avatar || undefined"
+              :alt="profile.user.name || 'Usuario'"
+              size="3xl"
+              class="ring-4 ring-offset-2 ring-offset-default"
+              :class="isPremium ? 'ring-warning' : 'ring-muted/30'"
+            />
             <div class="flex-1">
               <h1 class="text-2xl font-bold text-highlighted">
                 {{ profile.user.name || 'Usuario' }}
@@ -222,8 +222,8 @@ async function handleLogout() {
                   </div>
                   <div v-if="profile.plan.limits.searchesPerDay !== -1">
                     <UProgress
-                      :value="searchPercentage()"
-                      :color="searchPercentage() >= 90 ? 'error' : searchPercentage() >= 70 ? 'warning' : 'primary'"
+                      :value="searchPercentage"
+                      :color="searchPercentage >= 90 ? 'error' : searchPercentage >= 70 ? 'warning' : 'primary'"
                       size="sm"
                     />
                     <p class="text-xs text-muted mt-1">
@@ -262,8 +262,8 @@ async function handleLogout() {
                   </div>
                   <div v-if="profile.plan.limits.reportsPerMonth > 0">
                     <UProgress
-                      :value="reportPercentage()"
-                      :color="reportPercentage() >= 90 ? 'error' : reportPercentage() >= 70 ? 'warning' : 'secondary'"
+                      :value="reportPercentage"
+                      :color="reportPercentage >= 90 ? 'error' : reportPercentage >= 70 ? 'warning' : 'secondary'"
                       size="sm"
                     />
                     <p class="text-xs text-muted mt-1">
@@ -314,10 +314,10 @@ async function handleLogout() {
               Actividad reciente
             </h2>
 
-            <UCard>
+            <UCard :ui="{ body: 'p-0' }">
               <!-- Loading -->
               <div
-                v-if="loadingSearches"
+                v-if="loadingActivity"
                 class="flex justify-center py-8"
               >
                 <UIcon
@@ -326,52 +326,150 @@ async function handleLogout() {
                 />
               </div>
 
-              <!-- Empty state -->
-              <UEmpty
-                v-else-if="recentSearches.length === 0"
-                icon="i-lucide-search-x"
-                title="Sin actividad reciente"
-                description="Tus últimas búsquedas aparecerán aquí"
-                class="py-8"
-              />
+              <template v-else>
+                <!-- Tabs -->
+                <div class="flex border-b border-default">
+                  <button
+                    class="flex-1 px-4 py-3 text-sm font-medium transition-colors flex items-center justify-center gap-2"
+                    :class="activityTab === 'searches' ? 'text-primary border-b-2 border-primary' : 'text-muted hover:text-default'"
+                    @click="activityTab = 'searches'"
+                  >
+                    <UIcon
+                      name="i-lucide-search"
+                      class="size-4"
+                    />
+                    Búsquedas
+                    <UBadge
+                      v-if="activity?.searches.length"
+                      variant="subtle"
+                      color="neutral"
+                      size="xs"
+                    >
+                      {{ activity.searches.length }}
+                    </UBadge>
+                  </button>
+                  <button
+                    class="flex-1 px-4 py-3 text-sm font-medium transition-colors flex items-center justify-center gap-2"
+                    :class="activityTab === 'reports' ? 'text-secondary border-b-2 border-secondary' : 'text-muted hover:text-default'"
+                    @click="activityTab = 'reports'"
+                  >
+                    <UIcon
+                      name="i-lucide-file-text"
+                      class="size-4"
+                    />
+                    Reportes IA
+                    <UBadge
+                      v-if="activity?.reports.length"
+                      variant="subtle"
+                      color="neutral"
+                      size="xs"
+                    >
+                      {{ activity.reports.length }}
+                    </UBadge>
+                  </button>
+                </div>
 
-              <!-- Recent searches list -->
-              <div
-                v-else
-                class="divide-y divide-default"
-              >
+                <!-- Searches Tab -->
                 <div
-                  v-for="search in recentSearches"
-                  :key="search.id"
-                  class="py-3 first:pt-0 last:pb-0"
+                  v-if="activityTab === 'searches'"
+                  class="p-4"
                 >
-                  <div class="flex items-start justify-between gap-4">
-                    <div class="flex-1 min-w-0">
-                      <p class="text-sm font-medium text-highlighted truncate">
-                        {{ search.query }}
-                      </p>
-                      <div class="flex items-center gap-2 mt-1">
-                        <UBadge
-                          :color="getTipoColor(search.tipo)"
-                          variant="subtle"
+                  <UEmpty
+                    v-if="!activity?.searches.length"
+                    icon="i-lucide-search-x"
+                    title="Sin búsquedas"
+                    description="Tus búsquedas recientes aparecerán aquí"
+                    class="py-6"
+                  />
+                  <div
+                    v-else
+                    class="divide-y divide-default"
+                  >
+                    <div
+                      v-for="search in activity.searches"
+                      :key="search.id"
+                      class="py-3 first:pt-0 last:pb-0"
+                    >
+                      <div class="flex items-start justify-between gap-4">
+                        <div class="flex-1 min-w-0">
+                          <p class="text-sm font-medium text-highlighted truncate">
+                            {{ search.query }}
+                          </p>
+                          <div class="flex items-center gap-2 mt-1">
+                            <UBadge
+                              :color="getTipoColor(search.tipo)"
+                              variant="subtle"
+                              size="xs"
+                            >
+                              {{ search.tipo }}
+                            </UBadge>
+                            <span class="text-xs text-dimmed">
+                              {{ formatRelativeDate(search.createdAt) }}
+                            </span>
+                          </div>
+                        </div>
+                        <UButton
+                          :to="`/busqueda?q=${encodeURIComponent(search.query)}&tipo=${search.tipo}`"
+                          variant="ghost"
                           size="xs"
                         >
-                          {{ search.tipo }}
-                        </UBadge>
-                        <span class="text-xs text-dimmed">
-                          {{ formatRelativeDate(search.createdAt) }}
-                        </span>
+                          <UIcon
+                            name="i-lucide-repeat"
+                            class="size-4 mr-1"
+                          />
+                          Buscar de nuevo
+                        </UButton>
                       </div>
                     </div>
-                    <UButton
-                      :to="`/buscar?q=${encodeURIComponent(search.query)}&tipo=${search.tipo}`"
-                      variant="ghost"
-                      size="xs"
-                      icon="i-lucide-arrow-right"
-                    />
                   </div>
                 </div>
-              </div>
+
+                <!-- Reports Tab -->
+                <div
+                  v-if="activityTab === 'reports'"
+                  class="p-4"
+                >
+                  <UEmpty
+                    v-if="!activity?.reports.length"
+                    icon="i-lucide-file-x"
+                    title="Sin reportes"
+                    description="Tus reportes IA aparecerán aquí"
+                    class="py-6"
+                  />
+                  <div
+                    v-else
+                    class="divide-y divide-default"
+                  >
+                    <div
+                      v-for="report in activity.reports"
+                      :key="report.id"
+                      class="py-3 first:pt-0 last:pb-0"
+                    >
+                      <div class="flex items-start justify-between gap-4">
+                        <div class="flex-1 min-w-0">
+                          <p class="text-sm font-medium text-highlighted truncate">
+                            {{ report.title }}
+                          </p>
+                          <span class="text-xs text-dimmed">
+                            {{ formatRelativeDate(report.createdAt) }}
+                          </span>
+                        </div>
+                        <UButton
+                          :to="`/reporte/${report.id}`"
+                          variant="ghost"
+                          size="xs"
+                        >
+                          <UIcon
+                            name="i-lucide-eye"
+                            class="size-4 mr-1"
+                          />
+                          Ver reporte
+                        </UButton>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </template>
             </UCard>
           </div>
         </div>

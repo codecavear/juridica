@@ -16,8 +16,22 @@
     </template>
 
     <template #body>
+      <!-- Loading state -->
+      <div
+        v-if="status === 'pending'"
+        class="flex justify-center py-20"
+      >
+        <UIcon
+          name="i-lucide-loader-2"
+          class="text-3xl text-muted animate-spin"
+        />
+      </div>
+
       <!-- Stats Cards -->
-      <div class="p-6">
+      <div
+        v-else
+        class="p-6"
+      >
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <UCard>
             <div class="flex items-center gap-4">
@@ -208,39 +222,40 @@ definePageMeta({
   layout: 'admin'
 })
 
-const stats = ref({
-  totalUsers: 0,
-  totalSearches: 0,
-  totalReports: 0,
-  paidUsers: 0
+interface AdminStats {
+  stats: {
+    totalUsers: number
+    totalSearches: number
+    totalReports: number
+    paidUsers: number
+  }
+  recentSearches: Array<{
+    id: string
+    query: string
+    tipo: string
+    resultsCount: number
+    createdAt: string
+  }>
+  recentUsers: Array<{
+    id: string
+    email: string
+    name: string | null
+    plan: string
+    createdAt: string
+  }>
+}
+
+const { data, status, refresh } = await useFetch<AdminStats>('/api/admin/stats', {
+  default: () => ({
+    stats: { totalUsers: 0, totalSearches: 0, totalReports: 0, paidUsers: 0 },
+    recentSearches: [],
+    recentUsers: []
+  })
 })
 
-const recentSearches = ref<Array<{
-  id: string
-  query: string
-  tipo: string
-  resultsCount: number
-  createdAt: string
-}>>([])
-
-const recentUsers = ref<Array<{
-  id: string
-  email: string
-  name: string | null
-  plan: string
-  createdAt: string
-}>>([])
-
-async function refresh() {
-  try {
-    const data = await $fetch('/api/admin/stats')
-    stats.value = data.stats
-    recentSearches.value = data.recentSearches
-    recentUsers.value = data.recentUsers
-  } catch (error) {
-    console.error('Error fetching stats:', error)
-  }
-}
+const stats = computed(() => data.value?.stats ?? { totalUsers: 0, totalSearches: 0, totalReports: 0, paidUsers: 0 })
+const recentSearches = computed(() => data.value?.recentSearches ?? [])
+const recentUsers = computed(() => data.value?.recentUsers ?? [])
 
 function formatDate(date: string) {
   return new Date(date).toLocaleString('es-AR', {
@@ -260,8 +275,4 @@ function getPlanColor(plan: string) {
   }
   return colors[plan] || 'neutral'
 }
-
-onMounted(() => {
-  refresh()
-})
 </script>

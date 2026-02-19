@@ -16,7 +16,19 @@
 
     <template #body>
       <div class="p-6">
+        <!-- Loading state -->
+        <div
+          v-if="status === 'pending'"
+          class="flex justify-center py-12"
+        >
+          <UIcon
+            name="i-lucide-loader-2"
+            class="text-3xl text-muted animate-spin"
+          />
+        </div>
+
         <UTable
+          v-else
           :data="filteredSearches"
           :columns="columns"
         >
@@ -66,7 +78,10 @@ interface Search {
 }
 
 const filterTipo = ref('')
-const searches = ref<Search[]>([])
+
+const { data: searches, status } = await useFetch<Search[]>('/api/admin/searches', {
+  default: () => []
+})
 
 const tipoOptions = [
   { label: 'Todos', value: '' },
@@ -84,6 +99,7 @@ const columns = [
 ]
 
 const filteredSearches = computed(() => {
+  if (!searches.value) return []
   if (!filterTipo.value) return searches.value
   return searches.value.filter(s => s.tipo === filterTipo.value)
 })
@@ -106,17 +122,4 @@ function formatDate(date: string) {
     minute: '2-digit'
   })
 }
-
-async function loadSearches() {
-  try {
-    const data = await $fetch('/api/admin/searches')
-    searches.value = data
-  } catch (error) {
-    console.error('Error loading searches:', error)
-  }
-}
-
-onMounted(() => {
-  loadSearches()
-})
 </script>

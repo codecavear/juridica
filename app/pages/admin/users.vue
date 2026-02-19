@@ -16,7 +16,19 @@
 
     <template #body>
       <div class="p-6">
+        <!-- Loading state -->
+        <div
+          v-if="status === 'pending'"
+          class="flex justify-center py-12"
+        >
+          <UIcon
+            name="i-lucide-loader-2"
+            class="text-3xl text-muted animate-spin"
+          />
+        </div>
+
         <UTable
+          v-else
           :data="filteredUsers"
           :columns="columns"
         >
@@ -71,7 +83,10 @@ interface User {
 }
 
 const search = ref('')
-const users = ref<User[]>([])
+
+const { data: users, status } = await useFetch<User[]>('/api/admin/users', {
+  default: () => []
+})
 
 const columns = [
   { accessorKey: 'email', header: 'Email' },
@@ -84,6 +99,7 @@ const columns = [
 ]
 
 const filteredUsers = computed(() => {
+  if (!users.value) return []
   if (!search.value) return users.value
   return users.value.filter(u =>
     u.email.toLowerCase().includes(search.value.toLowerCase())
@@ -122,17 +138,4 @@ function getActions(_user: User) {
     }]
   ]
 }
-
-async function loadUsers() {
-  try {
-    const data = await $fetch('/api/admin/users')
-    users.value = data
-  } catch (error) {
-    console.error('Error loading users:', error)
-  }
-}
-
-onMounted(() => {
-  loadUsers()
-})
 </script>
