@@ -27,8 +27,7 @@
             <span class="block text-[#74acdf]">con fuentes verificables</span>
           </h1>
 
-          <p class="text-lg sm:text-xl text-muted max-w-2xl mx-auto mb-10">
-            Encontrá jurisprudencia argentina en minutos, con links verificables a fuentes oficiales.
+          <p class="text-base sm:text-lg text-muted max-w-2xl mx-auto mb-10">
             Menos tiempo buscando. Más tiempo argumentando mejor.
           </p>
         </div>
