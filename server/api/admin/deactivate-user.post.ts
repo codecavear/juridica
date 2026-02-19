@@ -2,35 +2,24 @@ import { db, schema } from '../../database'
 import { eq } from 'drizzle-orm'
 
 const ADMIN_EMAILS = ['conradocanas@gmail.com', 'canasconrado@gmail.com', 'docta@codecave.ar']
-const VALID_PLANS = ['free', 'basico', 'pro', 'estudio']
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
   if (!session?.user?.email || !ADMIN_EMAILS.includes(session.user.email))
     throw createError({ statusCode: 403, message: 'No autorizado' })
 
-  const body = await readBody(event)
-  const { userId, plan, expiresAt } = body
-
-  if (!userId || !plan || !VALID_PLANS.includes(plan))
-    throw createError({ statusCode: 400, message: 'userId y plan (free|basico|pro|estudio) requeridos' })
-
-  const updateData: Record<string, any> = {
-    plan,
-    planSource: 'admin',
-    updatedAt: new Date()
-  }
-
-  if (expiresAt) {
-    updateData.planExpiresAt = new Date(expiresAt)
-  } else if (plan === 'free') {
-    updateData.planExpiresAt = null
-    updateData.planSource = 'default'
-  }
+  const { userId } = await readBody(event)
+  if (!userId)
+    throw createError({ statusCode: 400, message: 'userId requerido' })
 
   const [updated] = await db
     .update(schema.users)
-    .set(updateData)
+    .set({
+      plan: 'free',
+      planSource: 'default',
+      planExpiresAt: null,
+      updatedAt: new Date()
+    })
     .where(eq(schema.users.id, userId))
     .returning({ id: schema.users.id, email: schema.users.email, plan: schema.users.plan })
 
