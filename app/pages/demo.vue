@@ -161,34 +161,6 @@
                   </ul>
                 </div>
 
-                <div>
-                  <p class="font-medium text-highlighted mb-1">
-                    Por qué este análisis importa
-                  </p>
-                  <ul class="space-y-2 text-toned">
-                    <li class="flex gap-2">
-                      <UIcon
-                        name="i-lucide-check"
-                        class="text-green-600 mt-0.5 shrink-0"
-                      />
-                      Útil para contestar despido con causa por abandono
-                    </li>
-                    <li class="flex gap-2">
-                      <UIcon
-                        name="i-lucide-check"
-                        class="text-green-600 mt-0.5 shrink-0"
-                      />
-                      Refuerza necesidad de intimación previa válida
-                    </li>
-                    <li class="flex gap-2">
-                      <UIcon
-                        name="i-lucide-check"
-                        class="text-green-600 mt-0.5 shrink-0"
-                      />
-                      Citable en escritos con link oficial verificable
-                    </li>
-                  </ul>
-                </div>
               </div>
 
               <template #footer>
@@ -196,6 +168,44 @@
                   Resultado orientativo. Validá siempre con fuentes oficiales antes de presentar escritos.
                 </p>
               </template>
+            </UCard>
+
+            <!-- Practical Use Card -->
+            <UCard>
+              <template #header>
+                <div class="flex items-center gap-2">
+                  <UIcon
+                    name="i-lucide-lightbulb"
+                    class="text-amber-500"
+                  />
+                  <p class="font-semibold text-highlighted">
+                    Por qué este análisis importa
+                  </p>
+                </div>
+              </template>
+              <ul class="space-y-2 text-sm text-toned">
+                <li class="flex gap-2">
+                  <UIcon
+                    name="i-lucide-check"
+                    class="text-green-600 mt-0.5 shrink-0"
+                  />
+                  Útil para contestar despido con causa por abandono
+                </li>
+                <li class="flex gap-2">
+                  <UIcon
+                    name="i-lucide-check"
+                    class="text-green-600 mt-0.5 shrink-0"
+                  />
+                  Refuerza necesidad de intimación previa válida
+                </li>
+                <li class="flex gap-2">
+                  <UIcon
+                    name="i-lucide-check"
+                    class="text-green-600 mt-0.5 shrink-0"
+                  />
+                  Citable en escritos con link oficial verificable
+                </li>
+              </ul>
             </UCard>
           </div>
 
