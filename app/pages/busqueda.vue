@@ -494,7 +494,7 @@ function normalizeSummaryPayload(raw: ReportSummary | null): ReportSummary {
           keyFindings: asStringArray(parsed.keyFindings || raw.keyFindings),
           arguments: Array.isArray(parsed.arguments) ? parsed.arguments as ReportArgument[] : raw.arguments,
           risks: asStringArray(parsed.risks || raw.risks),
-          recommendations: asStringArray(parsed.recommendations || raw.recommendations)
+          recommendations: asStringArray(parsed.recommendations || raw.recommendations),
           practicalUse: asStringArray(parsed.practicalUse || raw.practicalUse)
         }
       } catch {
@@ -510,8 +510,8 @@ function normalizeSummaryPayload(raw: ReportSummary | null): ReportSummary {
       keyFindings: asStringArray(raw.keyFindings),
       arguments: Array.isArray(raw.arguments) ? raw.arguments : [],
       risks: asStringArray(raw.risks),
-      recommendations: asStringArray(raw.recommendations)
-    practicalUse: asStringArray(raw.practicalUse)
+      recommendations: asStringArray(raw.recommendations),
+      practicalUse: asStringArray(raw.practicalUse)
     }
   }
 
@@ -521,7 +521,7 @@ function normalizeSummaryPayload(raw: ReportSummary | null): ReportSummary {
     keyFindings: asStringArray(raw.keyFindings),
     arguments: Array.isArray(raw.arguments) ? raw.arguments : [],
     risks: asStringArray(raw.risks),
-    recommendations: asStringArray(raw.recommendations)
+    recommendations: asStringArray(raw.recommendations),
     practicalUse: asStringArray(raw.practicalUse)
   }
 }
