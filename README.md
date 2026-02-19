@@ -1,61 +1,49 @@
-# Nuxt Starter Template
+# Juridica
 
-[![Nuxt UI](https://img.shields.io/badge/Made%20with-Nuxt%20UI-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com)
+Buscador de jurisprudencia argentina con IA. Busca fallos, leyes y doctrina en fuentes oficiales (SAIJ) con citas verificables y links directos.
 
-Use this template to get started with [Nuxt UI](https://ui.nuxt.com) quickly.
+**Live:** [juridica.ar](https://juridica.ar)
 
-- [Live demo](https://starter-template.nuxt.dev/)
-- [Documentation](https://ui.nuxt.com/docs/getting-started/installation/nuxt)
+## Stack
 
-<a href="https://starter-template.nuxt.dev/" target="_blank">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png">
-    <img alt="Nuxt Starter Template" src="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png" width="830" height="466">
-  </picture>
-</a>
+- Nuxt 4 + Nuxt UI 4
+- PostgreSQL + Drizzle ORM
+- Google OAuth (nuxt-auth-utils)
+- OpenAI (gpt-4.1-mini) for AI reports
+- SAIJ API for jurisprudence search
+- Railway deployment
+- Umami analytics
 
-> The starter template for Vue is on https://github.com/nuxt-ui-templates/starter-vue.
+## Features
 
-## Quick Start
-
-```bash [Terminal]
-npm create nuxt@latest -- -t github:nuxt-ui-templates/starter
-```
-
-## Deploy your own
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-name=starter&repository-url=https%3A%2F%2Fgithub.com%2Fnuxt-ui-templates%2Fstarter&demo-image=https%3A%2F%2Fui.nuxt.com%2Fassets%2Ftemplates%2Fnuxt%2Fstarter-dark.png&demo-url=https%3A%2F%2Fstarter-template.nuxt.dev%2F&demo-title=Nuxt%20Starter%20Template&demo-description=A%20minimal%20template%20to%20get%20started%20with%20Nuxt%20UI.)
+- Search Argentine jurisprudence via SAIJ with verifiable source links
+- AI-powered legal reports with citations from real documents
+- Google OAuth + magic link authentication
+- User plans: free, basico, pro, estudio
+- Admin dashboard (users, searches, stats)
+- SEO pages for organic traffic
 
 ## Setup
 
-Make sure to install the dependencies:
-
 ```bash
-pnpm install
+bun install
+cp .env.example .env  # configure env vars
+bun run dev
 ```
 
-## Development Server
+## Environment Variables
 
-Start the development server on `http://localhost:3000`:
-
-```bash
-pnpm dev
+```
+DATABASE_URL=postgresql://...
+NUXT_SESSION_PASSWORD=...
+NUXT_OAUTH_GOOGLE_CLIENT_ID=...
+NUXT_OAUTH_GOOGLE_CLIENT_SECRET=...
+OPENAI_API_KEY=...
 ```
 
-## Production
-
-Build the application for production:
+## Database
 
 ```bash
-pnpm build
+bunx drizzle-kit generate
+bunx drizzle-kit migrate
 ```
-
-Locally preview production build:
-
-```bash
-pnpm preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
-# Trigger rebuild
