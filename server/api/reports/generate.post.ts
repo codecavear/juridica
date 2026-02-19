@@ -67,6 +67,7 @@ Devolvé SOLO JSON válido con este formato:
   ],
   "risks": ["string"],
   "recommendations": ["string"],
+  "practicalUse": ["string - por qué este análisis le importa al abogado en la práctica"],
   "citations": [
     {
       "id": "uuid",
@@ -210,6 +211,7 @@ function repairTruncatedJson(
     recommendations: extractArray('recommendations').length
       ? extractArray('recommendations')
       : ['Regenerar reporte con los mismos documentos.'],
+    practicalUse: extractArray('practicalUse'),
     citations: sourceResults.slice(0, 8).map(r => ({
       id: r.uuid,
       titulo: r.titulo || r.caratula || r.uuid,

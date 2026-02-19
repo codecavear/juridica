@@ -186,6 +186,25 @@
                   </li>
                 </ul>
               </div>
+
+              <div v-if="summaryView.practicalUse?.length">
+                <p class="font-medium text-highlighted mb-1">
+                  Por qué este análisis importa
+                </p>
+                <ul class="space-y-2 text-toned">
+                  <li
+                    v-for="(item, idx) in summaryView.practicalUse"
+                    :key="`pu-${idx}`"
+                    class="flex gap-2"
+                  >
+                    <UIcon
+                      name="i-lucide-check"
+                      class="text-green-600 mt-0.5 shrink-0"
+                    />
+                    {{ item }}
+                  </li>
+                </ul>
+              </div>
             </div>
 
             <!-- Initial state: Show button to analyze -->
@@ -409,6 +428,7 @@ interface ReportSummary {
   arguments?: ReportArgument[]
   risks?: string[]
   recommendations?: string[]
+  practicalUse?: string[]
 }
 
 const route = useRoute()
@@ -475,6 +495,7 @@ function normalizeSummaryPayload(raw: ReportSummary | null): ReportSummary {
           arguments: Array.isArray(parsed.arguments) ? parsed.arguments as ReportArgument[] : raw.arguments,
           risks: asStringArray(parsed.risks || raw.risks),
           recommendations: asStringArray(parsed.recommendations || raw.recommendations)
+          practicalUse: asStringArray(parsed.practicalUse || raw.practicalUse)
         }
       } catch {
         // JSON was malformed/truncated — strip it from display
@@ -490,6 +511,7 @@ function normalizeSummaryPayload(raw: ReportSummary | null): ReportSummary {
       arguments: Array.isArray(raw.arguments) ? raw.arguments : [],
       risks: asStringArray(raw.risks),
       recommendations: asStringArray(raw.recommendations)
+    practicalUse: asStringArray(raw.practicalUse)
     }
   }
 
@@ -500,6 +522,7 @@ function normalizeSummaryPayload(raw: ReportSummary | null): ReportSummary {
     arguments: Array.isArray(raw.arguments) ? raw.arguments : [],
     risks: asStringArray(raw.risks),
     recommendations: asStringArray(raw.recommendations)
+    practicalUse: asStringArray(raw.practicalUse)
   }
 }
 
