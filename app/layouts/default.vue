@@ -115,11 +115,11 @@ const footerColumns = [{
     </template>
 
     <template #toggle="{ open, toggle }">
-      <!-- Mobile: avatar/login NEXT TO hamburger -->
+      <!-- Mobile only: avatar/login NEXT TO hamburger -->
       <NuxtLink
         v-if="loggedIn"
         to="/perfil"
-        class="mr-1"
+        class="mr-1 sm:hidden"
       >
         <UAvatar
           v-if="user?.avatar"
@@ -139,7 +139,7 @@ const footerColumns = [{
         variant="ghost"
         size="xs"
         icon="i-lucide-user"
-        class="mr-1"
+        class="mr-1 sm:hidden"
         @click.stop="showLoginModal = true"
       />
       <UButton
