@@ -72,6 +72,11 @@ const navItems = computed<NavigationMenuItem[]>(() => [
     label: 'Suscripciones',
     icon: 'i-lucide-credit-card',
     to: '/admin/subscriptions'
+  },
+  {
+    label: 'Cupones',
+    icon: 'i-lucide-ticket',
+    to: '/admin/coupons'
   }
 ])
 </script>
