@@ -184,40 +184,7 @@
         </UButton>
       </div>
     </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-300 py-12">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-[#74acdf] rounded-xl flex items-center justify-center">
-              <UIcon
-                name="i-lucide-scale"
-                class="text-2xl text-white"
-              />
-            </div>
-            <span class="text-xl font-bold text-white">Jurídica</span>
-          </div>
-          <div class="flex gap-8 text-sm">
-            <NuxtLink
-              to="/"
-              class="hover:text-white transition-colors"
-            >Inicio</NuxtLink>
-            <a
-              href="#"
-              class="hover:text-white transition-colors"
-            >Términos</a>
-            <a
-              href="#"
-              class="hover:text-white transition-colors"
-            >Privacidad</a>
-          </div>
-          <p class="text-sm">
-            © {{ new Date().getFullYear() }} Jurídica. Todos los derechos reservados.
-          </p>
-        </div>
-      </div>
-    </footer>
+    <!-- Footer is in default layout -->
   </div>
 </template>
 
