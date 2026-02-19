@@ -80,9 +80,14 @@ watch(isOpen, (open) => {
               <p class="font-bold text-highlighted text-sm">
                 🎉 ¡Tenés un cupón!
               </p>
-              <p class="text-xs text-muted mt-0.5">
-                Registrate y obtené <span class="font-semibold text-amber-500">Plan Pro gratis por 6 meses</span> — 100 búsquedas/día + 30 reportes IA/mes
+              <p class="font-semibold text-amber-500 text-xs mt-0.5">
+                Plan Pro gratis por 6 meses
               </p>
+              <ul class="text-xs text-muted mt-1 space-y-0.5">
+                <li>✓ 100 búsquedas por día</li>
+                <li>✓ 30 reportes IA por mes</li>
+                <li>✓ Exportar a Word, TXT, JSON</li>
+              </ul>
             </div>
           </div>
         </div>
