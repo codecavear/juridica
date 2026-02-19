@@ -77,13 +77,13 @@ const search = ref('')
 const users = ref<User[]>([])
 
 const columns = [
-  { key: 'email', label: 'Email' },
-  { key: 'name', label: 'Nombre' },
-  { key: 'plan', label: 'Plan' },
-  { key: 'searchesUsedToday', label: 'Búsquedas hoy' },
-  { key: 'reportsUsedThisMonth', label: 'Reportes mes' },
-  { key: 'createdAt', label: 'Registrado' },
-  { key: 'actions', label: '' }
+  { accessorKey: 'email', header: 'Email' },
+  { accessorKey: 'name', header: 'Nombre' },
+  { accessorKey: 'plan', header: 'Plan' },
+  { accessorKey: 'searchesUsedToday', header: 'Búsquedas hoy' },
+  { accessorKey: 'reportsUsedThisMonth', header: 'Reportes mes' },
+  { accessorKey: 'createdAt', header: 'Registrado' },
+  { accessorKey: 'actions', header: '' }
 ]
 
 const filteredUsers = computed(() => {

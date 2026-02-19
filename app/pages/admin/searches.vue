@@ -79,11 +79,11 @@ const tipoOptions = [
 ]
 
 const columns = [
-  { key: 'query', label: 'Consulta' },
-  { key: 'tipo', label: 'Tipo' },
-  { key: 'resultsCount', label: 'Resultados' },
-  { key: 'ipAddress', label: 'IP' },
-  { key: 'createdAt', label: 'Fecha' }
+  { accessorKey: 'query', header: 'Consulta' },
+  { accessorKey: 'tipo', header: 'Tipo' },
+  { accessorKey: 'resultsCount', header: 'Resultados' },
+  { accessorKey: 'ipAddress', header: 'IP' },
+  { accessorKey: 'createdAt', header: 'Fecha' }
 ]
 
 const filteredSearches = computed(() => {
