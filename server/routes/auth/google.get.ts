@@ -75,6 +75,20 @@ export default defineOAuthGoogleEventHandler({
         }
       })
 
+      // Apply coupon if present in cookie
+      const couponCode = getCookie(event, 'juridica_coupon')
+      if (couponCode) {
+        try {
+          const { applyCoupon } = await import('../../utils/coupon')
+          const applied = await applyCoupon(user.id, couponCode)
+          if (applied) {
+            deleteCookie(event, 'juridica_coupon')
+          }
+        } catch (err) {
+          console.error('[Google OAuth] Coupon error:', err)
+        }
+      }
+
       return sendRedirect(event, '/')
     } catch (error: any) {
       console.error('[Google OAuth] DB Error:', error?.message, error?.stack)

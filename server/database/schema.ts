@@ -9,6 +9,8 @@ export const users = pgTable('users', {
   provider: text('provider').default('magic-link').notNull(), // magic-link, google
   providerId: text('provider_id'), // Google sub ID
   plan: text('plan').default('free').notNull(), // free, basico, pro, estudio
+  planSource: text('plan_source').default('default').notNull(), // default, coupon, subscription
+  planExpiresAt: timestamp('plan_expires_at'), // null = permanent
   searchesUsedToday: integer('searches_used_today').default(0).notNull(),
   reportsUsedThisMonth: integer('reports_used_this_month').default(0).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
@@ -73,6 +75,26 @@ export const subscriptions = pgTable('subscriptions', {
   currentPeriodEnd: timestamp('current_period_end'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull()
+})
+
+// Coupons
+export const coupons = pgTable('coupons', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  code: text('code').notNull().unique(),
+  plan: text('plan').notNull(), // basico, pro, estudio
+  durationDays: integer('duration_days').notNull(),
+  maxUses: integer('max_uses').default(100).notNull(),
+  usedCount: integer('used_count').default(0).notNull(),
+  expiresAt: timestamp('expires_at'), // null = never expires
+  createdAt: timestamp('created_at').defaultNow().notNull()
+})
+
+export const userCoupons = pgTable('user_coupons', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: uuid('user_id').references(() => users.id).notNull(),
+  couponId: uuid('coupon_id').references(() => coupons.id).notNull(),
+  appliedAt: timestamp('applied_at').defaultNow().notNull(),
+  expiresAt: timestamp('expires_at').notNull()
 })
 
 // Alerts
