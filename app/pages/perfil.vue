@@ -240,7 +240,7 @@ async function handleLogout() {
                   </div>
                   <div v-if="profile.plan.limits.searchesPerDay !== -1">
                     <UProgress
-                      :value="searchPercentage"
+                      :model-value="searchPercentage"
                       :color="searchPercentage >= 90 ? 'error' : searchPercentage >= 70 ? 'warning' : 'primary'"
                       size="sm"
                     />
@@ -280,7 +280,7 @@ async function handleLogout() {
                   </div>
                   <div v-if="profile.plan.limits.reportsPerMonth > 0">
                     <UProgress
-                      :value="reportPercentage"
+                      :model-value="reportPercentage"
                       :color="reportPercentage >= 90 ? 'error' : reportPercentage >= 70 ? 'warning' : 'secondary'"
                       size="sm"
                     />
