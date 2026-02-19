@@ -33,7 +33,7 @@
 
       <div class="grid lg:grid-cols-5 gap-6">
         <!-- AI Summary -->
-        <div class="lg:col-span-2 min-h-0">
+        <div class="lg:col-span-2 min-h-0 space-y-4">
           <UCard
             class="lg:sticky lg:top-24"
             :ui="{ body: 'max-h-[68vh] overflow-y-auto pr-1' }"
