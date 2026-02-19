@@ -24,7 +24,7 @@ export default defineNuxtConfig({
         { name: 'keywords', content: 'jurisprudencia argentina, búsqueda de fallos, SAIJ, CSJN, JUBA, derecho argentino, inteligencia artificial legal, legaltech, abogados, citas verificables' },
         { name: 'author', content: 'Jurídica' },
         { name: 'robots', content: 'index, follow' },
-        { name: 'theme-color', content: '#6366f1' },
+        { name: 'theme-color', content: '#3b82f6' },
         // Open Graph
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'Jurídica' },
@@ -32,6 +32,9 @@ export default defineNuxtConfig({
         { property: 'og:description', content: 'Buscador de jurisprudencia argentina con IA. Consulta SAIJ, CSJN, JUBA y JUSCABA con citas verificables.' },
         { property: 'og:locale', content: 'es_AR' },
         { property: 'og:image', content: 'https://juridica.ar/og-image.png' },
+        { property: 'og:url', content: 'https://juridica.ar' },
+        { property: 'og:image:width', content: '1200' },
+        { property: 'og:image:height', content: '630' },
         // Twitter Cards
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: 'Jurídica - Buscador de Jurisprudencia Argentina con IA' },
