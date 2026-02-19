@@ -15,6 +15,55 @@ const items: NavigationMenuItem[] = [
   { label: 'Guías', to: '/mejor-buscador-jurisprudencia-argentina', exact: true }
 ]
 
+const footerColumns = [{
+  label: 'Producto',
+  children: [{
+    label: 'Demo',
+    to: '/demo'
+  }, {
+    label: 'Planes',
+    to: '/#planes'
+  }, {
+    label: 'Búsqueda ejemplo',
+    to: '/busqueda?q=despido&tipo=jurisprudencia'
+  }]
+}, {
+  label: 'Recursos',
+  children: [{
+    label: 'Mejor buscador 2026',
+    to: '/mejor-buscador-jurisprudencia-argentina'
+  }, {
+    label: 'Citas verificables',
+    to: '/mejor-herramienta-citas-legales-verificables'
+  }, {
+    label: 'Guía CSJN',
+    to: '/como-buscar-fallos-csjn'
+  }]
+}, {
+  label: 'Fuentes',
+  children: [{
+    label: 'SAIJ (activo)'
+  }, {
+    label: 'CSJN (próximamente)'
+  }, {
+    label: 'JUBA (próximamente)'
+  }, {
+    label: 'JUSCABA (próximamente)'
+  }]
+}, {
+  label: 'Legal',
+  children: [{
+    label: 'Términos',
+    to: '/terminos'
+  }, {
+    label: 'Privacidad',
+    to: '/privacidad'
+  }, {
+    label: 'Contacto',
+    to: 'mailto:hola@juridica.ar'
+  }]
+}]
+
 async function logout() {
   await clear()
   await navigateTo('/')
@@ -80,101 +129,40 @@ async function logout() {
     <slot />
   </UMain>
 
-  <UFooter class="border-t border-default">
-    <template #left>
-      <div class="flex items-center gap-2 text-sm text-muted">
-        <UIcon
-          name="i-lucide-scale"
-          class="w-4 h-4"
-        />
-        <span class="font-medium">Jurídica</span>
-      </div>
+  <USeparator
+    icon="i-lucide-scale"
+    class="h-px"
+  />
+
+  <UFooter :ui="{ top: 'border-b border-default' }">
+    <template #top>
+      <UContainer>
+        <UFooterColumns :columns="footerColumns" />
+      </UContainer>
     </template>
 
-    <template #center>
-      <div class="w-full py-6">
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
-          <div>
-            <p class="font-semibold text-highlighted mb-2">
-              Producto
-            </p>
-            <div class="space-y-1 text-muted">
-              <NuxtLink
-                to="/demo"
-                class="block hover:text-primary"
-              >Demo</NuxtLink>
-              <NuxtLink
-                to="/busqueda?q=despido&tipo=jurisprudencia"
-                class="block hover:text-primary"
-              >Búsqueda ejemplo</NuxtLink>
-              <NuxtLink
-                to="/#planes"
-                class="block hover:text-primary"
-              >Planes</NuxtLink>
-            </div>
-          </div>
-
-          <div>
-            <p class="font-semibold text-highlighted mb-2">
-              Recursos
-            </p>
-            <div class="space-y-1 text-muted">
-              <NuxtLink
-                to="/mejor-buscador-jurisprudencia-argentina"
-                class="block hover:text-primary"
-              >Mejor buscador 2026</NuxtLink>
-              <NuxtLink
-                to="/mejor-herramienta-citas-legales-verificables"
-                class="block hover:text-primary"
-              >Citas verificables</NuxtLink>
-              <NuxtLink
-                to="/como-buscar-fallos-csjn"
-                class="block hover:text-primary"
-              >Guía CSJN</NuxtLink>
-            </div>
-          </div>
-
-          <div>
-            <p class="font-semibold text-highlighted mb-2">
-              Fuentes
-            </p>
-            <div class="space-y-1 text-muted">
-              <span class="block">SAIJ (activo)</span>
-              <span class="block">CSJN (próximamente)</span>
-              <span class="block">JUBA (próximamente)</span>
-              <span class="block">JUSCABA (próximamente)</span>
-            </div>
-          </div>
-
-          <div>
-            <p class="font-semibold text-highlighted mb-2">
-              Legal
-            </p>
-            <div class="space-y-1 text-muted">
-              <NuxtLink
-                to="/terminos"
-                class="block hover:text-primary"
-              >Términos</NuxtLink>
-              <NuxtLink
-                to="/privacidad"
-                class="block hover:text-primary"
-              >Privacidad</NuxtLink>
-              <button
-                class="block hover:text-primary"
-                @click="showLoginModal = true"
-              >
-                Iniciar sesión
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+    <template #left>
+      <p class="text-muted text-sm">
+        © {{ new Date().getFullYear() }} Jurídica · Jurisprudencia argentina con IA
+      </p>
     </template>
 
     <template #right>
-      <div class="text-xs text-muted">
-        © {{ new Date().getFullYear() }} Jurídica
-      </div>
+      <UButton
+        to="mailto:hola@juridica.ar"
+        icon="i-lucide-mail"
+        aria-label="Email"
+        color="neutral"
+        variant="ghost"
+      />
+      <UButton
+        to="https://x.com/codecavear"
+        target="_blank"
+        icon="i-simple-icons-x"
+        aria-label="X"
+        color="neutral"
+        variant="ghost"
+      />
     </template>
   </UFooter>
 
