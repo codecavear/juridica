@@ -537,7 +537,7 @@
                 Gratis
               </h3>
               <p class="text-sm text-muted mt-1">
-                Para probar
+                Para siempre
               </p>
             </div>
             <div class="mb-6">
@@ -592,7 +592,7 @@
                 Básico
               </h3>
               <p class="text-sm text-muted mt-1">
-                Para abogados independientes
+                Para independientes
               </p>
             </div>
             <div class="mb-6">
