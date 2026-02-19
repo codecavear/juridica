@@ -85,6 +85,7 @@ const footerColumns = [{
     <UNavigationMenu :items="items" />
 
     <template #right>
+      <!-- Desktop: full nav + avatar/login -->
       <div
         v-if="loggedIn"
         class="flex items-center gap-2"
@@ -111,6 +112,43 @@ const footerColumns = [{
       >
         Iniciar sesión
       </UButton>
+    </template>
+
+    <template #toggle="{ open, toggle }">
+      <!-- Mobile: avatar/login NEXT TO hamburger -->
+      <NuxtLink
+        v-if="loggedIn"
+        to="/perfil"
+        class="mr-1"
+      >
+        <UAvatar
+          v-if="user?.avatar"
+          :src="user.avatar"
+          :alt="user?.name || 'Usuario'"
+          size="xs"
+        />
+        <UIcon
+          v-else
+          name="i-lucide-user-circle"
+          class="size-5 text-muted"
+        />
+      </NuxtLink>
+      <UButton
+        v-else
+        color="primary"
+        variant="ghost"
+        size="xs"
+        icon="i-lucide-user"
+        class="mr-1"
+        @click.stop="showLoginModal = true"
+      />
+      <UButton
+        color="neutral"
+        variant="ghost"
+        size="sm"
+        :icon="open ? 'i-lucide-x' : 'i-lucide-menu'"
+        @click="toggle"
+      />
     </template>
 
     <template #body>
