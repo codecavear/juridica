@@ -898,9 +898,9 @@
           <UButton
             to="/busqueda?q=despido&tipo=jurisprudencia"
             size="xl"
-            color="white"
+            color="neutral"
             variant="solid"
-            class="text-blue-600 font-semibold"
+            class="bg-white text-blue-600 hover:bg-gray-100 font-semibold"
           >
             <UIcon
               name="i-lucide-rocket"
