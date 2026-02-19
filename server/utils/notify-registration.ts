@@ -71,14 +71,9 @@ async function notifyDiscord(user: {
 
   const plan = user.plan || 'free'
   const tierLine = user.coupon ? `${plan} (cupón: ${user.coupon})` : plan
+  const name = user.name || 'Sin nombre'
 
-  const content = [
-    `🆕 Usuario registrado en **Jurídica**!`,
-    `**Nombre:** ${user.name || 'Sin nombre'}`,
-    `**Email:** ${user.email}`,
-    `**Auth:** ${user.provider}`,
-    `**Tier:** ${tierLine}`
-  ].join('\n')
+  const content = `🆕 **Jurídica** — ${name} (${user.email})\n🔑 ${user.provider} · **${tierLine}**`
 
   try {
     await fetch(`https://discord.com/api/v10/channels/${channelId}/messages`, {
