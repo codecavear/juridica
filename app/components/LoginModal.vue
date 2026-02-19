@@ -86,7 +86,6 @@ watch(isOpen, (open) => {
               <ul class="text-xs text-muted mt-1 space-y-0.5">
                 <li>✓ 100 búsquedas por día</li>
                 <li>✓ 30 reportes IA por mes</li>
-                <li>✓ Exportar a Word, TXT, JSON</li>
               </ul>
             </div>
           </div>
