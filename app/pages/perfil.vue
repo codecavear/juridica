@@ -174,20 +174,38 @@ async function handleLogout() {
               />
               <span class="font-bold text-lg text-highlighted">Plan {{ profile.plan.label }}</span>
               <span class="text-xs text-muted">{{ planDescriptions[profile.plan.current] }}</span>
+              <span class="text-xs text-muted mt-1">
+                Vence: {{ profile.plan.expiresAt ? formatDate(profile.plan.expiresAt) : 'Nunca' }}
+              </span>
             </div>
-            <UBadge
+            <div
               v-else
-              :color="planColors[profile.plan.current]"
-              variant="subtle"
-              size="lg"
-              class="px-4 py-2"
+              class="inline-flex flex-col items-center gap-2"
             >
-              <UIcon
-                :name="planIcons[profile.plan.current]"
-                class="mr-2 size-4"
-              />
-              Plan {{ profile.plan.label }}
-            </UBadge>
+              <UBadge
+                :color="planColors[profile.plan.current]"
+                variant="subtle"
+                size="lg"
+                class="px-4 py-2"
+              >
+                <UIcon
+                  :name="planIcons[profile.plan.current]"
+                  class="mr-2 size-4"
+                />
+                Plan {{ profile.plan.label }}
+              </UBadge>
+              <span class="text-xs text-muted">
+                Vence: Nunca
+              </span>
+              <UButton
+                to="/#planes"
+                variant="ghost"
+                color="primary"
+                size="xs"
+              >
+                Mejorar plan
+              </UButton>
+            </div>
           </div>
         </div>
       </UCard>

@@ -74,6 +74,8 @@ export default defineEventHandler(async (event) => {
     plan: {
       current: user.plan,
       label: limits.label,
+      source: user.planSource || 'default',
+      expiresAt: user.planExpiresAt || null,
       limits: {
         searchesPerDay: limits.searchesPerDay,
         reportsPerMonth: limits.reportsPerMonth
