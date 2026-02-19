@@ -7,22 +7,17 @@ export default defineEventHandler(async (event) => {
   if (!session?.user?.email || !ADMIN_EMAILS.includes(session.user.email))
     throw createError({ statusCode: 403, message: 'No autorizado' })
 
-  const body = await readBody(event)
-  const { code, plan, durationDays, maxUses, expiresAt } = body
+  const { code, plan, durationDays, maxUses, expiresAt } = await readBody(event)
 
   if (!code || !plan || !durationDays) {
     throw createError({ statusCode: 400, message: 'code, plan y durationDays requeridos' })
   }
 
-  if (!['basico', 'pro', 'estudio'].includes(plan)) {
-    throw createError({ statusCode: 400, message: 'Plan inválido (basico|pro|estudio)' })
-  }
-
   const [coupon] = await db.insert(schema.coupons).values({
     code: code.toUpperCase(),
     plan,
-    durationDays: Number(durationDays),
-    maxUses: Number(maxUses) || 100,
+    durationDays,
+    maxUses: maxUses || 1000,
     expiresAt: expiresAt ? new Date(expiresAt) : null
   }).returning()
 
