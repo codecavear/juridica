@@ -1,10 +1,10 @@
 import { searchSAIJ, type DocumentType, type SAIJSearchResult } from '../../utils/saij'
 
 const planLimits: Record<string, { searchesPerDay: number, reportsPerMonth: number }> = {
-  free: { searchesPerDay: 5, reportsPerMonth: 3 },
-  basico: { searchesPerDay: 30, reportsPerMonth: 10 },
+  free: { searchesPerDay: 3, reportsPerMonth: 1 },
+  basico: { searchesPerDay: 20, reportsPerMonth: 10 },
   pro: { searchesPerDay: 100, reportsPerMonth: 30 },
-  estudio: { searchesPerDay: -1, reportsPerMonth: -1 } // -1 = unlimited
+  estudio: { searchesPerDay: 500, reportsPerMonth: 300 }
 }
 
 interface GenerateReportBody {

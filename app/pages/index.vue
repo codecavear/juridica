@@ -558,6 +558,13 @@
                   name="i-lucide-check"
                   class="text-green-500 mt-0.5 shrink-0"
                 />
+                1 reporte IA/mes
+              </li>
+              <li class="flex items-start gap-2 text-sm text-muted">
+                <UIcon
+                  name="i-lucide-check"
+                  class="text-green-500 mt-0.5 shrink-0"
+                />
                 Acceso a SAIJ
               </li>
               <li class="flex items-start gap-2 text-sm text-muted">
@@ -599,7 +606,7 @@
                   name="i-lucide-check"
                   class="text-green-500 mt-0.5 shrink-0"
                 />
-                10 búsquedas por día
+                20 búsquedas por día
               </li>
               <li class="flex items-start gap-2 text-sm text-muted">
                 <UIcon
@@ -613,7 +620,7 @@
                   name="i-lucide-check"
                   class="text-green-500 mt-0.5 shrink-0"
                 />
-                5 reportes IA/mes
+                10 reportes IA/mes
               </li>
               <li class="flex items-start gap-2 text-sm text-muted">
                 <UIcon
@@ -684,7 +691,7 @@
                   name="i-lucide-check"
                   class="text-green-500 mt-0.5 shrink-0"
                 />
-                Resumen IA de apoyo
+                30 reportes IA/mes
               </li>
               <li class="flex items-start gap-2 text-sm text-muted">
                 <UIcon
@@ -724,7 +731,7 @@
                   name="i-lucide-check"
                   class="text-[#74acdf] mt-0.5 shrink-0"
                 />
-                500 búsquedas por día compartidas
+                500 búsquedas por día
               </li>
               <li class="flex items-start gap-2 text-sm text-gray-300">
                 <UIcon
@@ -738,7 +745,7 @@
                   name="i-lucide-check"
                   class="text-[#74acdf] mt-0.5 shrink-0"
                 />
-                Reportes IA ilimitados
+                300 reportes IA/mes
               </li>
               <li class="flex items-start gap-2 text-sm text-gray-300">
                 <UIcon

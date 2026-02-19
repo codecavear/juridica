@@ -18,10 +18,10 @@ export default defineEventHandler(async (event) => {
 
   // Plan limits
   const planLimits: Record<string, { searchesPerDay: number, reportsPerMonth: number, label: string }> = {
-    free: { searchesPerDay: 5, reportsPerMonth: 0, label: 'Gratis' },
-    basico: { searchesPerDay: 30, reportsPerMonth: 5, label: 'Básico' },
-    pro: { searchesPerDay: 100, reportsPerMonth: 20, label: 'Profesional' },
-    estudio: { searchesPerDay: -1, reportsPerMonth: -1, label: 'Estudio' } // -1 = unlimited
+    free: { searchesPerDay: 3, reportsPerMonth: 1, label: 'Gratis' },
+    basico: { searchesPerDay: 20, reportsPerMonth: 10, label: 'Básico' },
+    pro: { searchesPerDay: 100, reportsPerMonth: 30, label: 'Profesional' },
+    estudio: { searchesPerDay: 500, reportsPerMonth: 300, label: 'Estudio' }
   }
 
   const limits = planLimits[user.plan] || planLimits.free
