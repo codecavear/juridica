@@ -160,7 +160,6 @@
                     <li>Revisar si existieron causas que justifiquen la ausencia del trabajador</li>
                   </ul>
                 </div>
-
               </div>
 
               <template #footer>

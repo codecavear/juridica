@@ -275,7 +275,7 @@ function buildPlainText() {
     '',
     '=== RESUMEN ===',
     p.summary || '',
-    '',
+    ''
   ]
   if (p.keyFindings?.length) {
     lines.push('=== HALLAZGOS CLAVE ===')
@@ -284,7 +284,7 @@ function buildPlainText() {
   }
   if (p.arguments?.length) {
     lines.push('=== ARGUMENTOS ===')
-    p.arguments.forEach(a => {
+    p.arguments.forEach((a) => {
       lines.push(`• ${a.point}`)
       if (a.support) lines.push(`  ${a.support}`)
     })
@@ -310,7 +310,7 @@ function buildPlainText() {
 const exportItems = [[
   { label: 'Descargar TXT', icon: 'i-lucide-file-text', onSelect: () => downloadFile(`reporte-${Date.now()}.txt`, buildPlainText()) },
   { label: 'Descargar JSON', icon: 'i-lucide-braces', onSelect: () => downloadFile(`reporte-${Date.now()}.json`, JSON.stringify({ ...report.value, parsed: parsed.value }, null, 2), 'application/json') },
-  { label: 'Descargar DOC', icon: 'i-lucide-file', onSelect: () => downloadFile(`reporte-${Date.now()}.doc`, `<!doctype html><html><head><meta charset="utf-8"><title>${report.value?.title}</title></head><body><pre>${buildPlainText().replace(/</g, '&lt;')}</pre></body></html>`, 'application/msword') },
+  { label: 'Descargar DOC', icon: 'i-lucide-file', onSelect: () => downloadFile(`reporte-${Date.now()}.doc`, `<!doctype html><html><head><meta charset="utf-8"><title>${report.value?.title}</title></head><body><pre>${buildPlainText().replace(/</g, '&lt;')}</pre></body></html>`, 'application/msword') }
 ]]
 
 useSeoMeta({

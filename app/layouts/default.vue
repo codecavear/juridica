@@ -8,9 +8,9 @@ const showLoginModal = ref(false)
 provide('openLogin', () => { showLoginModal.value = true })
 
 const items: NavigationMenuItem[] = [
-  { label: 'Cómo usar', to: '/#como-usar', exact: true },
-  { label: 'Fuentes', to: '/#fuentes', exact: true },
-  { label: 'Planes', to: '/#planes', exact: true },
+  { label: 'Cómo usar', to: '/como-usar', exact: true },
+  { label: 'Fuentes', to: '/fuentes', exact: true },
+  { label: 'Precio', to: '/planes', exact: true },
   { label: 'Demo', to: '/demo', exact: true },
   { label: 'Guías', to: '/mejor-buscador-jurisprudencia-argentina', exact: true }
 ]
@@ -21,7 +21,7 @@ const footerColumns = [{
     label: 'Demo',
     to: '/demo'
   }, {
-    label: 'Planes',
+    label: 'Precio',
     to: '/#planes'
   }, {
     label: 'Búsqueda ejemplo',

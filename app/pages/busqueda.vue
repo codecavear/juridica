@@ -186,7 +186,6 @@
                   </li>
                 </ul>
               </div>
-
             </div>
 
             <!-- Initial state: Show button to analyze -->
