@@ -643,7 +643,7 @@ async function handleLogout() {
   <USlideover
     v-model:open="slideoverOpen"
     :title="selectedReport?.title || 'Reporte'"
-    :description="selectedReport ? `Búsqueda: \"${selectedReport.query}\"` : ''"
+    :description="selectedReport ? 'Búsqueda: ' + selectedReport.query : ''"
   >
     <template #body>
       <!-- Loading -->
