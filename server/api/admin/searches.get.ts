@@ -1,8 +1,12 @@
 import { db, schema } from '../../database'
 import { desc } from 'drizzle-orm'
 
-export default defineEventHandler(async () => {
-  // TODO: Add admin auth check here
+const ADMIN_EMAILS = ['conradocanas@gmail.com', 'canasconrado@gmail.com']
+
+export default defineEventHandler(async (event) => {
+  const session = await getUserSession(event)
+  if (!session?.user?.email || !ADMIN_EMAILS.includes(session.user.email))
+    throw createError({ statusCode: 403, message: 'No autorizado' })
 
   try {
     const searches = await db
