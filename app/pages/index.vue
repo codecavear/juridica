@@ -495,10 +495,10 @@
               />
             </div>
             <h3 class="text-xl font-bold text-highlighted mb-3">
-              IA que ayuda
+              Inteligencia Artificial
             </h3>
             <p class="text-muted leading-relaxed">
-              Obtené un resumen IA para orientarte más rápido en cada tema.
+              Obtené un resumen con Inteligencia Artificial para orientarte más rápido en cada tema.
               Siempre con referencias verificables para validar antes de citar.
             </p>
           </div>
