@@ -314,7 +314,12 @@ const exportItems = [[
 ]]
 
 useSeoMeta({
-  title: report.value?.title ? `${report.value.title} | Jurídica` : 'Reporte | Jurídica',
-  description: `Reporte de jurisprudencia: ${report.value?.query || ''}`
+  title: report.value?.title ? `${report.value.title} | Juridica` : 'Reporte | Juridica',
+  description: `Reporte de jurisprudencia: ${report.value?.query || ''}`,
+  ogTitle: report.value?.title ? `${report.value.title} | Juridica` : 'Reporte | Juridica',
+  ogDescription: `Reporte de jurisprudencia: ${report.value?.query || ''}`,
+  ogImage: 'https://juridica.ar/og-image.png',
+  twitterCard: 'summary_large_image',
+  robots: 'noindex, follow'
 })
 </script>

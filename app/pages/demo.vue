@@ -457,7 +457,18 @@
 
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Demo de resultados | Jurídica',
-  description: 'Demostración de cómo se ve un resultado de jurisprudencia y un reporte IA con citas verificables en Jurídica.'
+  title: 'Demo de resultados | Juridica',
+  description: 'Demostracion de como se ve un resultado de jurisprudencia y un reporte IA con citas verificables en Juridica.',
+  ogTitle: 'Demo de resultados | Juridica',
+  ogDescription: 'Demostracion de como se ve un resultado de jurisprudencia y un reporte IA con citas verificables en Juridica.',
+  ogImage: 'https://juridica.ar/og-image.png',
+  ogUrl: 'https://juridica.ar/demo',
+  twitterCard: 'summary_large_image'
+})
+
+useHead({
+  link: [
+    { rel: 'canonical', href: 'https://juridica.ar/demo' }
+  ]
 })
 </script>

@@ -791,7 +791,18 @@ onMounted(async () => {
 })
 
 useSeoMeta({
-  title: queryText.value ? `Resultados: ${queryText.value} | Jurídica` : 'Búsqueda | Jurídica',
-  description: 'Resultados de jurisprudencia argentina con AI summary y fuentes verificables.'
+  title: queryText.value ? `Resultados: ${queryText.value} | Juridica` : 'Busqueda | Juridica',
+  description: 'Resultados de jurisprudencia argentina con AI summary y fuentes verificables.',
+  ogTitle: queryText.value ? `Resultados: ${queryText.value} | Juridica` : 'Busqueda | Juridica',
+  ogDescription: 'Resultados de jurisprudencia argentina con AI summary y fuentes verificables.',
+  ogImage: 'https://juridica.ar/og-image.png',
+  twitterCard: 'summary_large_image',
+  robots: 'noindex, follow'
+})
+
+useHead({
+  link: [
+    { rel: 'canonical', href: 'https://juridica.ar/busqueda' }
+  ]
 })
 </script>
