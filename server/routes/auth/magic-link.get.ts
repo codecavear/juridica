@@ -75,8 +75,8 @@ export default defineEventHandler(async (event) => {
       }
     })
 
-    // Apply coupon if present in cookie
-    const couponCode = getCookie(event, 'juridica_coupon')
+    // Apply coupon if present in query param or cookie
+    const couponCode = String(query.cupon || '').trim() || getCookie(event, 'juridica_coupon')
     if (couponCode) {
       try {
         const { applyCoupon } = await import('../../utils/coupon')

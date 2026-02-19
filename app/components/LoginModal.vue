@@ -36,7 +36,7 @@ async function requestMagicLink() {
   try {
     await $fetch('/api/auth/magic-link/request', {
       method: 'POST',
-      body: { email: email.value }
+      body: { email: email.value, coupon: couponCode.value || undefined }
     })
     sent.value = true
   } catch (e: any) {
@@ -122,7 +122,7 @@ watch(isOpen, (open) => {
           size="xl"
           color="neutral"
           variant="outline"
-          to="/auth/google"
+          :to="couponCode ? `/auth/google?cupon=${couponCode}` : '/auth/google'"
           external
         >
           <template #leading>

@@ -2,6 +2,7 @@ import { randomBytes } from 'node:crypto'
 
 interface Body {
   email?: string
+  coupon?: string
 }
 
 async function getDbContext() {
@@ -34,8 +35,9 @@ export default defineEventHandler(async (event) => {
     })
   }
 
+  const coupon = body?.coupon?.trim() || ''
   const baseUrl = process.env.APP_URL || 'https://juridica.ar'
-  const magicLink = `${baseUrl}/auth/magic-link?token=${token}`
+  const magicLink = `${baseUrl}/auth/magic-link?token=${token}${coupon ? `&cupon=${encodeURIComponent(coupon)}` : ''}`
 
   // Send email via Resend
   const resendKey = process.env.RESEND_API_KEY
