@@ -1,7 +1,7 @@
 import { db, schema } from '../../database'
 import { desc } from 'drizzle-orm'
 
-const ADMIN_EMAILS = ['conradocanas@gmail.com', 'canasconrado@gmail.com']
+const ADMIN_EMAILS = ['conradocanas@gmail.com', 'canasconrado@gmail.com', 'docta@codecave.ar']
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)

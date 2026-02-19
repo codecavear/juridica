@@ -1,7 +1,7 @@
 import { db, schema } from '../../database'
 import { eq } from 'drizzle-orm'
 
-const ADMIN_EMAILS = ['conradocanas@gmail.com', 'canasconrado@gmail.com']
+const ADMIN_EMAILS = ['conradocanas@gmail.com', 'canasconrado@gmail.com', 'docta@codecave.ar']
 const VALID_PLANS = ['free', 'basico', 'pro', 'estudio']
 
 export default defineEventHandler(async (event) => {
