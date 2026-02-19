@@ -14,9 +14,16 @@
       </UDashboardNavbar>
 
       <UDashboardPanelContent>
-        <UTable :data="filteredUsers" :columns="columns">
+        <UTable
+          :data="filteredUsers"
+          :columns="columns"
+        >
           <template #plan-cell="{ row }">
-            <UBadge :color="getPlanColor(row.original.plan)" variant="subtle" size="xs">
+            <UBadge
+              :color="getPlanColor(row.original.plan)"
+              variant="subtle"
+              size="xs"
+            >
               {{ row.original.plan }}
             </UBadge>
           </template>
@@ -25,14 +32,26 @@
           </template>
           <template #actions-cell="{ row }">
             <UDropdownMenu :items="getActions(row.original)">
-              <UButton icon="i-lucide-more-horizontal" variant="ghost" size="xs" />
+              <UButton
+                icon="i-lucide-more-horizontal"
+                variant="ghost"
+                size="xs"
+              />
             </UDropdownMenu>
           </template>
         </UTable>
 
-        <div v-if="users.length === 0" class="text-center py-12">
-          <UIcon name="i-lucide-users" class="w-12 h-12 text-muted mx-auto mb-4" />
-          <p class="text-muted">No hay usuarios registrados</p>
+        <div
+          v-if="users.length === 0"
+          class="text-center py-12"
+        >
+          <UIcon
+            name="i-lucide-users"
+            class="w-12 h-12 text-muted mx-auto mb-4"
+          />
+          <p class="text-muted">
+            No hay usuarios registrados
+          </p>
         </div>
       </UDashboardPanelContent>
     </UDashboardPanel>
@@ -69,9 +88,9 @@ const columns = [
 
 const filteredUsers = computed(() => {
   if (!search.value) return users.value
-  return users.value.filter(u => 
-    u.email.toLowerCase().includes(search.value.toLowerCase()) ||
-    u.name?.toLowerCase().includes(search.value.toLowerCase())
+  return users.value.filter(u =>
+    u.email.toLowerCase().includes(search.value.toLowerCase())
+    || u.name?.toLowerCase().includes(search.value.toLowerCase())
   )
 })
 

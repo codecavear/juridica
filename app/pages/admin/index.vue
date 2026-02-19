@@ -3,7 +3,12 @@
     <UDashboardPanel>
       <UDashboardNavbar title="Dashboard">
         <template #right>
-          <UButton color="neutral" variant="ghost" icon="i-lucide-refresh-cw" @click="refresh">
+          <UButton
+            color="neutral"
+            variant="ghost"
+            icon="i-lucide-refresh-cw"
+            @click="refresh"
+          >
             Actualizar
           </UButton>
         </template>
@@ -15,11 +20,18 @@
           <UCard>
             <div class="flex items-center gap-4">
               <div class="p-3 rounded-lg bg-primary/10">
-                <UIcon name="i-lucide-users" class="w-6 h-6 text-primary" />
+                <UIcon
+                  name="i-lucide-users"
+                  class="w-6 h-6 text-primary"
+                />
               </div>
               <div>
-                <p class="text-2xl font-bold">{{ stats.totalUsers }}</p>
-                <p class="text-sm text-muted">Usuarios</p>
+                <p class="text-2xl font-bold">
+                  {{ stats.totalUsers }}
+                </p>
+                <p class="text-sm text-muted">
+                  Usuarios
+                </p>
               </div>
             </div>
           </UCard>
@@ -27,11 +39,18 @@
           <UCard>
             <div class="flex items-center gap-4">
               <div class="p-3 rounded-lg bg-green-500/10">
-                <UIcon name="i-lucide-search" class="w-6 h-6 text-green-500" />
+                <UIcon
+                  name="i-lucide-search"
+                  class="w-6 h-6 text-green-500"
+                />
               </div>
               <div>
-                <p class="text-2xl font-bold">{{ stats.totalSearches }}</p>
-                <p class="text-sm text-muted">Búsquedas</p>
+                <p class="text-2xl font-bold">
+                  {{ stats.totalSearches }}
+                </p>
+                <p class="text-sm text-muted">
+                  Búsquedas
+                </p>
               </div>
             </div>
           </UCard>
@@ -39,11 +58,18 @@
           <UCard>
             <div class="flex items-center gap-4">
               <div class="p-3 rounded-lg bg-purple-500/10">
-                <UIcon name="i-lucide-file-text" class="w-6 h-6 text-purple-500" />
+                <UIcon
+                  name="i-lucide-file-text"
+                  class="w-6 h-6 text-purple-500"
+                />
               </div>
               <div>
-                <p class="text-2xl font-bold">{{ stats.totalReports }}</p>
-                <p class="text-sm text-muted">Reportes IA</p>
+                <p class="text-2xl font-bold">
+                  {{ stats.totalReports }}
+                </p>
+                <p class="text-sm text-muted">
+                  Reportes IA
+                </p>
               </div>
             </div>
           </UCard>
@@ -51,11 +77,18 @@
           <UCard>
             <div class="flex items-center gap-4">
               <div class="p-3 rounded-lg bg-amber-500/10">
-                <UIcon name="i-lucide-credit-card" class="w-6 h-6 text-amber-500" />
+                <UIcon
+                  name="i-lucide-credit-card"
+                  class="w-6 h-6 text-amber-500"
+                />
               </div>
               <div>
-                <p class="text-2xl font-bold">{{ stats.paidUsers }}</p>
-                <p class="text-sm text-muted">Suscriptores</p>
+                <p class="text-2xl font-bold">
+                  {{ stats.paidUsers }}
+                </p>
+                <p class="text-sm text-muted">
+                  Suscriptores
+                </p>
               </div>
             </div>
           </UCard>
@@ -67,23 +100,44 @@
           <UCard>
             <template #header>
               <div class="flex items-center justify-between">
-                <h3 class="font-semibold">Búsquedas recientes</h3>
-                <UButton to="/admin/searches" variant="link" size="xs">
+                <h3 class="font-semibold">
+                  Búsquedas recientes
+                </h3>
+                <UButton
+                  to="/admin/searches"
+                  variant="link"
+                  size="xs"
+                >
                   Ver todas
                 </UButton>
               </div>
             </template>
             <div class="space-y-3">
-              <div v-for="search in recentSearches" :key="search.id" class="flex items-center justify-between py-2 border-b border-default last:border-0">
+              <div
+                v-for="search in recentSearches"
+                :key="search.id"
+                class="flex items-center justify-between py-2 border-b border-default last:border-0"
+              >
                 <div>
-                  <p class="font-medium truncate max-w-xs">{{ search.query }}</p>
-                  <p class="text-xs text-muted">{{ search.tipo }} • {{ formatDate(search.createdAt) }}</p>
+                  <p class="font-medium truncate max-w-xs">
+                    {{ search.query }}
+                  </p>
+                  <p class="text-xs text-muted">
+                    {{ search.tipo }} • {{ formatDate(search.createdAt) }}
+                  </p>
                 </div>
-                <UBadge :color="search.resultsCount > 0 ? 'green' : 'red'" variant="subtle" size="xs">
+                <UBadge
+                  :color="search.resultsCount > 0 ? 'green' : 'red'"
+                  variant="subtle"
+                  size="xs"
+                >
                   {{ search.resultsCount }} resultados
                 </UBadge>
               </div>
-              <p v-if="recentSearches.length === 0" class="text-muted text-sm text-center py-4">
+              <p
+                v-if="recentSearches.length === 0"
+                class="text-muted text-sm text-center py-4"
+              >
                 Sin búsquedas todavía
               </p>
             </div>
@@ -93,26 +147,50 @@
           <UCard>
             <template #header>
               <div class="flex items-center justify-between">
-                <h3 class="font-semibold">Usuarios recientes</h3>
-                <UButton to="/admin/users" variant="link" size="xs">
+                <h3 class="font-semibold">
+                  Usuarios recientes
+                </h3>
+                <UButton
+                  to="/admin/users"
+                  variant="link"
+                  size="xs"
+                >
                   Ver todos
                 </UButton>
               </div>
             </template>
             <div class="space-y-3">
-              <div v-for="user in recentUsers" :key="user.id" class="flex items-center justify-between py-2 border-b border-default last:border-0">
+              <div
+                v-for="user in recentUsers"
+                :key="user.id"
+                class="flex items-center justify-between py-2 border-b border-default last:border-0"
+              >
                 <div class="flex items-center gap-3">
-                  <UAvatar :alt="user.name || user.email" size="sm" />
+                  <UAvatar
+                    :alt="user.name || user.email"
+                    size="sm"
+                  />
                   <div>
-                    <p class="font-medium">{{ user.name || 'Sin nombre' }}</p>
-                    <p class="text-xs text-muted">{{ user.email }}</p>
+                    <p class="font-medium">
+                      {{ user.name || 'Sin nombre' }}
+                    </p>
+                    <p class="text-xs text-muted">
+                      {{ user.email }}
+                    </p>
                   </div>
                 </div>
-                <UBadge :color="getPlanColor(user.plan)" variant="subtle" size="xs">
+                <UBadge
+                  :color="getPlanColor(user.plan)"
+                  variant="subtle"
+                  size="xs"
+                >
                   {{ user.plan }}
                 </UBadge>
               </div>
-              <p v-if="recentUsers.length === 0" class="text-muted text-sm text-center py-4">
+              <p
+                v-if="recentUsers.length === 0"
+                class="text-muted text-sm text-center py-4"
+              >
                 Sin usuarios todavía
               </p>
             </div>

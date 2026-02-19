@@ -14,9 +14,16 @@
       </UDashboardNavbar>
 
       <UDashboardPanelContent>
-        <UTable :data="filteredSearches" :columns="columns">
+        <UTable
+          :data="filteredSearches"
+          :columns="columns"
+        >
           <template #tipo-cell="{ row }">
-            <UBadge :color="getTipoColor(row.original.tipo)" variant="subtle" size="xs">
+            <UBadge
+              :color="getTipoColor(row.original.tipo)"
+              variant="subtle"
+              size="xs"
+            >
               {{ row.original.tipo }}
             </UBadge>
           </template>
@@ -30,9 +37,17 @@
           </template>
         </UTable>
 
-        <div v-if="searches.length === 0" class="text-center py-12">
-          <UIcon name="i-lucide-search" class="w-12 h-12 text-muted mx-auto mb-4" />
-          <p class="text-muted">No hay búsquedas registradas</p>
+        <div
+          v-if="searches.length === 0"
+          class="text-center py-12"
+        >
+          <UIcon
+            name="i-lucide-search"
+            class="w-12 h-12 text-muted mx-auto mb-4"
+          />
+          <p class="text-muted">
+            No hay búsquedas registradas
+          </p>
         </div>
       </UDashboardPanelContent>
     </UDashboardPanel>

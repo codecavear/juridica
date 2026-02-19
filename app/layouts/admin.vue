@@ -2,8 +2,14 @@
   <UDashboardLayout>
     <UDashboardSidebar>
       <template #header>
-        <NuxtLink to="/admin" class="flex items-center gap-2 px-2">
-          <UIcon name="i-lucide-scale" class="w-6 h-6 text-primary" />
+        <NuxtLink
+          to="/admin"
+          class="flex items-center gap-2 px-2"
+        >
+          <UIcon
+            name="i-lucide-scale"
+            class="w-6 h-6 text-primary"
+          />
           <span class="font-bold">Jurídica Admin</span>
         </NuxtLink>
       </template>
@@ -12,8 +18,16 @@
 
       <template #footer>
         <div class="px-4 py-2">
-          <UButton to="/" variant="ghost" color="neutral" block>
-            <UIcon name="i-lucide-arrow-left" class="w-4 h-4 mr-2" />
+          <UButton
+            to="/"
+            variant="ghost"
+            color="neutral"
+            block
+          >
+            <UIcon
+              name="i-lucide-arrow-left"
+              class="w-4 h-4 mr-2"
+            />
             Volver al sitio
           </UButton>
         </div>
