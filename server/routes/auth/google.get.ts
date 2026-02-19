@@ -22,7 +22,7 @@ export default defineOAuthGoogleEventHandler({
 
     if (!dbCtx) {
       console.error('[Google OAuth] Database not available - DATABASE_URL:', !!process.env.DATABASE_URL)
-      return sendRedirect(event, '/ingresar?error=db_unavailable')
+      return sendRedirect(event, '/?error=db_unavailable')
     }
 
     try {
@@ -63,7 +63,7 @@ export default defineOAuthGoogleEventHandler({
       }
 
       if (!user) {
-        return sendRedirect(event, '/ingresar?error=user_creation_failed')
+        return sendRedirect(event, '/?error=user_creation_failed')
       }
 
       await setUserSession(event, {
@@ -92,12 +92,12 @@ export default defineOAuthGoogleEventHandler({
       return sendRedirect(event, '/')
     } catch (error: any) {
       console.error('[Google OAuth] DB Error:', error?.message, error?.stack)
-      return sendRedirect(event, `/ingresar?error=oauth_failed&detail=${encodeURIComponent(error?.message || 'unknown')}`)
+      return sendRedirect(event, `/?error=oauth_failed&detail=${encodeURIComponent(error?.message || 'unknown')}`)
     }
   },
 
   onError(event, error) {
     console.error('[Google OAuth] OAuth Error:', error)
-    return sendRedirect(event, `/ingresar?error=oauth_error&detail=${encodeURIComponent(String(error))}`)
+    return sendRedirect(event, `/?error=oauth_error&detail=${encodeURIComponent(String(error))}`)
   }
 })

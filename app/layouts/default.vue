@@ -2,6 +2,10 @@
 import type { NavigationMenuItem } from '@nuxt/ui'
 
 const { loggedIn, user, clear } = useUserSession()
+const showLoginModal = ref(false)
+
+// Provide openLogin to child components
+provide('openLogin', () => { showLoginModal.value = true })
 
 const items: NavigationMenuItem[] = [
   { label: 'Cómo usar', to: '/#como-usar' },
@@ -61,10 +65,10 @@ async function logout() {
       </div>
       <UButton
         v-else
-        to="/ingresar"
         color="primary"
         variant="soft"
         size="sm"
+        @click="showLoginModal = true"
       >
         Iniciar sesión
       </UButton>
@@ -162,10 +166,12 @@ async function logout() {
                 to="/privacidad"
                 class="block hover:text-primary"
               >Privacidad</NuxtLink>
-              <NuxtLink
-                to="/ingresar"
+              <button
                 class="block hover:text-primary"
-              >Iniciar sesión</NuxtLink>
+                @click="showLoginModal = true"
+              >
+                Iniciar sesión
+              </button>
             </div>
           </div>
         </div>
@@ -178,4 +184,6 @@ async function logout() {
       </div>
     </template>
   </UFooter>
+
+  <LoginModal v-model:open="showLoginModal" />
 </template>

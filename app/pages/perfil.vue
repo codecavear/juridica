@@ -5,7 +5,7 @@ const { loggedIn, clear } = useUserSession()
 
 // Redirect if not logged in
 if (!loggedIn.value) {
-  await navigateTo('/ingresar')
+  await navigateTo('/')
 }
 
 const { data: profile, status } = await useFetch('/api/user/profile')

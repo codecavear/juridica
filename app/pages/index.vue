@@ -624,7 +624,7 @@
               </li>
             </ul>
             <UButton
-              to="/ingresar"
+              @click="openLogin()"
               block
               variant="soft"
               color="primary"
@@ -695,7 +695,7 @@
               </li>
             </ul>
             <UButton
-              to="/ingresar"
+              @click="openLogin()"
               block
               color="primary"
               size="lg"
@@ -756,7 +756,7 @@
               </li>
             </ul>
             <UButton
-              to="/ingresar"
+              @click="openLogin()"
               block
               variant="solid"
               class="bg-[#74acdf] hover:bg-[#5a9cd0] text-highlighted font-semibold"
@@ -956,19 +956,19 @@
     </footer>
   </div>
 
-  <!-- Login Modal (auto-opens with coupon) -->
-  <LoginModal v-model:open="showLoginModal" />
+  </div>
 </template>
 
 <script setup lang="ts">
 const route = useRoute()
 const { loggedIn } = useUserSession()
 const showLoginModal = ref(false)
+const openLogin = inject<() => void>('openLogin', () => { showLoginModal.value = true })
 
 // Auto-open login modal if coupon in URL and not logged in
 onMounted(() => {
   if (route.query.cupon && !loggedIn.value) {
-    showLoginModal.value = true
+    openLogin()
   }
 })
 
