@@ -40,6 +40,36 @@ const { data: activity, status: activityStatus } = await useFetch<ActivityData>(
 const loadingActivity = computed(() => activityStatus.value === 'pending')
 const activityTab = ref('searches')
 
+// Slideover for viewing reports
+const slideoverOpen = ref(false)
+const selectedReport = ref<any>(null)
+const loadingReport = ref(false)
+
+async function openReport(reportId: string) {
+  slideoverOpen.value = true
+  loadingReport.value = true
+  selectedReport.value = null
+  try {
+    selectedReport.value = await $fetch(`/api/reports/${reportId}`)
+  } catch {
+    selectedReport.value = null
+  } finally {
+    loadingReport.value = false
+  }
+}
+
+const parsedReportContent = computed(() => {
+  if (!selectedReport.value?.content) return null
+  try {
+    const raw = typeof selectedReport.value.content === 'string'
+      ? JSON.parse(selectedReport.value.content)
+      : selectedReport.value.content
+    return raw
+  } catch {
+    return { summary: selectedReport.value.content }
+  }
+})
+
 const planColors: Record<string, 'neutral' | 'primary' | 'warning' | 'success'> = {
   free: 'neutral',
   basico: 'primary',
@@ -239,11 +269,10 @@ async function handleLogout() {
                     </span>
                   </div>
                   <div v-if="profile.plan.limits.searchesPerDay !== -1">
-                    <USlider
+                    <UProgress
                       :model-value="searchPercentage"
                       :color="searchPercentage >= 90 ? 'error' : searchPercentage >= 70 ? 'warning' : 'primary'"
                       size="sm"
-                      disabled
                     />
                     <p class="text-xs text-muted mt-1">
                       de {{ profile.plan.limits.searchesPerDay }} disponibles
@@ -280,11 +309,10 @@ async function handleLogout() {
                     </span>
                   </div>
                   <div v-if="profile.plan.limits.reportsPerMonth > 0">
-                    <USlider
+                    <UProgress
                       :model-value="reportPercentage"
                       :color="reportPercentage >= 90 ? 'error' : reportPercentage >= 70 ? 'warning' : 'secondary'"
                       size="sm"
-                      disabled
                     />
                     <p class="text-xs text-muted mt-1">
                       de {{ profile.plan.limits.reportsPerMonth }} este mes
@@ -475,9 +503,9 @@ async function handleLogout() {
                           </span>
                         </div>
                         <UButton
-                          :to="`/reporte/${report.id}`"
                           variant="ghost"
                           size="xs"
+                          @click="openReport(report.id)"
                         >
                           <UIcon
                             name="i-lucide-eye"
@@ -610,4 +638,185 @@ async function handleLogout() {
       </div>
     </template>
   </div>
+
+  <!-- Report Slideover -->
+  <USlideover
+    v-model:open="slideoverOpen"
+    :title="selectedReport?.title || 'Reporte'"
+    :description="selectedReport ? `Búsqueda: \"${selectedReport.query}\"` : ''"
+  >
+    <template #body>
+      <!-- Loading -->
+      <div
+        v-if="loadingReport"
+        class="flex items-center justify-center py-12"
+      >
+        <UIcon
+          name="i-lucide-loader-2"
+          class="animate-spin size-6 text-muted"
+        />
+      </div>
+
+      <!-- Report content -->
+      <div
+        v-else-if="parsedReportContent"
+        class="space-y-5 text-sm"
+      >
+        <div v-if="parsedReportContent.summary">
+          <p class="font-medium text-highlighted mb-1">
+            Resumen
+          </p>
+          <p class="text-toned whitespace-pre-line">
+            {{ parsedReportContent.summary }}
+          </p>
+        </div>
+
+        <div v-if="parsedReportContent.keyFindings?.length">
+          <p class="font-medium text-highlighted mb-1">
+            Hallazgos clave
+          </p>
+          <ul class="list-disc ml-5 text-toned space-y-1">
+            <li
+              v-for="(item, idx) in parsedReportContent.keyFindings"
+              :key="`k-${idx}`"
+            >
+              {{ item }}
+            </li>
+          </ul>
+        </div>
+
+        <div v-if="parsedReportContent.arguments?.length">
+          <p class="font-medium text-highlighted mb-1">
+            Argumentos
+          </p>
+          <div class="space-y-2">
+            <div
+              v-for="(arg, idx) in parsedReportContent.arguments"
+              :key="`a-${idx}`"
+              class="border-l-2 border-primary/30 pl-3"
+            >
+              <p class="text-toned font-medium">
+                {{ arg.point }}
+              </p>
+              <p
+                v-if="arg.support"
+                class="text-muted text-xs mt-0.5"
+              >
+                {{ arg.support }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div v-if="parsedReportContent.risks?.length">
+          <p class="font-medium text-highlighted mb-1">
+            Riesgos
+          </p>
+          <ul class="list-disc ml-5 text-toned space-y-1">
+            <li
+              v-for="(item, idx) in parsedReportContent.risks"
+              :key="`r-${idx}`"
+            >
+              {{ item }}
+            </li>
+          </ul>
+        </div>
+
+        <div v-if="parsedReportContent.recommendations?.length">
+          <p class="font-medium text-highlighted mb-1">
+            Recomendaciones
+          </p>
+          <ul class="list-disc ml-5 text-toned space-y-1">
+            <li
+              v-for="(item, idx) in parsedReportContent.recommendations"
+              :key="`rec-${idx}`"
+            >
+              {{ item }}
+            </li>
+          </ul>
+        </div>
+
+        <div v-if="parsedReportContent.practicalUse?.length">
+          <p class="font-medium text-highlighted mb-1">
+            Por qué este análisis importa
+          </p>
+          <ul class="space-y-2 text-toned">
+            <li
+              v-for="(item, idx) in parsedReportContent.practicalUse"
+              :key="`pu-${idx}`"
+              class="flex gap-2"
+            >
+              <UIcon
+                name="i-lucide-check"
+                class="text-green-600 mt-0.5 shrink-0"
+              />
+              {{ item }}
+            </li>
+          </ul>
+        </div>
+
+        <!-- Citations -->
+        <div v-if="selectedReport?.citations?.length">
+          <p class="font-medium text-highlighted mb-2">
+            Citas y fuentes
+          </p>
+          <div class="space-y-2">
+            <a
+              v-for="(cite, idx) in selectedReport.citations"
+              :key="`c-${idx}`"
+              :href="cite.url"
+              target="_blank"
+              class="block p-2 rounded-lg border border-default hover:border-primary/30 text-xs"
+            >
+              <p class="font-medium text-highlighted line-clamp-1">
+                {{ cite.titulo }}
+              </p>
+              <div class="flex items-center gap-1 mt-1 text-primary">
+                <UIcon
+                  name="i-lucide-external-link"
+                  class="size-3"
+                />
+                Ver fuente
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error -->
+      <div
+        v-else
+        class="text-center py-12 text-muted"
+      >
+        No se pudo cargar el reporte.
+      </div>
+    </template>
+
+    <template #footer>
+      <div class="flex items-center justify-between w-full">
+        <p class="text-xs text-dimmed">
+          {{ selectedReport ? formatRelativeDate(selectedReport.createdAt) : '' }}
+        </p>
+        <div class="flex gap-2">
+          <UButton
+            v-if="selectedReport"
+            :to="`/reporte/${selectedReport.id}`"
+            variant="outline"
+            color="neutral"
+            size="sm"
+          >
+            Abrir completo
+          </UButton>
+          <UButton
+            v-if="selectedReport"
+            :to="`/busqueda?q=${encodeURIComponent(selectedReport.query || '')}`"
+            color="primary"
+            size="sm"
+          >
+            Repetir búsqueda
+          </UButton>
+        </div>
+      </div>
+    </template>
+  </USlideover>
 </template>
