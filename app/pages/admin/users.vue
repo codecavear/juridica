@@ -1,6 +1,6 @@
 <template>
-  <UDashboardPage>
-    <UDashboardPanel>
+  <UDashboardPanel>
+    <template #header>
       <UDashboardNavbar title="Usuarios">
         <template #right>
           <UInput
@@ -12,8 +12,10 @@
           />
         </template>
       </UDashboardNavbar>
+    </template>
 
-      <UDashboardPanelContent>
+    <template #body>
+      <div class="p-6">
         <UTable
           :data="filteredUsers"
           :columns="columns"
@@ -41,21 +43,16 @@
           </template>
         </UTable>
 
-        <div
+        <UEmpty
           v-if="users.length === 0"
-          class="text-center py-12"
-        >
-          <UIcon
-            name="i-lucide-users"
-            class="w-12 h-12 text-muted mx-auto mb-4"
-          />
-          <p class="text-muted">
-            No hay usuarios registrados
-          </p>
-        </div>
-      </UDashboardPanelContent>
-    </UDashboardPanel>
-  </UDashboardPage>
+          icon="i-lucide-users"
+          title="No hay usuarios"
+          description="No hay usuarios registrados todavía"
+          class="py-12"
+        />
+      </div>
+    </template>
+  </UDashboardPanel>
 </template>
 
 <script setup lang="ts">
@@ -95,11 +92,11 @@ const filteredUsers = computed(() => {
 })
 
 function getPlanColor(plan: string) {
-  const colors: Record<string, string> = {
+  const colors: Record<string, 'neutral' | 'info' | 'secondary' | 'warning'> = {
     free: 'neutral',
-    basico: 'blue',
-    pro: 'purple',
-    estudio: 'amber'
+    basico: 'info',
+    pro: 'secondary',
+    estudio: 'warning'
   }
   return colors[plan] || 'neutral'
 }
@@ -108,7 +105,7 @@ function formatDate(date: string) {
   return new Date(date).toLocaleDateString('es-AR')
 }
 
-function getActions(user: User) {
+function getActions(_user: User) {
   return [
     [{
       label: 'Ver detalles',
@@ -121,7 +118,7 @@ function getActions(user: User) {
     [{
       label: 'Eliminar',
       icon: 'i-lucide-trash',
-      color: 'red' as const
+      color: 'error' as const
     }]
   ]
 }

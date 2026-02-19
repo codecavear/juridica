@@ -1,6 +1,6 @@
 <template>
-  <UDashboardPage>
-    <UDashboardPanel>
+  <UDashboardPanel>
+    <template #header>
       <UDashboardNavbar title="Búsquedas">
         <template #right>
           <USelect
@@ -12,8 +12,10 @@
           />
         </template>
       </UDashboardNavbar>
+    </template>
 
-      <UDashboardPanelContent>
+    <template #body>
+      <div class="p-6">
         <UTable
           :data="filteredSearches"
           :columns="columns"
@@ -28,7 +30,7 @@
             </UBadge>
           </template>
           <template #resultsCount-cell="{ row }">
-            <span :class="row.original.resultsCount > 0 ? 'text-green-500' : 'text-red-500'">
+            <span :class="row.original.resultsCount > 0 ? 'text-success' : 'text-error'">
               {{ row.original.resultsCount }}
             </span>
           </template>
@@ -37,21 +39,16 @@
           </template>
         </UTable>
 
-        <div
+        <UEmpty
           v-if="searches.length === 0"
-          class="text-center py-12"
-        >
-          <UIcon
-            name="i-lucide-search"
-            class="w-12 h-12 text-muted mx-auto mb-4"
-          />
-          <p class="text-muted">
-            No hay búsquedas registradas
-          </p>
-        </div>
-      </UDashboardPanelContent>
-    </UDashboardPanel>
-  </UDashboardPage>
+          icon="i-lucide-search"
+          title="No hay búsquedas"
+          description="No hay búsquedas registradas todavía"
+          class="py-12"
+        />
+      </div>
+    </template>
+  </UDashboardPanel>
 </template>
 
 <script setup lang="ts">
@@ -92,10 +89,10 @@ const filteredSearches = computed(() => {
 })
 
 function getTipoColor(tipo: string) {
-  const colors: Record<string, string> = {
-    jurisprudencia: 'blue',
-    legislacion: 'green',
-    doctrina: 'purple',
+  const colors: Record<string, 'info' | 'success' | 'secondary' | 'neutral'> = {
+    jurisprudencia: 'info',
+    legislacion: 'success',
+    doctrina: 'secondary',
     todo: 'neutral'
   }
   return colors[tipo] || 'neutral'

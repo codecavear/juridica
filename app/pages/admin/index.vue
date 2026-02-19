@@ -1,6 +1,6 @@
 <template>
-  <UDashboardPage>
-    <UDashboardPanel>
+  <UDashboardPanel>
+    <template #header>
       <UDashboardNavbar title="Dashboard">
         <template #right>
           <UButton
@@ -13,16 +13,18 @@
           </UButton>
         </template>
       </UDashboardNavbar>
+    </template>
 
-      <UDashboardPanelContent>
-        <!-- Stats Cards -->
+    <template #body>
+      <!-- Stats Cards -->
+      <div class="p-6">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <UCard>
             <div class="flex items-center gap-4">
               <div class="p-3 rounded-lg bg-primary/10">
                 <UIcon
                   name="i-lucide-users"
-                  class="w-6 h-6 text-primary"
+                  class="size-6 text-primary"
                 />
               </div>
               <div>
@@ -38,10 +40,10 @@
 
           <UCard>
             <div class="flex items-center gap-4">
-              <div class="p-3 rounded-lg bg-green-500/10">
+              <div class="p-3 rounded-lg bg-success/10">
                 <UIcon
                   name="i-lucide-search"
-                  class="w-6 h-6 text-green-500"
+                  class="size-6 text-success"
                 />
               </div>
               <div>
@@ -57,10 +59,10 @@
 
           <UCard>
             <div class="flex items-center gap-4">
-              <div class="p-3 rounded-lg bg-purple-500/10">
+              <div class="p-3 rounded-lg bg-secondary/10">
                 <UIcon
                   name="i-lucide-file-text"
-                  class="w-6 h-6 text-purple-500"
+                  class="size-6 text-secondary"
                 />
               </div>
               <div>
@@ -76,10 +78,10 @@
 
           <UCard>
             <div class="flex items-center gap-4">
-              <div class="p-3 rounded-lg bg-amber-500/10">
+              <div class="p-3 rounded-lg bg-warning/10">
                 <UIcon
                   name="i-lucide-credit-card"
-                  class="w-6 h-6 text-amber-500"
+                  class="size-6 text-warning"
                 />
               </div>
               <div>
@@ -127,7 +129,7 @@
                   </p>
                 </div>
                 <UBadge
-                  :color="search.resultsCount > 0 ? 'green' : 'red'"
+                  :color="search.resultsCount > 0 ? 'success' : 'error'"
                   variant="subtle"
                   size="xs"
                 >
@@ -196,9 +198,9 @@
             </div>
           </UCard>
         </div>
-      </UDashboardPanelContent>
-    </UDashboardPanel>
-  </UDashboardPage>
+      </div>
+    </template>
+  </UDashboardPanel>
 </template>
 
 <script setup lang="ts">
@@ -250,11 +252,11 @@ function formatDate(date: string) {
 }
 
 function getPlanColor(plan: string) {
-  const colors: Record<string, string> = {
+  const colors: Record<string, 'neutral' | 'info' | 'secondary' | 'warning'> = {
     free: 'neutral',
-    basico: 'blue',
-    pro: 'purple',
-    estudio: 'amber'
+    basico: 'info',
+    pro: 'secondary',
+    estudio: 'warning'
   }
   return colors[plan] || 'neutral'
 }
