@@ -8,11 +8,11 @@ const showLoginModal = ref(false)
 provide('openLogin', () => { showLoginModal.value = true })
 
 const items: NavigationMenuItem[] = [
-  { label: 'Cómo usar', to: '/#como-usar' },
-  { label: 'Fuentes', to: '/#fuentes' },
-  { label: 'Planes', to: '/#planes' },
-  { label: 'Demo', to: '/demo' },
-  { label: 'Guías', to: '/mejor-buscador-jurisprudencia-argentina' }
+  { label: 'Cómo usar', to: '/#como-usar', exact: true },
+  { label: 'Fuentes', to: '/#fuentes', exact: true },
+  { label: 'Planes', to: '/#planes', exact: true },
+  { label: 'Demo', to: '/demo', exact: true },
+  { label: 'Guías', to: '/mejor-buscador-jurisprudencia-argentina', exact: true }
 ]
 
 async function logout() {
@@ -55,13 +55,6 @@ async function logout() {
           />
           <span class="text-sm font-medium text-highlighted hidden sm:inline">{{ user?.name }}</span>
         </NuxtLink>
-        <UButton
-          color="neutral"
-          variant="ghost"
-          size="sm"
-          icon="i-lucide-log-out"
-          @click="logout"
-        />
       </div>
       <UButton
         v-else
